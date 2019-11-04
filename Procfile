@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: gunicorn advisor-search:advisor-search
