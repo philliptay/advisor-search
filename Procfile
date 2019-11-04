@@ -1,1 +1,1 @@
-web: gunicorn advisor-search:app
+web: gunicorn hello:app
