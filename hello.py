@@ -9,7 +9,9 @@ app = Flask(__name__, template_folder='.')
 @app.route('/index')
 def index():
 
-    html = 'hello Dondo'
+    html = ''
+    html += '<p>hello Dondo</p>'
+
 
     response = make_response(html)
     return(response)
