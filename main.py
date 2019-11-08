@@ -1,6 +1,8 @@
+from sys import argv
+from database import Database
+from professor import Professor
 from flask import Flask, request, make_response, redirect, url_for
 from flask import render_template
-from sys import argv
 
 app = Flask(__name__, template_folder='.')
 
@@ -9,11 +11,12 @@ app = Flask(__name__, template_folder='.')
 @app.route('/')
 def index():
 
-    html = ''
-    html += '<p>hello Dondo</p>'
+    database = Database()
+    database.connect()
+    results = database.search(formInfo)
+    database.disconnect()
 
-
-    response = make_response(html)
+    response = make_response('index.html', professors = results)
     return(response)
 
 #-------------------------------------------------------------------------------
