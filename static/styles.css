@@ -2,7 +2,7 @@ body {
    background-color: #cccccc;
 }
 
-.header {
+div.header {
    background-color: #ff9933;
    position: fixed;
    top:0;
@@ -11,12 +11,12 @@ body {
    width:100%;
 }
 
-.searchBar {
-   background-color: #66ffb3;
+div.searchBar {
+   background-color: #80ffcc;
    width:100%;
 }
 
-.searchResults {
+div.searchResults {
    float: left;
    width: 31%;
    height: 70%;
@@ -24,8 +24,7 @@ body {
 
 }
 
-.profSection {
-   
+div.profSection {
    float: right;
    width: 68%;
    height:70%;

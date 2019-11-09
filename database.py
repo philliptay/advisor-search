@@ -1,8 +1,7 @@
 from sqlite3 import connect
 from sys import stderr, exit
 from os import path
-from course import Course
-from detail import Detail
+from professor import Professor
 
 class Database:
 

@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
+
 <html>
    <head>
       <title>Princeton AdvisorSearch</title>
-      <link rel="stylesheet" href="styles.css">
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
    </head>
-<!--
+
    <body>
+
       <div class="header">
          <p style="color:white">AdvisorSearch</p>
       </div>
--->
+
       <div class="searchBar">
          <form action="index" method="get">
          <table>
             <tr>
-               <td>Department:</td>
-               <td><input type="text" name="dept">{{prevDept}}</td>
+               <td>Dept:</td>
+               <td><input type="text" name="dept"></td>
             </tr>
             <tr>
                <td>Research Areas:</td>
-               <td><input type="text" name="areas">{{prevAreas}}</td>
+               <td><input type="text" name="areas"></td>
             </tr>
          </table>
          </form>
