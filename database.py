@@ -20,11 +20,11 @@ class Database:
 
         results = []
 
-        cursor = connection.cursor()
+        cursor = self._connection.cursor()
         for area in areas:
-            stmtStr = 'SELECT profs.name, areas.area FROM areas, profs WHERE areas.profid = profs.profid AND area LIKE %s ORDER BY name'
-            prep = '%'+area.lower().replace('_','\_').replace('%','\%')+'%'
-            cursor.execute(stmtStr, prep)
+            stmtStr = 'SELECT profs.name, areas.area FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+            prep = area.lower()
+            cursor.execute(stmtStr, (prep,))
             rows = cursor.fetchall()
             for row in rows:
                 results.append[row]
