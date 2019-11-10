@@ -49,23 +49,18 @@
          <div id="searchResults">
             <h3>Search Results</h3>
             <ul>
-               <!-- <li>Ryan Adams</li>
-               <li>Barbara Engelhardt</li>
-               <li>Elad Hazard</li>
-               <li>Olga Russakovsky</li>
-               <li>Robert Schapire</li>
-               <li>Sebastian Seung</li>
-               <li>Yoram Singer</li> -->
 
             {% for prof in professors: %}
-               <li>{{prof[0]}} {{prof[1]}}</li>
+               <li><a href="/?profid={{prof[2]}}">{{prof[0]}} {{prof[1]}}</li></a>
             {% endfor %}
             </ul>
          </div>
 
          <div id="profSection">
             <!-- This gets populated with jinja2 placeholders -->
-            <p>Prof section</p>
+            <h3>{{prof.getName()}}</h3>
+
+            {{prof.getBio()}}
          </div>
       </div>
 

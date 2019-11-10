@@ -16,6 +16,7 @@ db = SQLAlchemy(app)
 def index():
 
     results = ['', '']
+    profData = Professor('', '', '', '', '')
     if request.method == 'POST':
         if request.form.getlist('area') is not None:
             areas = request.form.getlist('area')
@@ -25,9 +26,16 @@ def index():
         results = database.search(areas)
         database.disconnect()
 
-        print(results)
+    if request.method == 'GET':
+        if request.args.get('profid') is not None:
+            profid = request.args.get('profid')
 
-    html = render_template('index.html', professors = results)
+            database = Database()
+            database.connect()
+            profData = database.profSearch(profid)
+            database.disconnect()
+
+    html = render_template('index.html', professors = results, prof = profData)
     response = make_response(html)
     return(response)
 

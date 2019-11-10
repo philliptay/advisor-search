@@ -1,27 +1,19 @@
 class Professor:
-    def __init__(self, name, dept, areas, years, numAdvisees, projects, contact):
+    def __init__(self, name, bio, areas, projects, contact):
         self._name = name
-        self._dept = dept
+        self._bio = bio
         self._areas = areas
-        self._years = years
-        self._advisees = advisees
         self._projects = projects
         self._contact = contact
 
     def getName(self):
         return self._name
 
-    def getDept(self):
-        return self._dept
+    def getBio(self):
+        return self._bio
 
     def getAreas(self):
         return self._areas
-
-    def getYears(self):
-        return self._years
-
-    def getAdvisees(self):
-        return self._advisees
 
     def getProjects(self):
         return self._projects

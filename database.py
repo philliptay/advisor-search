@@ -22,7 +22,7 @@ class Database:
 
         cursor = self._connection.cursor()
         for area in areas:
-            stmtStr = 'SELECT profs.name, areas.area FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+            stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
             prep = area.lower()
             cursor.execute(stmtStr, (prep,))
             rows = cursor.fetchall()
@@ -33,9 +33,9 @@ class Database:
 
     def profSearch(self, profid):
 
-        cursor = connection.cursor()
-        stmtStr = 'SELECT profs.name, profs.contact, areas.area, profs.bio, projects.title FROM areas, profs, projects WHERE areas.profid = profs.profid AND projects.profid = profs.profis AND profid = ?'
-        cursor.execute(stmtStr, [profid])
+        cursor = self._connection.cursor()
+        stmtStr = 'SELECT profs.name, profs.email, areas.area, profs.bio, projects.title FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND projects.prof_id = profs.prof_id AND profs.prof_id = %s'
+        cursor.execute(stmtStr, (profid,))
         rows = cursor.fetchall()
 
         areas = []
