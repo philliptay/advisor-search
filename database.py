@@ -17,14 +17,18 @@ class Database:
         self._connection.close()
 
     def search(self, areas):
-        results = []
-        cursor = self._connection.cursor()
 
+        results = []
+
+        cursor = connection.cursor()
         for area in areas:
-            cursor.execute('SELECT profs.name, areas.area FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area = \"' + area + '\" ORDER BY name')
+            stmtStr = 'SELECT profs.name, areas.area FROM areas, profs WHERE areas.profid = profs.profid AND area LIKE %s ORDER BY name'
+            prep = '%'+area.lower().replace('_','\_').replace('%','\%')+'%'
+            cursor.execute(stmtStr, prep)
             rows = cursor.fetchall()
             for row in rows:
                 results.append[row]
+
         return results
 
     def loginSearch(self, username, password):
