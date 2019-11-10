@@ -1,0 +1,57 @@
+html {
+   height: 100%;
+   width:100%;
+}
+
+body {
+   background-color: #cccccc;
+   width: 100%;
+   height:100%;
+}
+
+.header {
+   background-color: #ff9933;
+   position: fixed;
+   top:0;
+   left:0;
+   height: 5%;
+   width:100%;
+}
+
+.flex-container {
+   display: flex;
+   flex-direction: row;
+   height: 100%;
+}
+
+.searchBar {
+   position: relative;
+   background-color: #80ffcc;
+
+   width:100%;
+}
+
+input {
+   display: block;
+}
+
+input[type=checkbox] {
+   display: inline;
+}
+
+#searchResults {
+   width: 31%;
+   background-color: #e6b3ff;
+   flex-grow: 1;
+}
+
+#profSection {
+   width: 68%;
+   background-color: #80bfff;
+   flex-grow: 1;
+}
+
+ul {
+   overflow: hidden;
+   overflow-y: scroll;
+}

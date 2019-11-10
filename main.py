@@ -4,19 +4,22 @@ from professor import Professor
 from flask import Flask, request, make_response, redirect, url_for
 from flask import render_template
 
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__, template_folder='templates')
 
 #-------------------------------------------------------------------------------
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        areas = request.form.getlist('area')
+        print(areas)
+    # database = Database()
+    # database.connect()
+    # results = database.search(formInfo)
+    # database.disconnect()
 
-    database = Database()
-    database.connect()
-    results = database.search(formInfo)
-    database.disconnect()
-
-    response = make_response('index.html', professors = results)
+    html = render_template('index.html')
+    response = make_response(html)
     return(response)
 
 #-------------------------------------------------------------------------------
