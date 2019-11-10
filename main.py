@@ -1,6 +1,4 @@
-from __future__ import print_function
-import sys
-from sys import argv, stderr, stdout
+from sys import argv
 from database import Database
 from professor import Professor
 from flask import Flask, request, make_response, redirect, url_for
@@ -10,18 +8,31 @@ app = Flask(__name__, template_folder='templates')
 
 #-------------------------------------------------------------------------------
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
 
-    if request.method == 'POST':
-        # retrieve info from checkbox
-        formInfo = ['', '', '', '', '', '', '', '', '', '', '']
-        areas = request.form.getlist('area')
-        print(areas)
+    area = request.args.get('area')
+    if (area is None) or (area.strip() == ''):
+        area = ''
+    else:
+        dept = dept.strip().lower()
 
-    # areas = request.form.get('area')
-    # if areas is not None:
-    #     print(areas, file=sys.stderr)
+    DATABASE_NAME = 'reg.sqlite'
+    if not path.isfile(DATABASE_NAME):
+        raise Exception('Database connection failed')
+    connection = connect(DATABASE_NAME)
+    cursor = connection.cursor()
+    cursor.execute('SELECT profs.name, profs.contact, areas.area, profs.bio FROM areas, profs WHERE areas.profid = profs.profid AND area = \"' + area + '\"')
+    rows = cursor.fetchall()
+
+    # for row in rows:
+    # add prof name to table in html code
+    # pass cookies for each profs contact and bio
+    # not sure how it will work for profs with multiple areas
+
+
+
+
 
     # database = Database()
     # database.connect()
