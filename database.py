@@ -1,4 +1,5 @@
 from sqlite3 import connect
+import psycopg2
 from sys import stderr, exit
 from os import path
 from professor import Professor
@@ -9,10 +10,8 @@ class Database:
         self._connection = None
 
     def connect(self):
-        DATABASE_URL = 'advisordb.postgres'
-        if not path.isfile(DATABASE_NAME):
-            raise Exception('Database connection failed')
-        self._connection = connect(DATABASE_NAME)
+        DATABASE_URL = 'postgres://mzehsxrhlmmrdp:7229a3ce7cdddcfd25d960016bab27a25ecd1163a471263f73d2c64d78f15d70@ec2-174-129-252-252.compute-1.amazonaws.com:5432/d56v6b7trhtuts'
+        self._connection = psycopg2.connect(DATABASE_URL, sslmode='require')
 
     def disconnect(self):
         self._connection.close()
