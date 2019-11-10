@@ -3,9 +3,13 @@ from database import Database
 from professor import Professor
 from flask import Flask, request, make_response, redirect, url_for
 from flask import render_template
+from flask_sqlalchemy import SQLAlchemy
+from flask_heroku import Heroku
 
 app = Flask(__name__, template_folder='templates')
-
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+heroku = Heroku(app)
+db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
