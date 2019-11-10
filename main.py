@@ -16,13 +16,16 @@ db = SQLAlchemy(app)
 def index():
 
     if request.method == 'POST':
-        areas = request.form.getlist('area')
-        print(areas)
+        if request.form.getlist('area') is not None:
+            areas = request.form.getlist('area')
 
-    database = Database()
-    database.connect()
-    results = database.search(areas)
-    database.disconnect()
+        database = Database()
+        database.connect()
+        results = database.search(areas)
+        database.disconnect()
+
+
+        print(results)
 
     html = render_template('index.html')
     response = make_response(html)
