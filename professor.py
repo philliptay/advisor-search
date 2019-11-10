@@ -1,11 +1,12 @@
 class Professor:
-    def __init__(self, name, dept, areas, years, advisees, projects):
+    def __init__(self, name, dept, areas, years, numAdvisees, projects, contact):
         self._name = name
         self._dept = dept
         self._areas = areas
         self._years = years
         self._advisees = advisees
         self._projects = projects
+        self._contact = contact
 
     def getName(self):
         return self._name
@@ -24,3 +25,6 @@ class Professor:
 
     def getProjects(self):
         return self._projects
+
+    def getContact(self):
+        return self._contact

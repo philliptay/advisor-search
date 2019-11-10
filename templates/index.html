@@ -8,11 +8,11 @@
 
    <body>
 
-      <div class="header">
+      <!-- <div class="header">
          <p style="color:white">AdvisorSearch</p>
-      </div>
+      </div> -->
 
-      <div class="searchBar">
+      <!-- <div class="searchBar">
          <form action="index" method="get">
          <table>
             <tr>
@@ -25,21 +25,48 @@
             </tr>
          </table>
          </form>
+      </div> -->
+
+      <div class="searchBar">
+         <h3>Research Areas</h3>
+         <form action="/" method="POST">
+            <input type="checkbox" name="area" value="comp_bio"> Computational Biology
+            <input type="checkbox" name="area" value="comp_architecture"> Computer Architecture
+            <input type="checkbox" name="area" value="economics"> Economics/Computation
+            <input type="checkbox" name="area" value="graphics"> Graphics/Vision
+            <input type="checkbox" name="area" value="machine_learning"> Machine Learning/AI
+            <input type="checkbox" name="area" value="nlp"> Natural Language Processing
+            <input type="checkbox" name="area" value="policy"> Policy
+            <input type="checkbox" name="area" value="prog_lang"> Programming Languages/Compilers
+            <input type="checkbox" name="area" value="security"> Security & Privacy
+            <input type="checkbox" name="area" value="systems"> Systems
+            <input type="checkbox" name="area" value="theory"> Theory
+            <input type="submit" value="Submit">
+         </form>
       </div>
 
-      <div class="searchResults">
-         <h3>Search Results</h3>
-         <ul>
-         {% for prof in professors: %}
-            <li>{{prof.getName()}}</li>
-         {% endfor %}
-         </ul>
-      </div>
+      <div class="flex-container">
+         <div id="searchResults">
+            <h3>Search Results</h3>
+            <ul>
+               <li>Ryan Adams</li>
+               <li>Barbara Engelhardt</li>
+               <li>Elad Hazard</li>
+               <li>Olga Russakovsky</li>
+               <li>Robert Schapire</li>
+               <li>Sebastian Seung</li>
+               <li>Yoram Singer</li>
+            <!-- {% for prof in professors: %}
+               <li>{{prof.getName()}}</li>
+            {% endfor %} -->
+            </ul>
+         </div>
 
-      <div class="profSection">
-         <p>Prof section</p>
+         <div id="profSection">
+            <!-- This gets populated with jinja2 placeholders -->
+            <p>Prof section</p>
+         </div>
       </div>
-
 
    </body>
 </html>
