@@ -9,7 +9,7 @@ class Database:
         self._connection = None
 
     def connect(self):
-        DATABASE_NAME = 'advisordb.postgres'
+        DATABASE_URL = 'advisordb.postgres'
         if not path.isfile(DATABASE_NAME):
             raise Exception('Database connection failed')
         self._connection = connect(DATABASE_NAME)
@@ -65,7 +65,7 @@ class Database:
         else:
             cursor.close()
             connection.close()
-            
+
             #add username to username column and password to password column
             cursor = connection.cursor()
             stmtStr2 = 'INSERT INTO login (username, password) VALUES ?'

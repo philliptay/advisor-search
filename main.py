@@ -15,10 +15,10 @@ def index():
         areas = request.form.getlist('area')
         print(areas)
 
-    # database = Database()
-    # database.connect()
-    # results = database.search(formInfo)
-    # database.disconnect()
+    database = Database()
+    database.connect()
+    results = database.search(areas)
+    database.disconnect()
 
     html = render_template('index.html')
     response = make_response(html)
