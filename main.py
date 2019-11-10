@@ -14,9 +14,11 @@ db = SQLAlchemy(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
     if request.method == 'POST':
         areas = request.form.getlist('area')
         print(areas)
+
     # database = Database()
     # database.connect()
     # results = database.search(formInfo)
