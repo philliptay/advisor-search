@@ -27,6 +27,25 @@ class Database:
                 results.append[row]
         return results
 
+    def profSearch(self, profid):
+
+        cursor = connection.cursor()
+        stmtStr = 'SELECT profs.name, profs.contact, areas.area, profs.bio, projects.title FROM areas, profs, projects WHERE areas.profid = profs.profid AND projects.profid = profs.profis AND profid = ?'
+        cursor.execute(stmtStr, [profid])
+        rows = cursor.fetchall()
+
+        areas = []
+        projects = []
+        for row in rows:
+            name = row[0]
+            contact = row[1]
+            areas.append(row[2])
+            bio = row[3]
+            projects.append(row[4])
+
+        professor = Professor(name, contact, areas, bio, projects)
+        return professor
+
     def loginSearch(self, username, password):
         #check that username is in Database
         #if not found, print error message: username does not exist
