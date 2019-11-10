@@ -1,5 +1,4 @@
 from sqlite3 import connect
-import psycopg2
 from sys import stderr, exit
 from os import path
 from professor import Professor
@@ -10,20 +9,28 @@ class Database:
         self._connection = None
 
     def connect(self):
-        DATABASE_URL = 'postgres://mzehsxrhlmmrdp:7229a3ce7cdddcfd25d960016bab27a25ecd1163a471263f73d2c64d78f15d70@ec2-174-129-252-252.compute-1.amazonaws.com:5432/d56v6b7trhtuts'
-        self._connection = psycopg2.connect(DATABASE_URL, sslmode='require')
+        DATABASE_NAME = 'advisordb.postgres'
+        if not path.isfile(DATABASE_NAME):
+            raise Exception('Database connection failed')
+        self._connection = connect(DATABASE_NAME)
 
     def disconnect(self):
         self._connection.close()
 
-    # def search(self, inputs):
-        # cursor = connection.cursor()
-        # cursor.execute('SELECT profs.name, profs.contact, areas.area, profs.bio FROM areas, profs WHERE areas.profid = profs.profid AND area = \"' + area + '\"')
-        # rows = cursor.fetchall()
-        # for row in rows:
-        # add prof name to table in html code
-        # pass cookies for each profs contact and bio
-        # not sure how it will work for profs with multiple areas
+    def search(self, areas):
+
+        results = []
+        
+        cursor = connection.cursor()
+        for area in areas: 
+            cursor.execute('SELECT profs.name, areas.area FROM areas, profs WHERE areas.profid = profs.profid AND area = \"' + area + '\" ORDER BY name')
+            rows = cursor.fetchall()
+            for row in rows:
+                results.append[row]
+
+        return results
+
+            
 
     def loginSearch(self, username, password):
         #check that username is in Database
@@ -64,7 +71,7 @@ class Database:
         else:
             cursor.close()
             connection.close()
-
+            
             #add username to username column and password to password column
             cursor = connection.cursor()
             stmtStr2 = 'INSERT INTO login (username, password) VALUES ?'
