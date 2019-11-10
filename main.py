@@ -15,6 +15,7 @@ db = SQLAlchemy(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
+    results = ['', '']
     if request.method == 'POST':
         if request.form.getlist('area') is not None:
             areas = request.form.getlist('area')
@@ -24,10 +25,9 @@ def index():
         results = database.search(areas)
         database.disconnect()
 
-
         print(results)
 
-    html = render_template('index.html')
+    html = render_template('index.html', professors = results)
     response = make_response(html)
     return(response)
 

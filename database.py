@@ -27,7 +27,7 @@ class Database:
             cursor.execute(stmtStr, (prep,))
             rows = cursor.fetchall()
             for row in rows:
-                results.append[row]
+                results.append(row)
 
         return results
 

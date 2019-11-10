@@ -49,16 +49,17 @@
          <div id="searchResults">
             <h3>Search Results</h3>
             <ul>
-               <li>Ryan Adams</li>
+               <!-- <li>Ryan Adams</li>
                <li>Barbara Engelhardt</li>
                <li>Elad Hazard</li>
                <li>Olga Russakovsky</li>
                <li>Robert Schapire</li>
                <li>Sebastian Seung</li>
-               <li>Yoram Singer</li>
-            <!-- {% for prof in professors: %}
-               <li>{{prof.getName()}}</li>
-            {% endfor %} -->
+               <li>Yoram Singer</li> -->
+
+            {% for prof in professors: %}
+               <li>{{prof[0]}} {{prof[1]}}</li>
+            {% endfor %}
             </ul>
          </div>
 
