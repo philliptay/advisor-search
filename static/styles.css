@@ -14,7 +14,7 @@ body {
    position: fixed;
    top:0;
    left:0;
-   height: 5%;
+   height: 7%;
    width:100%;
 }
 
@@ -26,7 +26,7 @@ body {
 
 .searchBar {
    position: relative;
-   background-color: #80ffcc;
+   background-color: white;
 
    width:100%;
 }
@@ -41,13 +41,13 @@ input[type=checkbox] {
 
 #searchResults {
    width: 31%;
-   background-color: #e6b3ff;
+   /* background-color: #e6b3ff; */
    flex-grow: 1;
 }
 
 #profSection {
    width: 68%;
-   background-color: #80bfff;
+   /* background-color: #80bfff; */
    flex-grow: 1;
 }
 

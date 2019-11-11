@@ -54,7 +54,7 @@ class Database:
         projects = cursor.fetchall()
 
 
-        professor = Professor(name, contact, areas, bio, projects)
+        professor = Professor(name, bio, areas, projects, contact)
         return professor
 
     def loginSearch(self, username, password):

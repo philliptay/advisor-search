@@ -8,24 +8,12 @@
 
    <body>
 
-      <!-- <div class="header">
+      <div class="header">
          <p style="color:white">AdvisorSearch</p>
-      </div> -->
-
-      <!-- <div class="searchBar">
-         <form action="index" method="get">
-         <table>
-            <tr>
-               <td>Dept:</td>
-               <td><input type="text" name="dept"></td>
-            </tr>
-            <tr>
-               <td>Research Areas:</td>
-               <td><input type="text" name="areas"></td>
-            </tr>
-         </table>
-         </form>
-      </div> -->
+      </div>
+      <br>
+      <br>
+      <br>
 
       <div class="searchBar">
          <h3>Research Areas</h3>
@@ -57,10 +45,10 @@
          </div>
 
          <div id="profSection">
-            <!-- This gets populated with jinja2 placeholders -->
-            <h3>{{prof.getName()}}</h3>
 
-            {{prof.getBio()}}
+            <h3>{{prof.getName()}}</h3>
+            <p>{{prof.getBio()}}</p>
+            <p>{{prof.getContact()}}</p>
          </div>
       </div>
 
