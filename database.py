@@ -34,7 +34,7 @@ class Database:
     def profSearch(self, profid):
 
         cursor = self._connection.cursor()
-        stmtStr = 'SELECT profs.name, profs.email, areas.area, profs.bio, projects.title FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND projects.prof_id = profs.prof_id AND profs.prof_id = %s'
+        stmtStr = 'SELECT profs.name, profs.email, profs.bio FROM profs WHERE profs.prof_id = %s'
         cursor.execute(stmtStr, (profid,))
         rows = cursor.fetchall()
 
@@ -43,9 +43,16 @@ class Database:
         for row in rows:
             name = row[0]
             contact = row[1]
-            areas.append(row[2])
-            bio = row[3]
-            projects.append(row[4])
+            bio = row[2]
+
+        stmtStr = 'SELECT areas.area FROM areas WHERE areas.prof_id = %s'
+        cursor.execute(stmtStr, (profid,))
+        areas = cursor.fetchall()
+
+        stmtStr = 'SELECT projects.title FROM projects WHERE projects.prof_id = %s'
+        cursor.execute(stmtStr, (profid,))
+        projects = cursor.fetchall()
+
 
         professor = Professor(name, contact, areas, bio, projects)
         return professor
