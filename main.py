@@ -15,7 +15,12 @@ db = SQLAlchemy(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    results = ['', '']
+    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics/Vision', 'Machine Learning/AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
+    database = Database()
+    database.connect()
+    results = database.search(allAreas)
+    database.disconnect()
+
     profData = Professor('', '', '', '', '')
     if request.method == 'POST':
         if request.form.getlist('area') is not None:
