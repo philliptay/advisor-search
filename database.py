@@ -1,5 +1,6 @@
 from sqlite3 import connect
 import psycopg2
+from pandas import isna
 from sys import stderr, exit
 from os import path
 from professor import Professor
@@ -48,11 +49,20 @@ class Database:
         stmtStr = 'SELECT areas.area FROM areas WHERE areas.prof_id = %s'
         cursor.execute(stmtStr, (profid,))
         areas = cursor.fetchall()
+        if len(areas) == 0:
+            areas = 'No research areas found.'
 
         stmtStr = 'SELECT projects.title FROM projects WHERE projects.prof_id = %s'
         cursor.execute(stmtStr, (profid,))
         projects = cursor.fetchall()
+        if len(projects) == 0:
+            projects = 'No projects found.'
 
+        if contact == 'NaN':
+            contact = 'No contact provided.'
+
+        if bio == 'NaN':
+            bio = 'No bio provided.'
 
         professor = Professor(name, bio, areas, projects, contact)
         return professor
