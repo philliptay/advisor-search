@@ -53,6 +53,15 @@ def index():
     return(response)
 
 #-------------------------------------------------------------------------------
+@app.route('/error')
+def error():
+
+    errorMsg = request.args.get('errorMsg')
+
+    html = render_template('error.html', errorMsg=errorMsg)
+    response = make_response(html)
+    return(response)
+#-------------------------------------------------------------------------------
 
 if __name__ == '__main__':
     if len(argv) != 2:
