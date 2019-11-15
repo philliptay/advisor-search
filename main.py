@@ -34,6 +34,14 @@ def index():
     if request.method == 'GET':
         if request.args.get('profid') is not None:
             profid = request.args.get('profid')
+            if  profid.strip() == '':
+                errorMsg = 'Missing profid'
+                return redirect(url_for('error', errorMsg=errorMsg))
+            try:
+                int(classid)
+            except ValueError:
+                errorMsg = 'Class id is not numeric'
+                return redirect(url_for('error', errorMsg=errorMsg))
 
             database = Database()
             database.connect()
