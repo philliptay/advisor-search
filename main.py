@@ -38,9 +38,9 @@ def index():
                 errorMsg = 'Missing profid'
                 return redirect(url_for('error', errorMsg=errorMsg))
             try:
-                int(classid)
+                int(profid)
             except ValueError:
-                errorMsg = 'Class id is not numeric'
+                errorMsg = 'Profid is not numeric'
                 return redirect(url_for('error', errorMsg=errorMsg))
 
             database = Database()
