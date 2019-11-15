@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics/Vision', 'Machine Learning/AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
+    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
     database = Database()
     database.connect()
     results = database.search(allAreas)
