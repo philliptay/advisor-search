@@ -24,7 +24,7 @@ class Database:
         cursor = self._connection.cursor()
         for area in areas:
             stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
-            prep = area.lower()
+            prep = '%'+area.lower()+'%'
             cursor.execute(stmtStr, (prep,))
             rows = cursor.fetchall()
             for row in rows:
