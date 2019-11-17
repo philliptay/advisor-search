@@ -16,9 +16,13 @@ db = SQLAlchemy(app)
 def index():
 
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
+    areas = request.form.getlist('area')
+    if request.form.getlist('area') is not None:
+        areas = allAreas
+
     database = Database()
     database.connect()
-    results = database.search(allAreas)
+    results = database.search(areas)
     database.disconnect()
 
     profData = Professor('', '', '', '', '')
