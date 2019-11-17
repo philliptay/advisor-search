@@ -6,7 +6,7 @@ from flask import Flask
 
 def main():
     filename = 'Cos Department Data'
-    conn = psycopg2.connect(database='advisordb', host='127.0.0.1', port='5432')
+    conn = psycopg2.connect(database='advisordb', user='admin', password='thesissearchboyz420', host='localhost', port='5432')
     cursor = conn.cursor()
     wb = pd.read_excel(filename+'.xlsx')
     for i, row in wb.iterrows():
@@ -25,6 +25,16 @@ def main():
             for proj in projsList:
                 projStmt = 'INSERT INTO projects (title, prof_id) VALUES (%s,%s)'
                 cursor.execute(projStmt, (proj.strip().lower(), i))
+
+        if not pd.isna(row['Past Theses Advised (Titles)']):
+            titlesList = row['Past Theses Advised (Titles)'].split(';')
+            linksList = row['Past Theses Advised (Links)'].split(';')
+            for j in range(len(titlesList)):
+                thesisStmt = 'INSERT INTO past_theses (title, link, prof_id) VALUES (%s,%s,%s)'
+                cursor.execute(thesisStmt, (titlesList[j].strip(), linksList[j].strip(), i))
+
+
+
 
     conn.commit()
     conn.close()

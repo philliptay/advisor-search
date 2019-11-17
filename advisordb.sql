@@ -12,6 +12,13 @@ CREATE TABLE projects(
    FOREIGN KEY (prof_id) REFERENCES profs(prof_id)
 );
 
+CREATE TABLE past_theses(
+   title VARCHAR(200),
+   link VARCHAR(200),
+   prof_id serial,
+   FOREIGN KEY (prof_id) REFERENCES profs(prof_id)
+);
+
 
 CREATE TABLE areas(
    area VARCHAR(100),
