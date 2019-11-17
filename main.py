@@ -15,7 +15,7 @@ db = SQLAlchemy(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics/Vision', 'Machine Learning/AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
+    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
     database = Database()
     database.connect()
     results = database.search(allAreas)
@@ -34,6 +34,14 @@ def index():
     if request.method == 'GET':
         if request.args.get('profid') is not None:
             profid = request.args.get('profid')
+            if  profid.strip() == '':
+                errorMsg = 'Missing profid'
+                return redirect(url_for('error', errorMsg=errorMsg))
+            try:
+                int(profid)
+            except ValueError:
+                errorMsg = 'Profid is not numeric'
+                return redirect(url_for('error', errorMsg=errorMsg))
 
             database = Database()
             database.connect()
@@ -44,6 +52,15 @@ def index():
     response = make_response(html)
     return(response)
 
+#-------------------------------------------------------------------------------
+@app.route('/error')
+def error():
+
+    errorMsg = request.args.get('errorMsg')
+
+    html = render_template('error.html', errorMsg=errorMsg)
+    response = make_response(html)
+    return(response)
 #-------------------------------------------------------------------------------
 
 if __name__ == '__main__':
