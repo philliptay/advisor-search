@@ -12,7 +12,7 @@ heroku = Heroku(app)
 db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def index():
 
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
@@ -22,7 +22,7 @@ def index():
 
     database = Database()
     database.connect()
-    results = database.search(areas)
+    profList = database.search(areas)
     database.disconnect()
 
     profData = Professor('', '', '', '', '')
@@ -33,6 +33,16 @@ def index():
         database = Database()
         database.connect()
         results = database.search(areas)
+        profDict = rankResults(results)
+
+        profList = []
+        for prof in profDict:
+            for key in prof:
+                profname = key
+                areas = prof[profname][1:]
+                profid = prof[profname][0]
+            info = [profname, areas, profid] #create a list for the prof
+            profList.append(info)
         database.disconnect()
 
     if request.method == 'GET':
@@ -52,7 +62,7 @@ def index():
             profData = database.profSearch(profid)
             database.disconnect()
 
-    html = render_template('index.html', professors = results, prof = profData)
+    html = render_template('index.html', professors = profList, prof = profData)
     response = make_response(html)
     return(response)
 #-------------------------------------------------------------------------------
