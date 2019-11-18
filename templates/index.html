@@ -4,6 +4,7 @@
    <head>
       <title>Princeton AdvisorSearch</title>
       <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+      <link rel="shortcut icon" href="static/magny-glass.png">
    </head>
 
    <body>
@@ -46,7 +47,11 @@
 
       <div class="flex-container">
          <div id="searchResults">
+           {% if professors|length == 0 %}
+           <h3>Search to begin!</h3>
+           {% else %}
             <h3>Advisors</h3>
+            {% endif %}
             <ul>
 
             {% for prof in professors: %}
@@ -90,6 +95,8 @@
 
             <p>{{prof.getContact()}}</p>
 
+            {% elif professors|length != 0 %}
+            <h3>Click on a professor!</h3>
             {% endif %}
 
          </div>

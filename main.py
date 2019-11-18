@@ -29,11 +29,7 @@ def index():
     profData = Professor('', '', '', '', '', '', '')
 
     if profList is None:
-        database = Database()
-        database.connect()
-        profList = database.search(allAreas)
-        database.disconnect()
-
+        profList = []
 
     if request.method == 'POST':
         areas = request.form.getlist('area')
