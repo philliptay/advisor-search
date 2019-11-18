@@ -11,6 +11,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
+@app.route('/')
+def login():
+
+    html = render_template('login.html')
+    response = make_response(html)
+    return(response)
+
+#-------------------------------------------------------------------------------
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
 def index():
