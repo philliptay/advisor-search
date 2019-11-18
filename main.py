@@ -43,6 +43,10 @@ def index():
                 profid = prof[profname][0]
             info = [profname, areas, profid] #create a list for the prof
             profList.append(info)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6feb6c270b4ce6f98ab475c58687332892c6ec46
         database.disconnect()
 
     if request.method == 'GET':
