@@ -32,18 +32,7 @@ def index():
 
         database = Database()
         database.connect()
-        searchResults = database.search(areas)
-        profDict = rankResults(searchResults) #rank the results
-        profList = []
-        # turn results into list of lists to be displayed
-        for prof in profDict:
-            for key in prof:
-                profname = key
-                areas = prof[profname][1:]
-                profid = prof[profname][0]
-            info = [profname, areas, profid] #create a list for the prof
-            profList.append(info)
-
+        results = database.search(areas)
         database.disconnect()
 
     if request.method == 'GET':
@@ -63,7 +52,7 @@ def index():
             profData = database.profSearch(profid)
             database.disconnect()
 
-    html = render_template('index.html', professors = profList, prof = profData)
+    html = render_template('index.html', professors = results, prof = profData)
     response = make_response(html)
     return(response)
 #-------------------------------------------------------------------------------
