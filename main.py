@@ -11,8 +11,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
-
 @app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def index():
 
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
@@ -29,7 +29,7 @@ def index():
     else:
         profList = request.args.get('professors')
 
-    profData = Professor('', '', '', '', '')
+    profData = Professor('', '', '', '', '', '','')
     if request.method == 'POST':
         if request.form.getlist('area') is not None:
             areas = request.form.getlist('area')

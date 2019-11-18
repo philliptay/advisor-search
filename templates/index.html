@@ -17,7 +17,7 @@
 
       <div class="searchBar">
          <h3>Research Areas</h3>
-         <form action="/" method="POST">
+         <form action="/home" method="POST">
             <input type="checkbox" name="area" value="Computational Biology"> Computational Biology
             <input type="checkbox" name="area" value="Computer Architecture"> Computer Architecture
             <input type="checkbox" name="area" value="Economics/Computation"> Economics/Computation
@@ -31,6 +31,8 @@
             <input type="checkbox" name="area" value="Security & Privacy"> Security & Privacy
             <input type="checkbox" name="area" value="Systems"> Systems
             <input type="checkbox" name="area" value="Theory"> Theory
+          <br>Keyword Search:
+            <input type="text" name="entry" value='{{entry}}'>
             <input type="submit" value="Submit">
          </form>
       </div>
@@ -50,6 +52,11 @@
 
             <h3>{{prof.getName()}}</h3>
             <p>{{prof.getBio()}}</p>
+            {% for area in prof.getAreas(): %}
+              <p>{{area}}</p>
+            {% endfor %}
+            <p>{{prof.getProjects()}}</p>
+            <p>{{prof.getTitles()}}</p>
             <p>{{prof.getContact()}}</p>
          </div>
       </div>
