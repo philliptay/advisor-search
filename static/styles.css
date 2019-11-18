@@ -55,3 +55,29 @@ ul {
    overflow: hidden;
    overflow-y: scroll;
 }
+
+.button {
+   -webkit-transition-duration: 0.4s; /* Safari */
+   transition-duration: 0.4s;
+   position:absolute;
+   left:22%;
+   top:38%;
+   height: 175px;
+   width: 335px;
+   font-size: 48px;
+}
+
+.button:hover {
+  background-color: #ff9933; /* Green */
+  color: white;
+}
+
+.login {
+   width: 1200px;
+   height: 700px;
+   position: absolute;
+   left: 20%;
+   background-repeat: no-repeat;
+   background-image: url(magny-glass.png);
+   background-size: 700px 1000px;
+}
