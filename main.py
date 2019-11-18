@@ -17,7 +17,7 @@ def index():
 
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
     areas = request.form.getlist('area')
-    if request.form.getlist('area') is not None:
+    if len(areas) == 0:
         areas = allAreas
 
     database = Database()
@@ -27,8 +27,8 @@ def index():
 
     profData = Professor('', '', '', '', '', '', '')
     if request.method == 'POST':
-        if request.form.getlist('area') is not None:
-            areas = request.form.getlist('area')
+        if request.form.get('areas') is not None:
+            areas = request.form.get('areas')
 
         database = Database()
         database.connect()
@@ -74,6 +74,7 @@ def index():
 
     html = render_template('index.html', professors = profList, prof = profData, titles = profTitles, links = profLinks)
     response = make_response(html)
+    #response.set_cookie('areas', areas)
     return(response)
 #-------------------------------------------------------------------------------
 def rankResults(results):
