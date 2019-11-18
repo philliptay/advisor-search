@@ -75,10 +75,8 @@ class Database:
         if bio == 'NaN':
             bio = 'No bio provided.'
 
-        if titles == 'NaN':
+        if len(titles) == 0:
             titles = 'This advisor has no previous works advised.'
-
-        if links == 'NaN':
             links = ''
 
         professor = Professor(name, bio, areas, projects, titles, links, contact)

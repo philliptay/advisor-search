@@ -57,16 +57,24 @@
             {% endfor %}
             </ul>
             <h4>Current Projects:</h4>
+            {% if prof.getProjects() == 'No projects found.' %}
+              <p>{{prof.getProjects()}}</p>
+            {% else %}
             <ul>
               {% for proj in prof.getProjects() %}
               <li>{{proj[0].strip('. ')}}</li>
             {% endfor %}
+            {% endif %}
             </ul>
             <h4>Past Theses Advised:</h4>
+            {% if links == '' %}
+              <p>{{titles}}</p>
+            {% else %}
             <ul>
               {% for i in range(titles|length) %}
               <li><a href={{links[i].strip(', ')}}>{{titles[i].strip(',. ')}}</li></a>
             {% endfor %}
+            {% endif %}
             </ul>
 
             <p>{{prof.getContact()}}</p>
