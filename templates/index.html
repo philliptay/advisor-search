@@ -65,7 +65,7 @@
             <h4>Past Theses Advised:</h4>
             <ul>
               {% for i in range(titles|length) %}
-              <li><a href={{links[i][0].strip(', ')}}>{titles[i][0].strip(',. ')}}</li></a>
+              <li><a href={{links[i].strip(', ')}}>{{titles[i].strip(',. ')}}</li></a>
             {% endfor %}
             </ul>
 
