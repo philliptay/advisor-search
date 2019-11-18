@@ -64,7 +64,8 @@ class Database:
         if bio == 'NaN':
             bio = 'No bio provided.'
 
-        professor = Professor(name, bio, areas, projects, contact)
+
+        professor = Professor(name, bio, areas, projects, titles, links, contact)
         return professor
 
     def loginSearch(self, username, password):
