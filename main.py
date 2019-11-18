@@ -1,42 +1,44 @@
 from sys import argv
 from database import Database
 from professor import Professor
-from flask import Flask, request, make_response, redirect, url_for
+from flask import Flask, request, make_response, redirect, url_for, session
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_heroku import Heroku
 
 app = Flask(__name__, template_folder='templates')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'big secret boy'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 @app.route('/')
 def login():
-
+    session['profs'] = None
     html = render_template('login.html')
     response = make_response(html)
     return(response)
 
 #-------------------------------------------------------------------------------
-@app.route('/', methods=['GET', 'POST'])
+
 @app.route('/home', methods=['GET', 'POST'])
 def index():
 
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
-    areas = request.form.getlist('area')
-    if request.form.getlist('area') is not None:
-        areas = allAreas
-
-    database = Database()
-    database.connect()
-    profList = database.search(areas)
-    database.disconnect()
-
+    profList = session['profs']
     profData = Professor('', '', '', '', '', '', '')
+
+    if profList is None:
+        database = Database()
+        database.connect()
+        profList = database.search(allAreas)
+        database.disconnect()
+
+
     if request.method == 'POST':
-        if request.form.getlist('area') is not None:
-            areas = request.form.getlist('area')
+        areas = request.form.getlist('area')
+        if len(areas) == 0:
+            areas = allAreas
 
         database = Database()
         database.connect()
@@ -82,6 +84,11 @@ def index():
 
     html = render_template('index.html', professors = profList, prof = profData, titles = profTitles, links = profLinks)
     response = make_response(html)
+    # profStr = ''
+    # for prof in profList:
+    #     profStr += prof + ','
+    # areasStr.rstrip(',')
+    session['profs'] = profList
     return(response)
 #-------------------------------------------------------------------------------
 def rankResults(results):
