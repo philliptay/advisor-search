@@ -52,11 +52,25 @@
 
             <h3>{{prof.getName()}}</h3>
             <p>{{prof.getBio()}}</p>
-            {% for area in prof.getAreas(): %}
-              <p>{{area}}</p>
+            <h4>Research Areas:</h4>
+            <ul>
+              {% for area in prof.getAreas() %}
+              <li>{{area[0].strip('. ')}}</li>
             {% endfor %}
-            <p>{{prof.getProjects()}}</p>
-            <p>{{prof.getTitles()}}</p>
+            </ul>
+            <h4>Current Projects:</h4>
+            <ul>
+              {% for proj in prof.getProjects() %}
+              <li>{{proj[0].strip('. ')}}</li>
+            {% endfor %}
+            </ul>
+            <h4>Past Theses Advised:</h4>
+            <ul>
+              {% for i in range(prof.getTitles()|length) %}
+              <li><a href={{prof.getLinks()[i][0].strip(', ')}}>{{prof.getTitles()[i][0].strip(',. ')}}</li></a>
+            {% endfor %}
+            </ul>
+
             <p>{{prof.getContact()}}</p>
          </div>
       </div>
