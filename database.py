@@ -58,6 +58,17 @@ class Database:
         if len(projects) == 0:
             projects = 'No projects found.'
 
+        stmtStr = 'SELECT past_theses.title FROM past_theses WHERE past_theses.prof_id = %s'
+        cursor.execute(stmtStr, (profid,))
+        thesisTitles = cursor.fetchall()
+
+        stmtStr = 'SELECT past_theses.link FROM past_theses WHERE past_theses.prof_id = %s'
+        cursor.execute(stmtStr, (profid,))
+        links = cursor.fetchall()
+        if len(thesisTitles) == 0:
+            projects = 'No past theses found.'
+            links = 'No links found.'
+
         if contact == 'NaN':
             contact = 'No contact provided.'
 
@@ -65,7 +76,7 @@ class Database:
             bio = 'No bio provided.'
 
 
-        professor = Professor(name, bio, areas, projects, titles, links, contact)
+        professor = Professor(name, bio, areas, projects, thesisTitles, links, contact)
         return professor
 
     def loginSearch(self, username, password):
