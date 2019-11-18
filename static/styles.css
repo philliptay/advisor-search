@@ -51,11 +51,6 @@ input[type=checkbox] {
    flex-grow: 1;
 }
 
-ul {
-   overflow: hidden;
-   overflow-y: scroll;
-}
-
 .button {
    -webkit-transition-duration: 0.4s; /* Safari */
    transition-duration: 0.4s;

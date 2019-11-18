@@ -111,6 +111,11 @@ def sort_by_values_len(dict):
     sorted_dict = [{item[0]: dict[item [0]]} for item in sorted_key_list]
     return(sorted_dict)
 #-------------------------------------------------------------------------------
+@app.route('/resources')
+def resources():
+    html = render_template('resources.html')
+    response = make_response(html)
+    return(response)
 
 #-------------------------------------------------------------------------------
 @app.route('/error')
