@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+      <title>Princeton AdvisorSearch</title>
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+   </head>
+
+   <body>
+
+      <div class="header">
+         <p style="color:white">AdvisorSearch</p>
+      </div>
+      <br>
+      <br>
+      <br>
+
+      <div class="searchBar">
+         <h3>Research Areas</h3>
+         <form action="/" method="POST">
+            <input type="checkbox" name="area" value="Computational Biology"> Computational Biology
+            <input type="checkbox" name="area" value="Computer Architecture"> Computer Architecture
+            <input type="checkbox" name="area" value="Economics/Computation"> Economics/Computation
+            <input type="checkbox" name="area" value="Graphics"> Graphics
+            <input type="checkbox" name="area" value="Vision"> Vision
+            <input type="checkbox" name="area" value="Machine Learning"> Machine Learning
+            <input type="checkbox" name="area" value="AI"> AI
+            <input type="checkbox" name="area" value="Natural Language Processing"> Natural Language Processing
+            <input type="checkbox" name="area" value="Policy"> Policy
+            <input type="checkbox" name="area" value="Programming Languages/Compilers"> Programming Languages/Compilers
+            <input type="checkbox" name="area" value="Security & Privacy"> Security & Privacy
+            <input type="checkbox" name="area" value="Systems"> Systems
+            <input type="checkbox" name="area" value="Theory"> Theory
+            <input type="submit" value="Submit">
+         </form>
+      </div>
+
+      <div class="flex-container">
+         <div id="searchResults">
+            <h3>Advisors</h3>
+            <ul>
+
+            {% for prof in professors: %}
+               <li><a href="/home?profid={{prof[2]}}">{{prof[0]}} {{prof[1]}}</li></a>
+            {% endfor %}
+            </ul>
+         </div>
+
+         <div id="profSection">
+
+            <h3>{{prof.getName()}}</h3>
+            <p>{{prof.getBio()}}</p>
+            <p>{{prof.getContact()}}</p>
+            <p>{{prof.getProjects()}}</p>
+            <p>{{prof.getTitles()}}</p>
+         </div>
+      </div>
+
+   </body>
+</html>

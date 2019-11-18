@@ -12,7 +12,7 @@ heroku = Heroku(app)
 db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
 
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
@@ -20,12 +20,16 @@ def index():
     if request.form.getlist('area') is not None:
         areas = allAreas
 
-    database = Database()
-    database.connect()
-    profList = database.search(areas)
-    database.disconnect()
+    if  request.args.get('professors') is None or request.args.get('professors') == '':
+        database = Database()
+        database.connect()
+        profList = database.search(areas)
+        database.disconnect()
 
-    profData = Professor('', '', '', '', '','','')
+    else:
+        profList = request.args.get('professors')
+
+    profData = Professor('', '', '', '', '')
     if request.method == 'POST':
         if request.form.getlist('area') is not None:
             areas = request.form.getlist('area')
@@ -43,6 +47,7 @@ def index():
                 profid = prof[profname][0]
             info = [profname, areas, profid] #create a list for the prof
             profList.append(info)
+
         database.disconnect()
 
     if request.method == 'GET':
