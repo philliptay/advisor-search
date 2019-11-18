@@ -38,13 +38,16 @@ class Database:
         stmtStr = 'SELECT profs.name, profs.email, profs.bio FROM profs WHERE profs.prof_id = %s'
         cursor.execute(stmtStr, (profid,))
         rows = cursor.fetchall()
-
-        areas = []
-        projects = []
         for row in rows:
             name = row[0]
             contact = row[1]
             bio = row[2]
+
+        areas = []
+        projects = []
+        titles = []
+        links = []
+
 
         stmtStr = 'SELECT areas.area FROM areas WHERE areas.prof_id = %s'
         cursor.execute(stmtStr, (profid,))
@@ -58,16 +61,13 @@ class Database:
         if len(projects) == 0:
             projects = 'No projects found.'
 
-        stmtStr = 'SELECT past_theses.title FROM past_theses WHERE past_theses.prof_id = %s'
+        stmtStr = 'SELECT past_theses.title, past_theses.link FROM past_theses WHERE past_theses.prof_id = %s'
         cursor.execute(stmtStr, (profid,))
-        thesisTitles = cursor.fetchall()
+        rows = cursor.fetchall()
 
-        stmtStr = 'SELECT past_theses.link FROM past_theses WHERE past_theses.prof_id = %s'
-        cursor.execute(stmtStr, (profid,))
-        links = cursor.fetchall()
-        if len(thesisTitles) == 0:
-            projects = 'No past theses found.'
-            links = 'No links found.'
+        for row in rows:
+            titles.append(row[0])
+            links.append(row[1])
 
         if contact == 'NaN':
             contact = 'No contact provided.'
@@ -75,8 +75,13 @@ class Database:
         if bio == 'NaN':
             bio = 'No bio provided.'
 
+        if titles == 'NaN':
+            titles = 'This advisor has no previous works advised.'
 
-        professor = Professor(name, bio, areas, projects, thesisTitles, links, contact)
+        if links == 'NaN':
+            links = ''
+
+        professor = Professor(name, bio, areas, projects, titles, links, contact)
         return professor
 
     def loginSearch(self, username, password):

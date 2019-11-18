@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 heroku = Heroku(app)
 db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
-@app.route('/', methods=['GET', 'POST'])
+
 @app.route('/home', methods=['GET', 'POST'])
 def index():
 
@@ -20,16 +20,12 @@ def index():
     if request.form.getlist('area') is not None:
         areas = allAreas
 
-    if  request.args.get('professors') is None or request.args.get('professors') == '':
-        database = Database()
-        database.connect()
-        profList = database.search(areas)
-        database.disconnect()
+    database = Database()
+    database.connect()
+    profList = database.search(areas)
+    database.disconnect()
 
-    else:
-        profList = request.args.get('professors')
-
-    profData = Professor('', '', '', '', '', '','')
+    profData = Professor('', '', '', '', '', '', '')
     if request.method == 'POST':
         if request.form.getlist('area') is not None:
             areas = request.form.getlist('area')
@@ -47,8 +43,10 @@ def index():
                 profid = prof[profname][0]
             info = [profname, areas, profid] #create a list for the prof
             profList.append(info)
-
         database.disconnect()
+
+        profTitles = ''
+        profLinks = ''
 
     if request.method == 'GET':
         if request.args.get('profid') is not None:
@@ -67,7 +65,14 @@ def index():
             profData = database.profSearch(profid)
             database.disconnect()
 
-    html = render_template('index.html', professors = profList, prof = profData)
+            profTitles = profData.getTitles()
+            profLinks = profData.getLinks()
+
+        else:
+            profTitles = ''
+            profLinks = ''
+
+    html = render_template('index.html', professors = profList, prof = profData, titles = profTitles, links = profLinks)
     response = make_response(html)
     return(response)
 #-------------------------------------------------------------------------------
