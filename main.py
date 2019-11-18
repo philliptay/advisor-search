@@ -19,7 +19,7 @@ def login():
     return(response)
 
 #-------------------------------------------------------------------------------
-
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/home', methods=['GET', 'POST'])
 def index():
 
