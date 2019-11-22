@@ -17,21 +17,86 @@ class Database:
     def disconnect(self):
         self._connection.close()
 
-    def search(self, areas):
+    def search(self, input):
+
+        areas = input[0]
+        keyword = input[1].toLower()
+        if (keyword is None) or (keyword.strip() == ''):
+            keyword = ''
+        else:
+            keyword = keyword.strip().lower()
 
         results = []
 
-        cursor = self._connection.cursor()
-        for area in areas:
-            stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
-            prep = '%'+area.lower()+'%'
-            cursor.execute(stmtStr, (prep,))
-            rows = cursor.fetchall()
-            for row in rows:
-                results.append(row)
+        if (areas is not None):
+            cursor1 = self._connection.cursor()
+            for area in areas:
+                stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+                prep = '%'+area.lower()+'%'
+                cursor1.execute(stmtStr, (prep,))
+                rows = cursor1.fetchall()
+                for row in rows:
+                    results.append(row)
+
+
+        if (keyword != ''):
+            cursor2 = self._connection.cursor()
+            stmtStr = 'SELECT profs.name, profs.bio, past_theses.title, areas.area, prof.prof_id FROM profs, past_theses, area WHERE profs.prof_id = past_theses.prof_id'
+            cursor2.execute(stmStr)
+            rows2 = cursor2.fetchall()
+            for row2 in rows2:
+                arg1 = list(str(row2[0]).lower())
+                arg2 = list(str(row2[1]).lower())
+                arg3 = list(str(row2[2]).lower())
+                arg4 = list(keyword)
+                inc1 = 0
+                inc2 = 0
+
+                # Search for keyword in professor names
+                while (inc1 < len(arg1)):
+                    if (arg1[inc1] == arg4[inc2]) and (inc2 < len(arg4) - 1):
+                        inc2 += 1
+                    elif (arg1[inc1] == arg4[inc2]) and (inc2 >= len(arg4) - 1):
+                        newRow = [row2[0], row2[3], row2[4]]
+                        results.append(newRow)
+                        break
+                    else:
+                        inc2 = 0
+                    inc1 += 1
+
+                inc1 = 0
+                inc2 = 0
+
+                # Search for keyword in professor bios
+                while (inc1 < len(arg2)):
+                    if (arg2[inc1] == arg4[inc2]) and (inc2 < len(arg4) - 1):
+                        inc2 += 1
+                    elif (arg2[inc1] == arg4[inc2]) and (inc2 >= len(arg4) - 1):
+                        newRow = [row2[0], row2[3], row2[4]]
+                        results.append(newRow)
+                        break
+                    else:
+                        inc2 = 0
+                    inc1 += 1
+
+                inc1 = 0
+                inc2 = 0
+
+                #search for keyword in past_theses titles
+                while (inc1 < len(arg3)):
+                    if (arg3[inc1] == arg4[inc2]) and (inc2 < len(arg4) - 1):
+                        inc2 += 1
+                    elif (arg3[inc1] == arg4[inc2]) and (inc2 >= len(arg4) - 1):
+                        newRow = [row2[0], row2[3], row2[4]]
+                        results.append(newRow)
+                        break
+                    else:
+                        inc2 = 0
+                    inc1 += 1
 
         return results
 
+        
     def profSearch(self, profid):
 
         cursor = self._connection.cursor()
