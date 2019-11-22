@@ -131,7 +131,7 @@ class Database:
             connection.close()
             return 'successful creation of new user'
 
-    def rankResults(results):
+    def rankResults(self, results):
         profDict = {}
         # loop through results list
         for prof in results:
@@ -151,7 +151,7 @@ class Database:
 
 
     #taken from stack overflow
-    def sort_by_values_len(dict):
+    def sort_by_values_len(self, dict):
         dict_len= {key: len(value) for key, value in dict.items()}
         import operator
         sorted_key_list = sorted(dict_len.items(), key=operator.itemgetter(1), reverse=True)
