@@ -5,6 +5,15 @@
       <title>Princeton AdvisorSearch</title>
       <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
       <link rel="shortcut icon" href="static/magny-glass.png">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="select2-bootstrap.css">
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+      <script>
+          $(document).ready(function() { $("areamenu").select2(); });
+          $("areamenu").select2({placeholder: "Select an area or start typing to search a keyword"});
+          $("areamenu_clear").click(function() { $("#e8_2").select2("val", ""); });
+      </script>
    </head>
 
    <body>
@@ -25,6 +34,23 @@
       <br>
 
       <div class="searchBar">
+        <select class="areamenu" name="areas[]" multiple="multiple">
+          <option value="Computational Biology"> Computational Biology</option>
+          <option value="Computer Architecture"> Computer Architecture</option>
+          <option value="Economics/Computation"> Economics/Computation</option>
+          <option value="Graphics"> Graphics</option>
+          <option value="Vision"> Vision</option>
+          <option value="Machine Learning"> Machine Learning</option>
+          <option value="AI"> AI</option>
+          <option value="Natural Language Processing"> Natural Language Processing</option>
+          <option value="Policy"> Policy</option>
+          <option value="Programming Languages/Compilers"> Programming Languages/Compilers</option>
+          <option value="Security & Privacy"> Security & Privacy</option>
+          <option value="Systems"> Systems</option>
+          <option value="Theory"> Theory</option>
+        </select>
+
+
          <h3>Research Areas</h3>
          <form action="/home" method="POST">
             <input type="checkbox" name="area" value="Computational Biology"> Computational Biology
