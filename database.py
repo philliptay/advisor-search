@@ -17,21 +17,82 @@ class Database:
     def disconnect(self):
         self._connection.close()
 
-    def search(self, areas):
+    def search(self, input):
 
+        areas = input[0]
+        keywords = input[1]
         results = []
 
-        cursor = self._connection.cursor()
+        cursor1 = self._connection.cursor()
         for area in areas:
-            stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
-            prep = '%'+area.lower()+'%'
-            cursor.execute(stmtStr, (prep,))
-            rows = cursor.fetchall()
-            for row in rows:
-                results.append(row)
+            if (area is not None) or (area.strip != ''):
+                stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+                prep = '%'+area.lower()+'%'
+                cursor1.execute(stmtStr, (prep,))
+                rows = cursor1.fetchall()
+                for row in rows:
+                    results.append(row)
+
+        for keyword in keywords:
+            if (keyword is not None) or (keyword.strip() != ''):
+                keyword = keyword.strip().lower()
+                cursor2 = self._connection.cursor()
+                stmtStr = 'SELECT profs.name, profs.bio, past_theses.title, areas.area, prof.prof_id FROM profs, past_theses, area WHERE profs.prof_id = past_theses.prof_id'
+                cursor2.execute(stmStr)
+                rows2 = cursor2.fetchall()
+                for row2 in rows2:
+                    name = list(str(row2[0]).lower())
+                    bio = list(str(row2[1]).lower())
+                    title = list(str(row2[2]).lower())
+                    key = list(keyword)
+                    inc1 = 0
+                    inc2 = 0
+
+                    # Search for keyword in professor names
+                    while (inc1 < len(arg1)):
+                        if (name[inc1] == key[inc2]) and (inc2 < len(key) - 1):
+                            inc2 += 1
+                        elif (name[inc1] == key[inc2]) and (inc2 >= len(key) - 1):
+                            newRow = [row2[0], row2[3], row2[4]]
+                            results.append(newRow)
+                            break
+                        else:
+                            inc2 = 0
+                        inc1 += 1
+
+                    inc1 = 0
+                    inc2 = 0
+
+                    # Search for keyword in professor bios
+                    while (inc1 < len(bio)):
+                        if (bio[inc1] == key[inc2]) and (inc2 < len(key) - 1):
+                            inc2 += 1
+                        elif (bio[inc1] == key[inc2]) and (inc2 >= len(key) - 1):
+                            newRow = [row2[0], row2[3], row2[4]]
+                            results.append(newRow)
+                            break
+                        else:
+                            inc2 = 0
+                        inc1 += 1
+
+                    inc1 = 0
+                    inc2 = 0
+
+                    #search for keyword in past_theses titles
+                    while (inc1 < len(title)):
+                        if (title[inc1] == key[inc2]) and (inc2 < len(key) - 1):
+                            inc2 += 1
+                        elif (title[inc1] == key[inc2]) and (inc2 >= len(key) - 1):
+                            newRow = [row2[0], row2[3], row2[4]]
+                            results.append(newRow)
+                            break
+                        else:
+                            inc2 = 0
+                        inc1 += 1
 
         return results
 
+        
     def profSearch(self, profid):
 
         cursor = self._connection.cursor()
@@ -131,7 +192,7 @@ class Database:
             connection.close()
             return 'successful creation of new user'
 
-    def rankResults(results):
+    def rankResults(self, results):
         profDict = {}
         # loop through results list
         for prof in results:
@@ -151,7 +212,7 @@ class Database:
 
 
     #taken from stack overflow
-    def sort_by_values_len(dict):
+    def sort_by_values_len(self, dict):
         dict_len= {key: len(value) for key, value in dict.items()}
         import operator
         sorted_key_list = sorted(dict_len.items(), key=operator.itemgetter(1), reverse=True)
