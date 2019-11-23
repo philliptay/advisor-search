@@ -16,10 +16,10 @@ from sys import stderr
 class CASClient:
 
     #-------------------------------------------------------------------
-    
+
     # Initialize a new CASClient object so it uses the given CAS
     # server, or fed.princeton.edu if no server is given.
-    
+
     def __init__(self, url='https://fed.princeton.edu/cas/'):
         self.cas_url = url
 
@@ -27,7 +27,7 @@ class CASClient:
 
     # Return the URL of the current request after stripping out the
     # "ticket" parameter added by the CAS server.
-	
+
     def stripTicket(self):
         url = request.url
         if url is None:
@@ -35,7 +35,7 @@ class CASClient:
         url = sub(r'ticket=[^&]*&?', '', url)
         url = sub(r'\?&?$|&$', '', url)
         return url
-        
+
     #-------------------------------------------------------------------
 
     # Validate a login ticket by contacting the CAS server. If
@@ -47,42 +47,51 @@ class CASClient:
             '&ticket=' + quote(ticket)
         r = urlopen(val_url).readlines()   # returns 2 lines
         if len(r) != 2:
-            return None     
+            return None
         firstLine = r[0].decode('utf-8')
         secondLine = r[1].decode('utf-8')
         if not firstLine.startswith('yes'):
             return None
         return secondLine
-        
+
     #-------------------------------------------------------------------
 
     # Authenticate the remote user, and return the user's username.
     # Do not return unless the user is successfully authenticated.
-   	
+
     def authenticate(self):
-        
+
         # If the user's username is in the session, then the user was
         # authenticated previously.  So return the user's username.
         if 'username' in session:
             return session.get('username')
-           
+
         # If the request contains a login ticket, then try to
         # validate it.
         ticket = request.args.get('ticket')
         if ticket is not None:
             username = self.validate(ticket)
-            if username is not None:             
+            if username is not None:
                 # The user is authenticated, so store the user's
-                # username in the session.               
-                session['username'] = username        
+                # username in the session.
+                session['username'] = username
                 return username
-      
+
         # The request does not contain a valid login ticket, so
         # redirect the browser to the login page to get one.
         login_url = self.cas_url + 'login' \
             + '?service=' + quote(self.stripTicket())
-            
+
         abort(redirect(login_url))
+
+    def logout(self):
+        session.clear()
+
+        logout_url = self.cas_url + 'logout' \
+            + '?url=http://princetonadvisorsearch.herokuapp.com'
+
+        abort(redirect(logout_url))
+
 
 #-----------------------------------------------------------------------
 

@@ -1,6 +1,7 @@
 from sys import argv
 from database import Database
 from professor import Professor
+from re import sub
 from flask import Flask, request, make_response, redirect, url_for, session
 from flask import render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -13,19 +14,23 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = b'm\xb5\xe6\xef4\xb5\x02_\x8f\xe4\xffpw\xccu\xc4'
 heroku = Heroku(app)
 db = SQLAlchemy(app)
+
 #-------------------------------------------------------------------------------
-@app.route('/')
+@app.route('/login', methods=['GET'])
 def login():
-    session['profs'] = None
-    html = render_template('login.html')
-    response = make_response(html)
-    return(response)
+    CASClient().authenticate()
+    return redirect(url_for('index'))
 
 #-------------------------------------------------------------------------------
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    username = CASClient().authenticate()
+    if 'username' not in session:
+         session['profs'] = None
+         html = render_template('login.html')
+         response = make_response(html)
+         return(response)
+
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
     profList = session['profs']
     profData = Professor('', '', '', '', '', '', '')
@@ -92,7 +97,11 @@ def index():
 #-------------------------------------------------------------------------------
 @app.route('/resources')
 def resources():
-    username = CASClient().authenticate()
+    if 'username' not in session:
+         session['profs'] = None
+         html = render_template('login.html')
+         response = make_response(html)
+         return(response)
     html = render_template('resources.html')
     response = make_response(html)
     return(response)
@@ -100,12 +109,21 @@ def resources():
 #-------------------------------------------------------------------------------
 @app.route('/error')
 def error():
-    username = CASClient().authenticate()
+    if 'username' not in session:
+        session['profs'] = None
+        html = render_template('login.html')
+        response = make_response(html)
+        return(response)
     errorMsg = request.args.get('errorMsg')
 
     html = render_template('error.html', errorMsg=errorMsg)
     response = make_response(html)
     return(response)
+#-------------------------------------------------------------------------------
+
+@app.route('/logout')
+def logout():
+    return CASClient().logout()
 #-------------------------------------------------------------------------------
 
 if __name__ == '__main__':

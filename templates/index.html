@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
 <html>
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
    <head>
       <title>Princeton AdvisorSearch</title>
       <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
@@ -19,6 +21,7 @@
       <div class="header">
          <p style="color:white">AdvisorSearch</p>
          <a href="/resources">Resources</a>
+         <button class="button" onclick="window.location.href = '/logout';">Logout</button>
       </div>
       <br>
       <br>
@@ -26,7 +29,7 @@
 
       <div class="searchBar">
          <h3>Research Areas</h3>
-         <form action="/home" method="POST">
+         <form action="/" method="POST">
             <input type="checkbox" name="area" value="Computational Biology"> Computational Biology
             <input type="checkbox" name="area" value="Computer Architecture"> Computer Architecture
             <input type="checkbox" name="area" value="Economics/Computation"> Economics/Computation
