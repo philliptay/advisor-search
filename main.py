@@ -31,6 +31,8 @@ def index():
          response = make_response(html)
          return(response)
 
+    username = session['username']
+
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
     profList = session['profs']
     profData = Professor('', '', '', '', '', '', '')
@@ -90,7 +92,7 @@ def index():
             profTitles = ''
             profLinks = ''
 
-    html = render_template('index.html', professors = profList, prof = profData, titles = profTitles, links = profLinks)
+    html = render_template('index.html', user=username, professors = profList, prof = profData, titles = profTitles, links = profLinks)
     response = make_response(html)
     # profStr = ''
     # for prof in profList:
