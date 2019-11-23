@@ -13,11 +13,12 @@
           $(document).ready(function () {
               $("#searchBar").select2({
                   tags:["Computational Biology", "Computer Architecture"],
-                  tokenSeparators: [",", " "]});
-                  placeholder: "Select an area or start typing to search a keyword"
+                  tokenSeparators: [",", " "],
+                  placeholder: "Select an area or start typing to search a keyword",
           });
-          $("areamenu").select2({placeholder: "Select an area or start typing to search a keyword"});
-          $("areamenu_clear").click(function() { $("#e8_2").select2("val", ""); });
+        })
+          // $("areamenu").select2({placeholder: "Select an area or start typing to search a keyword"});
+          // $("areamenu_clear").click(function() { $("#e8_2").select2("val", ""); });
       </script>
    </head>
 
