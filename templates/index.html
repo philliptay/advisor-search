@@ -10,7 +10,12 @@
       <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
       <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
       <script>
-          $(document).ready(function() { $("areamenu").select2(); });
+          $(document).ready(function () {
+              $("#searchBar").select2({
+                  tags:["Computational Biology", "Computer Architecture"],
+                  tokenSeparators: [",", " "]});
+                  placeholder: "Select an area or start typing to search a keyword"
+          });
           $("areamenu").select2({placeholder: "Select an area or start typing to search a keyword"});
           $("areamenu_clear").click(function() { $("#e8_2").select2("val", ""); });
       </script>
@@ -33,7 +38,8 @@
       <br>
       <br>
 
-      <div class="searchBar">
+      <div id="searchBar">
+        <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" id="s2id_autogen21" tabindex="0" placeholder="" style="width: 200px;">
         <select class="areamenu" name="areas[]" multiple="multiple">
           <option value="Computational Biology"> Computational Biology</option>
           <option value="Computer Architecture"> Computer Architecture</option>
