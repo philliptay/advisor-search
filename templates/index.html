@@ -7,6 +7,21 @@
       <title>Princeton AdvisorSearch</title>
       <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
       <link rel="shortcut icon" href="static/magny-glass.png">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="select2-bootstrap.css">
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+      <script>
+          $(document).ready(function () {
+              $("#searchBar").select2({
+                  tags:["Computational Biology", "Computer Architecture"],
+                  tokenSeparators: [",", " "],
+                  placeholder: "Select an area or start typing to search a keyword",
+          });
+        })
+          // $("areamenu").select2({placeholder: "Select an area or start typing to search a keyword"});
+          // $("areamenu_clear").click(function() { $("#e8_2").select2("val", ""); });
+      </script>
    </head>
 
    <body>
@@ -27,7 +42,10 @@
       <br>
       <br>
 
-      <div class="searchBar">
+      <div class="searchArea">
+        <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" id="searchBar" tabindex="0" placeholder="" style="width: 200px;">
+
+
          <h3>Research Areas</h3>
          <form action="/" method="POST">
             <input type="checkbox" name="area" value="Computational Biology"> Computational Biology

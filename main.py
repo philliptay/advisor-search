@@ -42,10 +42,15 @@ def index():
         areas = request.form.getlist('area')
         if len(areas) == 0:
             areas = allAreas
+        entries = request.form.getlist('entry')
+        if len(entries) == 0:
+            entries = []
+
+        searchInput = [areas, entries]
 
         database = Database()
         database.connect()
-        results = database.search(areas)
+        results = database.search(searchInput)
         profDict = database.rankResults(results)
 
         profList = []
