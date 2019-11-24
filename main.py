@@ -105,10 +105,7 @@ def index():
 @app.route('/resources')
 def resources():
     if 'username' not in session:
-         session['profs'] = None
-         html = render_template('login.html')
-         response = make_response(html)
-         return(response)
+         return redirect(url_for('index'))
     html = render_template('resources.html')
     response = make_response(html)
     return(response)
@@ -117,10 +114,7 @@ def resources():
 @app.route('/error')
 def error():
     if 'username' not in session:
-        session['profs'] = None
-        html = render_template('login.html')
-        response = make_response(html)
-        return(response)
+        return redirect(url_for('index'))
     errorMsg = request.args.get('errorMsg')
 
     html = render_template('error.html', errorMsg=errorMsg)

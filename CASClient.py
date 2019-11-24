@@ -88,7 +88,7 @@ class CASClient:
         session.clear()
 
         logout_url = self.cas_url + 'logout' \
-            + '?url=http://princetonadvisorsearch.herokuapp.com'
+            + '?url='+request.host_url
 
         abort(redirect(logout_url))
 
