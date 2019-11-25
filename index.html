@@ -4,20 +4,52 @@
    <head>
       <title>Princeton AdvisorSearch</title>
       <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+      <link rel="shortcut icon" href="static/magny-glass.png">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="select2-bootstrap.css">
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+      <script>
+          $(document).ready(function () {
+              $("#searchBar").select2({
+                  tags:true,
+                  tokenSeparators: [",", " "],
+                  placeholder: "Select an area or start typing to search a keyword",
+          });
+        })
+          // $("areamenu").select2({placeholder: "Select an area or start typing to search a keyword"});
+          // $("areamenu_clear").click(function() { $("#e8_2").select2("val", ""); });
+      </script>
    </head>
 
    <body>
 
+      <!-- <ul class="navbarul">
+         <li><a href="/home">AdvisorSearch</a></li>
+         <li style="float:right"><a href="/home">Home</a></li>
+         <li style="float:right"><a href="/resources">Resources</a></li>
+      </ul> -->
+
+
       <div class="header">
          <p style="color:white">AdvisorSearch</p>
+         <a href="/resources">Resources</a>
       </div>
       <br>
       <br>
       <br>
 
-      <div class="searchBar">
+      <div class="searchArea">
+        <select id="searchBar" multiple="multiple">
+          <option>orange</option>
+          <option>white</option>
+          <option>purple</option>
+        </select>
+
+
+
          <h3>Research Areas</h3>
-         <form action="/" method="POST">
+         <form action="/home" method="POST">
             <input type="checkbox" name="area" value="Computational Biology"> Computational Biology
             <input type="checkbox" name="area" value="Computer Architecture"> Computer Architecture
             <input type="checkbox" name="area" value="Economics/Computation"> Economics/Computation
@@ -31,19 +63,18 @@
             <input type="checkbox" name="area" value="Security & Privacy"> Security & Privacy
             <input type="checkbox" name="area" value="Systems"> Systems
             <input type="checkbox" name="area" value="Theory"> Theory
+            <br>Keyword Search:<input type="text" name="entry" value='{{entry}}'>
             <input type="submit" value="Submit">
-         </form>
-      </div>
-
-      <div class="clearSearch">
-         <form action="/home" method = "get">
-            <input type="submit" value="Clear search">
          </form>
       </div>
 
       <div class="flex-container">
          <div id="searchResults">
+           {% if professors|length == 0 %}
+           <h3>Search to begin!</h3>
+           {% else %}
             <h3>Advisors</h3>
+            {% endif %}
             <ul>
 
             {% for prof in professors: %}
@@ -54,11 +85,43 @@
 
          <div id="profSection">
 
+           {% if prof.getName() != '' %}
+
             <h3>{{prof.getName()}}</h3>
             <p>{{prof.getBio()}}</p>
+            <h4>Research Areas:</h4>
+            <ul>
+              {% for area in prof.getAreas() %}
+              <li>{{area[0].strip('. ')}}</li>
+            {% endfor %}
+            </ul>
+            <h4>Current Projects:</h4>
+            {% if prof.getProjects() == 'No projects found.' %}
+              <p>{{prof.getProjects()}}</p>
+            {% else %}
+            <ul>
+              {% for proj in prof.getProjects() %}
+              <li>{{proj[0].strip('. ')}}</li>
+            {% endfor %}
+            {% endif %}
+            </ul>
+            <h4>Past Theses Advised:</h4>
+            {% if links == '' %}
+              <p>{{titles}}</p>
+            {% else %}
+            <ul>
+              {% for i in range(titles|length) %}
+              <li><a href={{links[i].strip(', ')}}>{{titles[i].strip(',. ')}}</li></a>
+            {% endfor %}
+            {% endif %}
+            </ul>
+
             <p>{{prof.getContact()}}</p>
-            <p>{{prof.getProjects()}}</p>
-            <p>{{prof.getTitles()}}</p>
+
+            {% elif professors|length != 0 %}
+            <h3>Click on a professor!</h3>
+            {% endif %}
+
          </div>
       </div>
 
