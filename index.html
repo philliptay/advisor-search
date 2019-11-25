@@ -11,11 +11,6 @@
       <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
       <script>
           $(document).ready(function () {
-              $("#searchBar").select2({
-                  tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory"],
-                  tokenSeparators: [",", " "],
-                  placeholder: "Select an area or start typing to search a keyword",
-          });
         })
           // $("areamenu").select2({placeholder: "Select an area or start typing to search a keyword"});
           // $("areamenu_clear").click(function() { $("#e8_2").select2("val", ""); });
@@ -41,9 +36,13 @@
 
       <div class="searchArea">
         <select id="searchBar" multiple="multiple">
-          <option>orange</option>
-          <option>white</option>
-          <option>purple</option>
+           <script>
+              $("#searchBar").select2({
+                 tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory"],
+                 tokenSeparators: [",", " "],
+                 placeholder: "Select an area or start typing to search a keyword",
+              });
+          </script>
         </select>
 
 
