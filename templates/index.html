@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 
 <html>
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-
    <head>
       <title>Princeton AdvisorSearch</title>
       <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
@@ -14,7 +12,7 @@
       <script>
           $(document).ready(function () {
               $("#searchBar").select2({
-                  tags:["Computational Biology", "Computer Architecture"],
+                  tags:true,
                   tokenSeparators: [",", " "],
                   placeholder: "Select an area or start typing to search a keyword",
           });
@@ -35,20 +33,23 @@
 
       <div class="header">
          <p style="color:white">AdvisorSearch</p>
-         <p style="color:white">Welcome, {{user}}</p>
          <a href="/resources">Resources</a>
-         <button onclick="window.location.href = '/logout';">Logout</button>
       </div>
       <br>
       <br>
       <br>
 
       <div class="searchArea">
-        <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" id="searchBar" tabindex="0" placeholder="" style="width: 200px;">
+        <select id="searchBar" multiple="multiple">
+          <option>orange</option>
+          <option>white</option>
+          <option>purple</option>
+        </select>
+
 
 
          <h3>Research Areas</h3>
-         <form action="/" method="POST">
+         <form action="/home" method="POST">
             <input type="checkbox" name="area" value="Computational Biology"> Computational Biology
             <input type="checkbox" name="area" value="Computer Architecture"> Computer Architecture
             <input type="checkbox" name="area" value="Economics/Computation"> Economics/Computation
