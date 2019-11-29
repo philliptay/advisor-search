@@ -4,6 +4,42 @@
    <head>
       <title>Princeton AdvisorSearch Resources</title>
       <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
+
+      <script>
+        $(document).ready(function() {
+          $("#tag-input .js-example-basic-multiple").select2({
+            placeholder: "Add tag"
+          }).on('change', function(e) {
+            if($(this).val() && $(this).val().length) {
+              $(this).next('.select2-container').find('li.select2-search--inline input.select2-search__field').attr('placeholder', 'Add tag');
+            }
+          });
+        });
+
+      <div class="form-row">
+          <div id="tag-input" class="form-unit form-divided form-divided-right">
+            <label for="emp-id" class="form-input-label">Tag Input</label>
+            <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+              <option value="a1">Item A1</option>
+              <option value="a2">Item A2</option>
+              <option value="b1">Item B1</option>
+              <option value="a1">Item C1</option>
+              <option value="a2">Item C2</option>
+              <option value="b1">Item C3</option>
+            </select>
+          </div>
+        </div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+
+
+
    </head>
 
    <body>
