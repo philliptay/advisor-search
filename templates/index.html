@@ -7,19 +7,19 @@
       <link rel="shortcut icon" href="static/magny-glass.png">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
       <link rel="stylesheet" href="select2-bootstrap.css">
+      <!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
+
+      </script>
       <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
       <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
-      <script>
-          $(document).ready(function () {
-              $("#searchBar").select2({
-                  tags:true,
-                  tokenSeparators: [",", " "],
-                  placeholder: "Select an area or start typing to search a keyword",
-          });
-        })
+
+      <!-- <script>
+        //   $(document).ready(function () {
+        // })
           // $("areamenu").select2({placeholder: "Select an area or start typing to search a keyword"});
           // $("areamenu_clear").click(function() { $("#e8_2").select2("val", ""); });
-      </script>
+      </script> -->
    </head>
 
    <body>
@@ -33,9 +33,7 @@
 
       <div class="header">
          <p style="color:white">AdvisorSearch</p>
-         <p style="color:white">Welcome, {{user}}</p>
          <a href="/resources">Resources</a>
-         <button onclick="window.location.href = '/logout';">Logout</button>
       </div>
       <br>
       <br>
@@ -43,13 +41,19 @@
 
       <div class="searchArea">
         <select id="searchBar" multiple="multiple">
-          <option>orange</option>
-          <option>white</option>
-          <option>purple</option>
+           <script>
+              $('#searchBar').select2({
+                 tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory"],
+                 tokenSeparators: [",", " "],
+                 placeholder: "Select an area or start typing to search a keyword",
+              });
+          </script>
         </select>
 
+
+
          <h3>Research Areas</h3>
-         <form action="/home" method="POST">
+         <form action="/" method="POST">
             <input type="checkbox" name="area" value="Computational Biology"> Computational Biology
             <input type="checkbox" name="area" value="Computer Architecture"> Computer Architecture
             <input type="checkbox" name="area" value="Economics/Computation"> Economics/Computation
@@ -78,7 +82,7 @@
             <ul>
 
             {% for prof in professors: %}
-               <li><a href="/home?profid={{prof[2]}}">{{prof[0]}} {{prof[1]}}</li></a>
+               <li><a href="/?profid={{prof[2]}}">{{prof[0]}} {{prof[1]}}</li></a>
             {% endfor %}
             </ul>
          </div>
