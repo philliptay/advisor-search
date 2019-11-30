@@ -38,19 +38,19 @@ input {
 input[type=checkbox] {
    display: inline;
 }
-#searchArea {
-   width: 36%;
+#searchBar {
+   width: 31%;
    /* background-color: #e6b3ff; */
    flex-grow: 1;
 }
 #searchResults {
-   width: 36%;
+   width: 31%;
    /* background-color: #e6b3ff; */
    flex-grow: 1;
 }
 
 #profSection {
-   width: 63%;
+   width: 68%;
    /* background-color: #80bfff; */
    flex-grow: 1;
 }
