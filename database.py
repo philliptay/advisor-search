@@ -37,7 +37,7 @@ class Database:
         for keyword in keywords:
             cursor2 = self._connection.cursor()
             stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
-            prep2 = '%'+keyword.lower()+'%'
+            prep2 = '%'+keyword.lower().capitalize()+'%'
             cursor2.execute(stmtStr2, (prep2,))
             rows2 = cursor2.fetchall()
             for row2 in rows2:
