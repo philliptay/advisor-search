@@ -110,11 +110,11 @@ input[type=checkbox] {
 .select2-search--inline .select2-search__field {
   line-height: 40px;
   color: #333;
-  width: 88px !important;
+  width: 120px !important;
 }
 
 .select2-container {
-
+  width: 120px
 }
 
 .select2-container:hover,
