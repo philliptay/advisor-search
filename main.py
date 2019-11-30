@@ -41,10 +41,12 @@ def index():
         profList = []
 
     if request.method == 'POST':
-        areas = request.form.getlist('area')
-        if len(areas) == 0:
-            areas = allAreas
-        entries = request.form.getlist('entry')
+        #go through array returned by select2 searchbar and check if each item is area or keyword
+        #build an area array and keyword array
+
+
+        areas = allAreas
+        entries = request.form.getlist('search')
         if len(entries) == 0:
             entries = []
 
