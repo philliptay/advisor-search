@@ -25,70 +25,42 @@ class Database:
 
         cursor1 = self._connection.cursor()
         for area in areas:
-            if (area is not None) or (area.strip != ''):
-                stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
-                prep = '%'+area.lower()+'%'
-                cursor1.execute(stmtStr, (prep,))
-                rows = cursor1.fetchall()
-                for row in rows:
-                    results.append(row)
+            # if (area is not None) or (area.strip != ''):
+            stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+            prep = '%'+area.lower()+'%'
+            cursor1.execute(stmtStr, (prep,))
+            rows = cursor1.fetchall()
+            for row in rows:
+                results.append(row)
+        cursor1.close()
 
         for keyword in keywords:
-            if (keyword is not None) or (keyword.strip() != ''):
-                keyword = keyword.strip().lower()
-                cursor2 = self._connection.cursor()
-                stmtStr = 'SELECT profs.name, profs.bio, past_theses.title, areas.area, prof.prof_id FROM profs, past_theses, area WHERE profs.prof_id = past_theses.prof_id'
-                cursor2.execute(stmtStr)
-                rows2 = cursor2.fetchall()
-                for row2 in rows2:
-                    name = list(str(row2[0]).lower())
-                    bio = list(str(row2[1]).lower())
-                    title = list(str(row2[2]).lower())
-                    key = list(keyword)
-                    inc1 = 0
-                    inc2 = 0
+            cursor2 = self._connection.cursor()
+            stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
+            prep2 = '%'+keyword.lower()+'%'
+            cursor2.execute(stmtStr2, (prep2,))
+            rows2 = cursor2.fetchall()
+            for row2 in rows2:
+                results.append(row2)
+            cursor2.close()
 
-                    # Search for keyword in professor names
-                    while (inc1 < len(arg1)):
-                        if (name[inc1] == key[inc2]) and (inc2 < len(key) - 1):
-                            inc2 += 1
-                        elif (name[inc1] == key[inc2]) and (inc2 >= len(key) - 1):
-                            newRow = [row2[0], row2[3], row2[4]]
-                            results.append(newRow)
-                            break
-                        else:
-                            inc2 = 0
-                        inc1 += 1
+            cursor3 = self._connection.cursor()
+            stmtStr3 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND bio LIKE %s ORDER BY name'
+            prep3 = '%'+keyword.lower()+'%'
+            cursor3.execute(stmtStr3, (prep3,))
+            rows3 = cursor3.fetchall()
+            for row3 in rows3:
+                results.append(row3)
+            cursor3.close()
 
-                    inc1 = 0
-                    inc2 = 0
-
-                    # Search for keyword in professor bios
-                    while (inc1 < len(bio)):
-                        if (bio[inc1] == key[inc2]) and (inc2 < len(key) - 1):
-                            inc2 += 1
-                        elif (bio[inc1] == key[inc2]) and (inc2 >= len(key) - 1):
-                            newRow = [row2[0], row2[3], row2[4]]
-                            results.append(newRow)
-                            break
-                        else:
-                            inc2 = 0
-                        inc1 += 1
-
-                    inc1 = 0
-                    inc2 = 0
-
-                    #search for keyword in past_theses titles
-                    while (inc1 < len(title)):
-                        if (title[inc1] == key[inc2]) and (inc2 < len(key) - 1):
-                            inc2 += 1
-                        elif (title[inc1] == key[inc2]) and (inc2 >= len(key) - 1):
-                            newRow = [row2[0], row2[3], row2[4]]
-                            results.append(newRow)
-                            break
-                        else:
-                            inc2 = 0
-                        inc1 += 1
+            cursor4 = self._connection.cursor()
+            stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND title LIKE %s ORDER BY name'
+            prep4 = '%'+keyword.lower()+'%'
+            cursor4.execute(stmtStr4, (prep4,))
+            rows4 = cursor4.fetchall()
+            for row4 in rows4:
+                results.append(row4)
+            cursor4.close()
 
         return results
 
@@ -142,6 +114,55 @@ class Database:
 
         professor = Professor(name, bio, areas, projects, titles, links, contact)
         return professor
+
+    def loginSearch(self, username, password):
+        #check that username is in Database
+        #if not found, print error message: username does not exist
+        #check that password matches username
+        #if not print incorrect password
+        cursor = connection.cursor()
+        stmtStr = 'SELECT username, password FROM login WHERE username = ?'
+        cursor.execute(stmtStr, [username])
+
+        row = cursor.fetchone()
+        if row is None:
+            cursor.close()
+            connection.close()
+            return "username does not exist error"
+        else:
+            if password != row[1]:
+                cursor.close()
+                connection.close()
+                return "incorrect password"
+            else:
+                cursor.close()
+                connection.close()
+                return "success"
+
+    def addLogin(self, username, password):
+        userpair = '(' + username + ', ' + password + ')'
+        cursor = connection.cursor()
+        stmtStr = 'SELECT username FROM login WHERE username = ?'
+        cursor.execute(stmtStr, [username])
+        row = cursor.fetchone()
+        #check that username is not already there
+        if row is not None:
+            cursor.close()
+            connection.close()
+            # if so send message that user exists, pick a different name
+            return "username already exists, please select a different username"
+        else:
+            cursor.close()
+            connection.close()
+
+            #add username to username column and password to password column
+            cursor = connection.cursor()
+            stmtStr2 = 'INSERT INTO login (username, password) VALUES ?'
+            cursor.execute(stmtStr2, [userpair])
+            connection.commit()
+            cursor.close()
+            connection.close()
+            return 'successful creation of new user'
 
     def rankResults(self, results):
         profDict = {}
