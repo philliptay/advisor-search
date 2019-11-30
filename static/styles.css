@@ -40,13 +40,13 @@ input[type=checkbox] {
 }
 
 #searchResults {
-   width: 31%;
+   width: 36%;
    /* background-color: #e6b3ff; */
    flex-grow: 1;
 }
 
 #profSection {
-   width: 68%;
+   width: 63%;
    /* background-color: #80bfff; */
    flex-grow: 1;
 }
@@ -76,4 +76,3 @@ input[type=checkbox] {
    background-image: url(magny-glass.png);
    background-size: 700px 1000px;
 }
-/* everything below added from stack overflow: https://stackoverflow.com/questions/51993149/put-select2-tags-to-the-right */
