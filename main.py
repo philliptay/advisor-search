@@ -45,7 +45,7 @@ def index():
         #build an area array and keyword array
 
 
-        areas = allAreas
+        areas = []
         entries = request.form.getlist('search')
         if len(entries) == 0:
             entries = []
