@@ -43,15 +43,18 @@
               });
           </script>
         </select>
+      </div>
+
       <form action="/" method="post">
-        <input type="text" placeholder="Search.." name="search">
+        <input type="text" placeholder="Demo KeywordSearch.." name="search">
         <button type="submit">Submit</button>
       </form>
+
       <div class="flex-container">
          <div id="searchResults">
            {% if professors|length == 0 %}
            <h3>Search to begin!</h3>
-           <hr>
+           <hr></hr>
            {% else %}
             <h3>Advisors</h3>
             {% endif %}

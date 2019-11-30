@@ -38,7 +38,11 @@ input {
 input[type=checkbox] {
    display: inline;
 }
-
+#searchArea {
+   width: 36%;
+   /* background-color: #e6b3ff; */
+   flex-grow: 1;
+}
 #searchResults {
    width: 36%;
    /* background-color: #e6b3ff; */
