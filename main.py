@@ -44,13 +44,18 @@ def index():
         #go through array returned by select2 searchbar and check if each item is area or keyword
         #build an area array and keyword array
 
-
         areas = []
-        entries = request.form.getlist('search')
-        if len(entries) == 0:
-            entries = []
+        keywords = []
+        inputs = request.args.getlist('data')
+        for input in inputs:
+            if input in allAreas:
+                areas.append(input)
+            else:
+                keywords.append(input)
+        if len(areas) == 0 && len(keywords) == 0:
+            areas = allAreas
 
-        searchInput = [areas, entries]
+        searchInput = [areas, keywords]
 
         database = Database()
         database.connect()
