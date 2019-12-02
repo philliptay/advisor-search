@@ -52,7 +52,7 @@ def index():
                 areas.append(input)
             else:
                 keywords.append(input)
-        if len(areas) == 0 && len(keywords) == 0:
+        if len(areas) == 0 and len(keywords) == 0:
             areas = allAreas
 
         searchInput = [areas, keywords]
