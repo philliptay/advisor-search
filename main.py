@@ -57,7 +57,7 @@ def index():
 
 
         #just for demoing keyword search
-        keywords = request.args.getlist('search')
+        keywords = request.args.get('search')
         areas = []
 
         searchInput = [areas, keywords]
