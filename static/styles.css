@@ -18,9 +18,21 @@ body {
    color: white !important;
 }
 
+.navbar-inverse .navbar-brand {
+   color: white !important;
+}
+
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
    color: white !important;
    background-color: #e65c00 !important;
+}
+
+.navbar-inverse .navbar-toggle {
+   border-color: #e65c00;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+   background-color: #e65c00;
 }
 
 .flex-container {
