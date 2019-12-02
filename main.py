@@ -62,7 +62,7 @@ def index():
         entries = request.form.getlist('search')
         if len(entries) == 0:
             entries = []
-
+        #change "keywords" to "entries" for demo
         searchInput = [areas, keywords]
 
         database = Database()
