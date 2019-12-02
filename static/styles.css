@@ -9,18 +9,17 @@ body {
    height:100%;
 }
 
-/* .header {
-   background-color: #ff9933;
-   position: fixed;
-   top:0;
-   left:0;
-   height: 7%;
-   width:100%;
-} */
-
 .navbar-inverse {
    background-color: #ff9933 !important;
    border-color: #ff9933 !important;
+}
+
+.nav .navbar-nav .navbar-right > li > a {
+   color: white !important;
+}
+
+.active {
+   background-color: #e65c00 !important;
 }
 
 .flex-container {
