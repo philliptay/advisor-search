@@ -19,8 +19,8 @@ body {
 } */
 
 .navbar-inverse {
-   background-color: #ff9933;
-   border-color: #ff9933;
+   background-color: #ff9933 !important;
+   border-color: #ff9933 !important;
 }
 
 .flex-container {
