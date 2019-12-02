@@ -9,13 +9,18 @@ body {
    height:100%;
 }
 
-.header {
+/* .header {
    background-color: #ff9933;
    position: fixed;
    top:0;
    left:0;
    height: 7%;
    width:100%;
+} */
+
+.navbar-default {
+   background-color: #ff9933;
+   border-color: #ff9933;
 }
 
 .flex-container {
