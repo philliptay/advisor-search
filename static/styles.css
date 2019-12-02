@@ -97,3 +97,17 @@ input[type=checkbox] {
    background-image: url(magny-glass.png);
    background-size: 700px 1000px;
 }
+
+#carouselExampleCaptions {
+  margin-top: 50px;
+}
+
+.carousel {
+  height: 500px;
+  margin-bottom: 60px;
+}
+
+.carousel .item {
+  width: 100%;
+  height: 500px;
+}
