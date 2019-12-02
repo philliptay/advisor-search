@@ -39,7 +39,8 @@ def index():
 
     if profList is None:
         profList = []
-
+    resultsnum = 0
+    
     if request.method == 'POST':
         #go through array returned by select2 searchbar and check if each item is area or keyword
         #build an area array and keyword array
