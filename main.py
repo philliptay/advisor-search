@@ -54,13 +54,12 @@ def index():
                 keywords.append(input)
         if len(areas) == 0 and len(keywords) == 0:
             areas = allAreas
+            
+        entries = request.form.getlist('search')
+        if len(entries) == 0:
+            entries = []
 
-
-        #just for demoing keyword search
-        keywords = request.args.get('search')
-        areas = []
-
-        searchInput = [areas, keywords]
+        searchInput = [areas, entries]
 
         database = Database()
         database.connect()
