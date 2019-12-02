@@ -18,7 +18,7 @@ body {
    width:100%;
 } */
 
-.navbar-default {
+.navbar-inverse {
    background-color: #ff9933;
    border-color: #ff9933;
 }
