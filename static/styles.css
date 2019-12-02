@@ -14,11 +14,12 @@ body {
    border-color: #ff9933 !important;
 }
 
-.nav .navbar-nav .navbar-right > li > a {
+.navbar-inverse .navbar-nav > li > a {
    color: white !important;
 }
 
-.active {
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+   color: white !important;
    background-color: #e65c00 !important;
 }
 
