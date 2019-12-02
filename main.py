@@ -55,6 +55,11 @@ def index():
         if len(areas) == 0 and len(keywords) == 0:
             areas = allAreas
 
+
+        #just for demoing keyword search
+        keywords = request.args.getlist('search')
+        areas = []
+
         searchInput = [areas, keywords]
 
         database = Database()
