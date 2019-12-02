@@ -54,8 +54,12 @@ def index():
                 keywords.append(input)
         if len(areas) == 0 and len(keywords) == 0:
             areas = allAreas
-            
+
+        print(areas)
+        print(keywords)
+        #just here for demoing keyword search
         entries = request.form.getlist('search')
+        areas = []
         if len(entries) == 0:
             entries = []
 
@@ -74,6 +78,8 @@ def index():
                 profid = prof[profname][0]
             info = [profname, areas, profid] #create a list for the prof
             profList.append(info)
+        resultsnum = len(profList)
+
         database.disconnect()
 
         profTitles = ''
@@ -103,7 +109,7 @@ def index():
             profTitles = ''
             profLinks = ''
 
-    html = render_template('index.html', user=username, professors = profList, prof = profData, titles = profTitles, links = profLinks)
+    html = render_template('index.html', user=username, professors = profList, prof = profData, titles = profTitles, links = profLinks, resultsnum = resultsnum)
     response = make_response(html)
     # profStr = ''
     # for prof in profList:
