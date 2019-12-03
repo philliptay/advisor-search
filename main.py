@@ -49,6 +49,7 @@ def index():
         keywords = []
         inputs = request.args.getlist('data')
         for input in inputs:
+            print(input)
             if input in allAreas:
                 areas.append(input)
             else:
@@ -117,6 +118,63 @@ def index():
     # areasStr.rstrip(',')
     session['profs'] = profList
     return(response)
+
+@app.route('/searchresults')
+def searchResults():
+    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
+
+    areas = []
+    keywords = []
+    inputs = request.args.getlist('areas')
+
+    for input in inputs:
+        print(input)
+        if input in allAreas:
+            areas.append(input)
+        else:
+            keywords.append(input)
+    if len(areas) == 0 and len(keywords) == 0:
+        areas = allAreas
+
+    #just here for demoing keyword search
+    entries = request.form.getlist('search')
+    if len(entries) == 0:
+        entries = []
+    #change "keywords" to "entries" for demo
+    searchInput = [areas, keywords]
+
+    database = Database()
+    database.connect()
+    results = database.search(searchInput)
+    profDict = database.rankResults(results)
+
+    profList = []
+    for prof in profDict:
+        for key in prof:
+            profname = key
+            areas = prof[profname][1:]
+            profid = prof[profname][0]
+        info = [profname, areas, profid] #create a list for the prof
+        profList.append(info)
+    resultsnum = len(profList)
+
+    database.disconnect()
+
+    profTitles = ''
+    profLinks = ''
+    html = ''
+    if len(profList) == 0:
+        html += '<h3>Search to begin!</h3><hr></hr>'
+    else:
+        html += '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul>'
+    for prof in profList:
+        html += '<li><a href="/?profid='+str(prof[2])+'">'+str(prof[0]) + ' ' + str(prof[1])+'</li></a>'
+    html += '</ul>'
+    html.encode('utf-8')
+    response = make_response(html)
+    session['profs'] = profList
+    return(response)
+
 
 #-------------------------------------------------------------------------------
 @app.route('/resources')
