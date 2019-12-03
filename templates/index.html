@@ -35,8 +35,7 @@
           </div>
         </div>
      </nav>
-      <br>
-      <br>
+
 
       <div class="searchArea">
         <select id="searchBar" multiple="multiple" onchange="getResults()">
@@ -49,12 +48,12 @@
               var data = $('searchBar').select2('data')
           </script>
         </select>
+        <br>
+        <input class="form-control" style="width:520px;" id="search" type="text" placeholder="Demo KeywordSearch.." name="search">
+
       </div>
 
-      <form action="/" method="post">
-        <input id="search" type="text" placeholder="Demo KeywordSearch.." name="search">
-        <button type="submit">Submit</button>
-      </form>
+
 
       <div class="flex-container">
          <div id="searchResults">
@@ -110,6 +109,7 @@
       <script>
       function setup(){
           $('#search').focus();
+          $('#search').on('input', getResults);
       }
 
       function handleResponse(response)
@@ -124,10 +124,12 @@
       function getResults()
       {
       let areas = $("#searchBar").val();
+      let keywords = $("#search").val();
 
       areas = encodeURIComponent(areas);
+      keywords = encodeURIComponent(keywords);
 
-      let url = '/searchresults?areas=' + areas;
+      let url = '/searchresults?areas=' + areas + '&keywords='+keywords;
       if (request != null)
         request.abort();
       request = $.ajax({

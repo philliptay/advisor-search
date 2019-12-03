@@ -37,55 +37,6 @@ def index():
     profList = session['profs']
     profData = Professor('', '', '', '', '', '', '')
 
-    if profList is None:
-        profList = []
-    resultsnum = 0
-
-    if request.method == 'POST':
-        #go through array returned by select2 searchbar and check if each item is area or keyword
-        #build an area array and keyword array
-
-        areas = []
-        keywords = []
-        inputs = request.args.getlist('data')
-        for input in inputs:
-            print(input)
-            if input in allAreas:
-                areas.append(input)
-            else:
-                keywords.append(input)
-        if len(areas) == 0 and len(keywords) == 0:
-            areas = allAreas
-
-        print(areas)
-        print(keywords)
-        #just here for demoing keyword search
-        entries = request.form.getlist('search')
-        if len(entries) == 0:
-            entries = []
-        #change "keywords" to "entries" for demo
-        searchInput = [areas, keywords]
-
-        database = Database()
-        database.connect()
-        results = database.search(searchInput)
-        profDict = database.rankResults(results)
-
-        profList = []
-        for prof in profDict:
-            for key in prof:
-                profname = key
-                areas = prof[profname][1:]
-                profid = prof[profname][0]
-            info = [profname, areas, profid] #create a list for the prof
-            profList.append(info)
-        resultsnum = len(profList)
-
-        database.disconnect()
-
-        profTitles = ''
-        profLinks = ''
-
     if request.method == 'GET':
         if request.args.get('profid') is not None:
             profid = request.args.get('profid')
@@ -110,7 +61,7 @@ def index():
             profTitles = ''
             profLinks = ''
 
-    html = render_template('index.html', user=username, professors = profList, prof = profData, titles = profTitles, links = profLinks, resultsnum = resultsnum)
+    html = render_template('index.html', user=username, professors = profList, prof = profData, titles = profTitles, links = profLinks)
     response = make_response(html)
     # profStr = ''
     # for prof in profList:
@@ -119,34 +70,25 @@ def index():
     session['profs'] = profList
     return(response)
 
+#-------------------------------------------------------------------------------
+
 @app.route('/searchresults')
 def searchResults():
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
 
-    areas = []
-    keywords = []
-    inputs = request.args.getlist('areas')
+    areas = request.args.getlist('areas')
+    keywords = request.args.getlist('keywords')
 
-    for input in inputs:
-        print(input)
-        if input in allAreas:
-            areas.append(input)
-        else:
-            keywords.append(input)
     if len(areas) == 0 and len(keywords) == 0:
         areas = allAreas
 
-    #just here for demoing keyword search
-    entries = request.form.getlist('search')
-    if len(entries) == 0:
-        entries = []
-    #change "keywords" to "entries" for demo
     searchInput = [areas, keywords]
 
     database = Database()
     database.connect()
     results = database.search(searchInput)
     profDict = database.rankResults(results)
+    database.disconnect()
 
     profList = []
     for prof in profDict:
@@ -158,15 +100,7 @@ def searchResults():
         profList.append(info)
     resultsnum = len(profList)
 
-    database.disconnect()
-
-    profTitles = ''
-    profLinks = ''
-    html = ''
-    if len(profList) == 0:
-        html += '<h3>Search to begin!</h3><hr></hr>'
-    else:
-        html += '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul>'
+    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul>'
     for prof in profList:
         html += '<li><a href="/?profid='+str(prof[2])+'">'+str(prof[0]) + ' ' + str(prof[1])+'</li></a>'
     html += '</ul>'
@@ -175,8 +109,8 @@ def searchResults():
     session['profs'] = profList
     return(response)
 
-
 #-------------------------------------------------------------------------------
+
 @app.route('/resources')
 def resources():
     if 'username' not in session:
