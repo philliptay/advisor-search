@@ -48,6 +48,11 @@ body {
    width:100%;
 }
 
+.button{
+  position: absolute;
+  z-index: 10;
+}
+
 input {
    display: block;
 }
@@ -97,7 +102,6 @@ input[type=checkbox] {
    background-image: url(magny-glass.png);
    background-size: 700px 1000px;
 }
-
 
 #carousel {
 
