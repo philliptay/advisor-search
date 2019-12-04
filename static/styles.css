@@ -98,32 +98,44 @@ input[type=checkbox] {
    background-size: 700px 1000px;
 }
 
-#carouselExampleCaptions {
-  margin-top: 500px;
+
+#carousel {
+
+    margin-top: 50px;
+
 }
 
 .carousel {
-  height: 500px;
-  margin-bottom: 60px;
+    height: 500px;
+    margin-bottom: 60px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+    z-index: 10;
 }
 
-.carousel-inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  height: 500px;
+/* Declare heights because of positioning of img element */
+.carousel .item {
+    width: 100%;
+    height: 500px;
+    background-color: #777;
+}
+.carousel-inner > .item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 500px;
 }
 
-.carousel-inner > .item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  height: 500px;
+@media (min-width: 768px) {
+    .carousel-caption p {
+            margin-bottom: 20px;
+            font-size: 21px;
+            line-height: 1.4;
+    }
 }
 
-.carousel-item {
-  width: 100%;
-  height: 500px;
+img {
+    background: red;
 }
