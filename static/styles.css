@@ -131,15 +131,15 @@ input[type=checkbox] {
     top: 0;
     left: 0;
     min-width: 100%;
-    height: 700px;
+    height: 500px;
 }
 
 @media (min-width: 768px) {
-    .carousel-caption p {
+    .carousel-caption p, .carousel-caption h3 {
             margin-bottom: 20px;
-            font-size: 25px;
+            font-size: 30px;
             line-height: 1.4;
-            color: orange
+            color: orange;
     }
 }
 
