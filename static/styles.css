@@ -103,12 +103,10 @@ input[type=checkbox] {
 .button {
    -webkit-transition-duration: 0.4s; /* Safari */
    transition-duration: 0.4s;
-   position:absolute;
    text-align: center;
    white-space: nowrap;
    vertical-align: middle;
    margin: 20px 0 10px;
-   left: 50%;
    border-color: #000;
    display: inline-block;
    font-size: 2em;
