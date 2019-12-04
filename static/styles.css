@@ -9,6 +9,29 @@ body {
    height:100%;
 }
 
+.header-image {
+    background: rgba(255,255,255,.5);
+    background-size: auto;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+
+}
+
+#header-content {
+
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: #000;
+
+}
+
 .navbar-inverse {
    background-color: #ff9933 !important;
    border-color: #ff9933 !important;
@@ -81,11 +104,17 @@ input[type=checkbox] {
    -webkit-transition-duration: 0.4s; /* Safari */
    transition-duration: 0.4s;
    position:absolute;
-   left:22%;
-   top:38%;
-   height: 175px;
-   width: 335px;
-   font-size: 48px;
+   text-align: center;
+   white-space: nowrap;
+   vertical-align: middle;
+   margin: 20px 0 10px;
+   left: 50%;
+   border-color: #000;
+   display: inline-block;
+   font-size: 2em;
+   border-width: 3px;
+   border-radius: 6px;
+   width: 350px;
 }
 
 .button:hover {
