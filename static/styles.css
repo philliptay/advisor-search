@@ -51,7 +51,7 @@ body {
 .button{
   position: absolute;
   left:45%;
-  top:38%;
+  top:20%;
   z-index: 10;
 }
 
