@@ -24,9 +24,9 @@ body {
 
 #header-content {
 
-    padding: 20px;
-    top: 30%;
-    left: 50%;
+    padding: 50px;
+    top: 10%;
+    left: 30%;
     transform: translate(-50%,-50%);
     color: #000;
 
@@ -149,9 +149,9 @@ input[type=checkbox] {
     color: orange;
 }
 /* Since positioning the image, we need to help out the caption */
-.carousel-caption p, .carousel-caption h3 {
+.carousel-caption p {
     z-index: 10;
-    font-size: 30px;
+    font-size: 40px;
     color: orange;
 }
 
