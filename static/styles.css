@@ -73,6 +73,8 @@ body {
 
 .button{
   position: absolute;
+  left:45%;
+  top:38%;
   z-index: 10;
 }
 
@@ -140,9 +142,14 @@ input[type=checkbox] {
     height: 500px;
     margin-bottom: 60px;
 }
+.carousel-indicators {
+    color: orange;
+}
 /* Since positioning the image, we need to help out the caption */
-.carousel-caption {
+.carousel-caption p, .carousel-caption h3 {
     z-index: 10;
+    font-size: 30px;
+    color: orange;
 }
 
 /* Declare heights because of positioning of img element */
@@ -160,10 +167,11 @@ input[type=checkbox] {
 }
 
 @media (min-width: 768px) {
-    .carousel-caption p {
+    .carousel-caption p, .carousel-caption h3 {
             margin-bottom: 20px;
-            font-size: 21px;
+            font-size: 30px;
             line-height: 1.4;
+            color: orange;
     }
 }
 
