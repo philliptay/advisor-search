@@ -126,17 +126,7 @@ input[type=checkbox] {
    background-size: 700px 1000px;
 }
 
-#carousel {
-
-    margin-top: 40px;
-
-}
-
-.carousel {
-    height: 500px;
-    margin-bottom: 60px;
-}
-.carousel-slide .carousel-indicators li {
+.carousel-indicators li {
     color: orange;
 }
 /* Since positioning the image, we need to help out the caption */
