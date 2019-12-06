@@ -31,6 +31,10 @@ body {
 
 }
 
+.navbar {
+  margin-bottom: 0px !important;
+}
+
 .navbar-inverse {
    background-color: #ff9933 !important;
    border-color: #ff9933 !important;
@@ -130,7 +134,7 @@ input[type=checkbox] {
 
 }
 
-.carousel-indicators .active{
+.carousel-indicators {
     background-color: orange;
 }
 
