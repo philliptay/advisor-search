@@ -145,7 +145,7 @@ input[type=checkbox] {
     height: 500px;
     margin-bottom: 60px;
 }
-.carousel-indicators li{
+.carousel-slide > .carousel-indicators > li{
     color: orange;
 }
 /* Since positioning the image, we need to help out the caption */
