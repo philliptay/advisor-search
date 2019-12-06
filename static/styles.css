@@ -126,12 +126,10 @@ input[type=checkbox] {
    background-size: 700px 1000px;
 }
 
-<<<<<<< HEAD
+#carousel{
 
-=======
-#carousel {
 }
->>>>>>> 7bea4c7291bb4a0986537c82c0afcfbfa57bfb75
+
 .carousel-indicators .active{
     background-color: orange;
 }
@@ -145,7 +143,6 @@ input[type=checkbox] {
 
 /* Declare heights because of positioning of img element */
 .carousel-inner > .item > img {
-    position: absolute;
     object-fit:cover;
     top: 0;
     left: 0;
@@ -167,8 +164,4 @@ input[type=checkbox] {
             line-height: 1.4;
             color: orange;
     }
-}
-
-img {
-    background: red;
 }
