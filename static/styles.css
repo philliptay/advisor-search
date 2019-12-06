@@ -126,7 +126,12 @@ input[type=checkbox] {
    background-size: 700px 1000px;
 }
 
+<<<<<<< HEAD
 
+=======
+#carousel {
+}
+>>>>>>> 7bea4c7291bb4a0986537c82c0afcfbfa57bfb75
 .carousel-indicators .active{
     background-color: orange;
 }
