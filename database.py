@@ -23,17 +23,7 @@ class Database:
         keywords = input[1]
         results = []
 
-        for area in areas:
-            cursor1 = self._connection.cursor()
-            # if (area is not None) or (area.strip != ''):
-            stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
-            prep = '%'+area.lower()+'%'
-            cursor1.execute(stmtStr, (prep,))
-            rows = cursor1.fetchall()
-            for row in rows:
-                results.append(row)
-            cursor1.close()
-
+        
 
         for keyword in keywords:
             cursor2 = self._connection.cursor()
@@ -64,7 +54,17 @@ class Database:
             cursor4.close()
 
 
-        
+        for area in areas:
+            cursor1 = self._connection.cursor()
+            # if (area is not None) or (area.strip != ''):
+            stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+            prep = '%'+area.lower()+'%'
+            cursor1.execute(stmtStr, (prep,))
+            rows = cursor1.fetchall()
+            for row in rows:
+                results.append(row)
+            cursor1.close()
+
 
 
         return results
