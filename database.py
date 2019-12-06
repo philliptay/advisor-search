@@ -23,7 +23,7 @@ class Database:
         keywords = input[1]
         results = []
 
-        
+
 
         for keyword in keywords:
             cursor2 = self._connection.cursor()
@@ -134,7 +134,7 @@ class Database:
             else:
                 profDict[name] = [profid, area]
         # sort the dictionary based on values
-        profDict = self.sort_by_values_len(profDict)
+        # profDict = self.sort_by_values_len(profDict)
         # return dictionary
         return(profDict)
 
