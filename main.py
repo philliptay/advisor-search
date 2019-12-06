@@ -27,10 +27,11 @@ def login():
 def index():
 
     profPics = {
+        'Aarti Gupta': '',
         'Adam Finkelstein': 'https://live.staticflickr.com/65535/49174808528_55680f30e5_n.jpg',
         'Alan Kaplan': 'https://live.staticflickr.com/65535/49174827063_25053c72cf_n.jpg',
         'Amit Levy': 'https://live.staticflickr.com/65535/49179992102_0d98b2bb34_n.jpg',
-        'Andrew Appel': 'https://live.staticflickr.com/65535/49179992102_0d98b2bb34_n.jpg',
+        'Andrew Appel': 'https://live.staticflickr.com/65535/49179784736_60eaac7bde_n.jpg',
         'Arvind Narayanan': 'https://live.staticflickr.com/65535/49179784711_637259a4b4_n.jpg',
         'Barbara Engelhardt': 'https://live.staticflickr.com/65535/49179992077_74492d2c16_n.jpg',
         'Bernard Chazelle': 'https://live.staticflickr.com/65535/49179293028_bef3e4930c_n.jpg',
@@ -82,7 +83,7 @@ def index():
 
     html = render_template('index.html', user=username, professors = profList, prof = profData, titles = profTitles, links = profLinks, profPics = profPics)
     response = make_response(html)
-    
+
     session['profs'] = profList
     return(response)
 
