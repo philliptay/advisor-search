@@ -126,18 +126,7 @@ input[type=checkbox] {
    background-size: 700px 1000px;
 }
 
-<<<<<<< HEAD
 
-=======
-#carousel {
-}
-<<<<<<< HEAD
-.carousel-slide{
-  top: 0;
-}
-=======
->>>>>>> 7bea4c7291bb4a0986537c82c0afcfbfa57bfb75
->>>>>>> d5f6cb593e8a6228ab84b96022e9bf9b95dabfc0
 .carousel-indicators .active{
     background-color: orange;
 }
