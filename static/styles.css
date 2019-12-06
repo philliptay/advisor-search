@@ -129,9 +129,33 @@ input[type=checkbox] {
 #carousel{
 
 }
+ol.carousel-indicators {
+   position: absolute;
+   bottom: 5px;
+   margin: 0;
+   left: 0;
+   right: 0;
+   width: auto;
+}
 
-.carousel-indicators .active{
-    background-color: orange;
+ol.carousel-indicators li,
+ol.carousel-indicators li.active {
+   width: 1rem;
+   height: 1rem;
+   margin: 0;
+   border-radius: 50%;
+   border: 0;
+   background: transparent;
+}
+
+ol.carousel-indicators li {
+   background: rgba(200,200,200,0.39);
+   margin-left: .5rem;
+   margin-right: .5rem;
+}
+
+ol.carousel-indicators li.active {
+   background: orange;
 }
 
 /* Since positioning the image, we need to help out the caption */
