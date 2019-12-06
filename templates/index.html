@@ -63,6 +63,7 @@
 
            {% if prof.getName() != '' %}
 
+            <img src={{profDict.get(prof.getName())}}>
             <h3>{{prof.getName()}}</h3>
             <p>{{prof.getBio()}}</p>
             <h4>Research Areas:</h4>
@@ -99,7 +100,7 @@
 
          </div>
       </div>
-    
+
       <script src=
       "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
            </script>
