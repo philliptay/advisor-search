@@ -71,15 +71,13 @@ body {
    width:100%;
 }
 
-<<<<<<< HEAD
 .button{
   position: absolute;
   left:45%;
   top:20%;
   z-index: 10;
 }
-=======
->>>>>>> ec7f5d90505f3ca6d6a04787788abd4d21cbee01
+
 
 input {
    display: block;
