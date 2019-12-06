@@ -63,7 +63,9 @@
 
            {% if prof.getName() != '' %}
             <!-- add another if to make sure get pic from dict is not null -->
-            <img src={{profPics.get(prof.getName())}}>
+            {% if profPics.get(prof.getName()) != None %}
+               <img src={{profPics.get(prof.getName())}}>
+            {% endif %}
             <h3>{{prof.getName()}}</h3>
             <p>{{prof.getBio()}}</p>
             <h4>Research Areas:</h4>

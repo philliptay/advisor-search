@@ -126,15 +126,12 @@ input[type=checkbox] {
    background-size: 700px 1000px;
 }
 
-<<<<<<< HEAD
-.carousel-indicators li {
-    color: orange;
-=======
-#carousel {
+#carousel{
+
 }
+
 .carousel-indicators .active{
     background-color: orange;
->>>>>>> 4cd909f83af7f5b20d26977834566d43a7d9616d
 }
 
 /* Since positioning the image, we need to help out the caption */
@@ -146,7 +143,6 @@ input[type=checkbox] {
 
 /* Declare heights because of positioning of img element */
 .carousel-inner > .item > img {
-    position: absolute;
     object-fit:cover;
     top: 0;
     left: 0;
@@ -168,8 +164,4 @@ input[type=checkbox] {
             line-height: 1.4;
             color: orange;
     }
-}
-
-img {
-    background: red;
 }

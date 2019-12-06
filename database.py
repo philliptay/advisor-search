@@ -121,18 +121,19 @@ class Database:
         return professor
 
     def rankResults(self, results):
-        profDict = {}
+        profDict = []
         # loop through results list
         for prof in results:
             name = prof[0]
             area = prof[1]
             profid = prof[2]
-            # check if key is in dictionary
-            if name in profDict:
-                profDict[name].append(area)
-            # if not then create new pair and set value to 0
+            # check if name is in dictionary
+            for some in profDict:
+                if profDict[some][0] == name:
+                    profDict[some][2].append(area)
+            # if not then create new prof in dictionary
             else:
-                profDict[name] = [profid, area]
+                profDict.append([name, profid, [area]])
         # sort the dictionary based on values
         # profDict = self.sort_by_values_len(profDict)
         # return dictionary
