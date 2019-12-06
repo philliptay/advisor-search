@@ -137,9 +137,6 @@ def searchResults():
     areas = request.args.getlist('areas')
     keywords = request.args.getlist('keywords')
 
-    if len(areas) == 0 and len(keywords) == 0:
-        areas = allAreas
-
     searchInput = [areas, keywords]
 
     database = Database()
