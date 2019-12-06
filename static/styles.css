@@ -71,13 +71,6 @@ body {
    width:100%;
 }
 
-.button{
-  position: absolute;
-  left:55%;
-  top:25%;
-  z-index: 10;
-}
-
 
 input {
    display: block;
@@ -116,6 +109,7 @@ input[type=checkbox] {
    border-width: 3px;
    border-radius: 6px;
    width: 350px;
+   z-index: 10;
 }
 
 .button:hover {
