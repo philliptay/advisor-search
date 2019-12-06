@@ -25,6 +25,25 @@ def login():
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+
+    profPics = {
+        'Adam Finkelstein': 'https://live.staticflickr.com/65535/49174808528_55680f30e5_n.jpg',
+        'Alan Kaplan': 'https://live.staticflickr.com/65535/49174827063_25053c72cf_n.jpg',
+        'Amit Levy': 'https://live.staticflickr.com/65535/49179992102_0d98b2bb34_n.jpg',
+        'Andrew Appel': 'https://live.staticflickr.com/65535/49179992102_0d98b2bb34_n.jpg',
+        'Arvind Narayanan': 'https://live.staticflickr.com/65535/49179784711_637259a4b4_n.jpg',
+        'Barbara Engelhardt': 'https://live.staticflickr.com/65535/49179992077_74492d2c16_n.jpg',
+        'Bernard Chazelle': 'https://live.staticflickr.com/65535/49179293028_bef3e4930c_n.jpg',
+        'Brian Kernighan': 'https://live.staticflickr.com/65535/49179784656_afdd306907_n.jpg',
+        'Christiane Fellbaum': 'https://live.staticflickr.com/65535/49179784631_705b6aa1c5_n.jpg',
+        'Christopher Moretti': 'https://live.staticflickr.com/65535/49179329783_eac0ed1d8d_n.jpg',
+        'Daniel Leyzberg': 'https://live.staticflickr.com/65535/49179992022_209f93deb7_n.jpg',
+        'Danqi Chen': 'https://live.staticflickr.com/65535/49179292963_7c04f27026_n.jpg',
+        'David August': 'https://live.staticflickr.com/65535/49179292933_c4246282e8_n.jpg',
+        'David Dobkin': 'https://live.staticflickr.com/65535/49179292923_a84d098dab_n.jpg',
+        'David Walker': 'https://live.staticflickr.com/65535/49179784551_8c893c24be_n.jpg',
+    }
+
     if 'username' not in session:
          session['profs'] = None
          html = render_template('login.html')
@@ -61,12 +80,9 @@ def index():
             profTitles = ''
             profLinks = ''
 
-    html = render_template('index.html', user=username, professors = profList, prof = profData, titles = profTitles, links = profLinks)
+    html = render_template('index.html', user=username, professors = profList, prof = profData, titles = profTitles, links = profLinks, profPics = profPics)
     response = make_response(html)
-    # profStr = ''
-    # for prof in profList:
-    #     profStr += prof + ','
-    # areasStr.rstrip(',')
+    
     session['profs'] = profList
     return(response)
 
