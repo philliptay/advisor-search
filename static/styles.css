@@ -10,7 +10,6 @@ body {
 }
 
 .header-image {
-    background: rgba(255,255,255,.5);
     background-size: auto;
     position: absolute;
     height: 100%;
