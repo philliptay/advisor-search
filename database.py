@@ -129,8 +129,8 @@ class Database:
             profid = prof[2]
             # check if name is in dictionary
             for some in profDict:
-                if profDict[some][0] == name:
-                    profDict[some][2].append(area)
+                if some[0] == name:
+                    some[2].append(area)
             # if not then create new prof in dictionary
             else:
                 profDict.append([name, profid, [area]])
