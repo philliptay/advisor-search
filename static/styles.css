@@ -193,3 +193,6 @@ ol.carousel-indicators li.active {
             color: orange;
     }
 }
+#header-content {
+text-shadow: 2px 2px orange;
+}

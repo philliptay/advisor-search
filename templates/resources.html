@@ -10,23 +10,6 @@
       <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
 
-      <script>
-        $(document).ready(function() {
-          $("#tag-input .js-example-basic-multiple").select2({
-            placeholder: "Add tag"
-          }).on('change', function(e) {
-            if($(this).val() && $(this).val().length) {
-              $(this).next('.select2-container').find('li.select2-search--inline input.select2-search__field').attr('placeholder', 'Add tag');
-            }
-          });
-        });
-      </script>
-
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
-
-
-
    </head>
 
    <body>
