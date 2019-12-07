@@ -90,7 +90,7 @@
             {% else %}
             <ul>
               {% for i in range(titles|length) %}
-              <li><a href={{links[i].strip(', ')}}>{{titles[i].strip(',. ')}}</li></a>
+              <li><a href={{links[i].strip(', ')}} target="_blank">{{titles[i].strip(',. ')}}</li></a>
             {% endfor %}
             {% endif %}
             </ul>
