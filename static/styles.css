@@ -168,6 +168,13 @@ ol.carousel-indicators li.active {
     z-index: 10;
     font-size: 40px;
     color: orange;
+    text-shadow: 2px 2px black;
+}
+.carousel-caption h3 {
+    z-index: 10;
+    font-size: 40px;
+    color: orange;
+    text-shadow: 2px 2px black;
 }
 .carousel-inner>.item>img, .carousel-inner>.item>a>img {
         display: block;
@@ -185,12 +192,14 @@ ol.carousel-indicators li.active {
             font-size: 30px;
             line-height: 1.4;
             color: orange;
+            text-shadow: 2px 2px black;
     }
     .carousel-caption h3 {
             margin-bottom: 20px;
             font-size: 30px;
             line-height: 1.4;
             color: orange;
+            text-shadow: 2px 2px black;
     }
 }
 #header-content {
