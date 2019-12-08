@@ -145,6 +145,8 @@ class Database:
                 if (profDict[var][0] == name) and (area not in profDict[var][2]):
                     profDict[var][2].append(area)
                     break
+                else if (profDict[var][0] == name) and (area in profDict[var][2]):
+                    break
                 var = var + 1
             # if not then create new prof in dictionary
             if var == len(profDict):
