@@ -143,7 +143,7 @@ class Database:
             var = 0;
             while var < len(profDict):
                 if (name in profDict[var]):
-                    if (area not in profDict[var][2])
+                    if (area not in profDict[var][2]):
                         profDict[var][2].append(area)
                     break
                 var = var + 1
