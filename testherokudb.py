@@ -9,12 +9,12 @@ DATABASE_URL = 'postgres://mzehsxrhlmmrdp:7229a3ce7cdddcfd25d960016bab27a25ecd11
 
 def main():
  conn = psycopg2.connect(DATABASE_URL, sslmode='require')
- stmt = 'SELECT * FROM profs'
+ stmt = 'SELECT * FROM areas'
  cursor = conn.cursor()
  cursor.execute(stmt)
  row = cursor.fetchone()
  while row is not None:
-     print(row)
+     print(row[0])
      row = cursor.fetchone()
 
 if __name__ == '__main__':

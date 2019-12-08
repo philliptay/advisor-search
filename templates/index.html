@@ -62,6 +62,7 @@
 
          <div id="profSection">
 
+<<<<<<< HEAD
             <div class="container">
                <div class="row">
                   <div class="col-sm-4">
@@ -123,48 +124,10 @@
                   {% endif %}
                </div>
             </div>
+=======
+>>>>>>> 1a829e52f9b8dc25767c4eb6a310c07bbab5accd
          </div>
 
-           <!-- {% if prof.getName() != '' %}
-            {% if profPics.get(prof.getName()) != None %}
-               <img src={{profPics.get(prof.getName())}}>
-            {% endif %}
-            <h3>{{prof.getName()}}</h3>
-            <p>{{prof.getBio()}}</p>
-            <h4>Research Areas:</h4>
-            <ul>
-              {% for area in prof.getAreas() %}
-              <li>{{area[0].strip('. ')}}</li>
-            {% endfor %}
-            </ul>
-            <h4>Current Projects:</h4>
-            {% if prof.getProjects() == 'No projects found.' %}
-              <p>{{prof.getProjects()}}</p>
-            {% else %}
-            <ul>
-              {% for proj in prof.getProjects() %}
-              <li>{{proj[0].strip('. ')}}</li>
-            {% endfor %}
-            {% endif %}
-            </ul>
-            <h4>Past Theses Advised:</h4>
-            {% if links == '' %}
-              <p>{{titles}}</p>
-            {% else %}
-            <ul>
-              {% for i in range(titles|length) %}
-              <li><a href={{links[i].strip(', ')}} target="_blank">{{titles[i].strip(',. ')}}</li></a>
-            {% endfor %}
-            {% endif %}
-            </ul>
-
-            <p>{{prof.getContact()}}</p>
-
-
-            {% endif %}
-
-         </div>
-      </div> -->
 
       <script src=
       "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
@@ -202,6 +165,25 @@
         }
       );
       }
+
+      function handleProfResponse(response)
+      {
+      $('#profSection').html(response);
+      }
+
+      function getProfResults(profid)
+      {
+      let url = '/profresults?profid=' + profid;
+      if (request != null)
+        request.abort();
+      request = $.ajax({
+        type: "GET",
+        url: url,
+        success: handleProfResponse
+        }
+      );
+      }
+
 
       $('document').ready(setup);
 </script>

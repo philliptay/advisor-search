@@ -31,10 +31,10 @@ class Database:
             stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = \"' + keyword.lower().capitalize() + '\" ORDER BY name'
             cursor5.execute(stmtStr5)
             rows5 = cursor5.fetchall()
+            cursor5.close()
             if len(rows5) > 0:
                 for row5 in rows5:
                     results.append(row5)
-            cursor5.close()
 
 
             else:
