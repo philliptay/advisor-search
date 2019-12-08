@@ -64,7 +64,7 @@
 
             <div class="container">
                <div class="row">
-                  <div class="column">
+                  <div class="col">
                      {% if prof.getName() != '' %}
                         {% if profPics.get(prof.getName()) != None %}
                            <img src={{profPics.get(prof.getName())}}>
@@ -74,7 +74,7 @@
                         <button type="button" name="button">Click to contact</button>
                      {% endif %}
                   </div>
-                  <div class="column">
+                  <div class="col-6">
                      {% if prof.getName() != '' %}
                         <h3>{{prof.getName()}}</h3>
                         <p>{{prof.getContact()}}</p>
