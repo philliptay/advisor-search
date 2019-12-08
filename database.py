@@ -28,13 +28,13 @@ class Database:
         for keyword in keywords:
 
             cursor5 = self._connection.cursor()
-            stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = \"' + keyword + '\" ORDER BY name'
+            stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = \"' + keyword.lower().capitalize() + '\" ORDER BY name'
             cursor5.execute(stmtStr5)
             rows5 = cursor5.fetchall()
             if len(row5) > 0:
                 for row5 in rows5:
                     results.append(row5)
-            cursor2.close()
+            
 
             else:
                 cursor2 = self._connection.cursor()
@@ -76,6 +76,7 @@ class Database:
                     results.append(row)
                 cursor1.close()
 
+            cursor5.close()
 
 
         return results
