@@ -61,71 +61,6 @@
          </div>
 
          <div id="profSection">
-
-<<<<<<< HEAD
-            <div class="container">
-               <div class="row">
-                  <div class="col-sm-4">
-                     {% if prof.getName() != '' %}
-                        {% if profPics.get(prof.getName()) != None %}
-                           <img src={{profPics.get(prof.getName())}}>
-                        {% else %}
-                           <img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">
-                        {% endif %}
-                        <button type="button" name="button">Click to contact</button>
-                     {% endif %}
-                  </div>
-                  <div class="col-sm-8">
-                     {% if prof.getName() != '' %}
-                        <h3>{{prof.getName()}}</h3>
-                        <p>{{prof.getContact()}}</p>
-                        <p>{{prof.getBio()}}</p>
-                     {% endif %}
-                  </div>
-               </div>
-
-               <div class="row">
-                  {% if prof.getName() != '' %}
-                     <ul>
-                       {% for area in prof.getAreas() %}
-                       <li>{{area[0].strip('. ')}}</li>
-                     {% endfor %}
-                     </ul>
-                  {% endif %}
-               </div>
-
-               <div class="row">
-                  {% if prof.getName() != '' %}
-                     <h4>Current Projects:</h4>
-                     {% if prof.getProjects() == 'No projects found.' %}
-                       <p>{{prof.getProjects()}}</p>
-                     {% else %}
-                     <ul>
-                       {% for proj in prof.getProjects() %}
-                       <li>{{proj[0].strip('. ')}}</li>
-                     {% endfor %}
-                     {% endif %}
-                     </ul>
-                  {% endif %}
-               </div>
-
-               <div class="row">
-                  {% if prof.getName() != '' %}
-                     <h4>Past Theses Advised:</h4>
-                     {% if links == '' %}
-                       <p>{{titles}}</p>
-                     {% else %}
-                     <ul>
-                       {% for i in range(titles|length) %}
-                       <li><a href={{links[i].strip(', ')}} target="_blank">{{titles[i].strip(',. ')}}</li></a>
-                     {% endfor %}
-                     {% endif %}
-                     </ul>
-                  {% endif %}
-               </div>
-            </div>
-=======
->>>>>>> 1a829e52f9b8dc25767c4eb6a310c07bbab5accd
          </div>
 
 
@@ -186,6 +121,6 @@
 
 
       $('document').ready(setup);
-</script>
+      </script>
    </body>
 </html>
