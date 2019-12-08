@@ -158,7 +158,7 @@ class Database:
         # sort the dictionary based on values
         keyProfDict = self.sort_by_values_len(areaProfDict)
         areaProfDict = self.sort_by_values_len(areaProfDict)
-        profDict = keyProfDict.update(areaProfDict)
+        profDict = keyProfDict + areaProfDict
         # return dictionary
         return(profDict)
 
