@@ -62,6 +62,7 @@ class Database:
                         keyResults.append(row4)
 
         # search through inputted areas
+        areas = areas[0].split(',')
         for area in areas:
             if (area is not None) and (area.strip() != ''):
                 stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
@@ -70,6 +71,7 @@ class Database:
                 rows = cursor.fetchall()
                 for row in rows:
                     areaResults.append(row)
+
 
         cursor.close()
 
