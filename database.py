@@ -27,7 +27,7 @@ class Database:
         cursor = self._connection.cursor()
 
         for keyword in keywords:
-            if (keyword is not None) and (keyword.strip != ''):
+            if (keyword is not None) and (keyword.strip() != ''):
 
                 # direct name hit
                 stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = %s ORDER BY name'
@@ -63,7 +63,7 @@ class Database:
 
         # search through inputted areas
         for area in areas:
-            if (area is not None) and (area.strip != ''):
+            if (area is not None) and (area.strip() != ''):
                 stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
                 prep = '%'+area.lower()+'%'
                 cursor.execute(stmtStr, (prep,))

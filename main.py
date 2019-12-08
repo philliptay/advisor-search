@@ -75,7 +75,7 @@ def searchResults():
     html += '</ul>'
     html.encode('utf-8')
     response = make_response(html)
-    session['profs'] = profList
+    
     return(response)
 
 #-------------------------------------------------------------------------------
