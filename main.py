@@ -63,11 +63,9 @@ def searchResults():
             profname = key
             areas = prof[profname][1:]
             profid = prof[profname][0]
-        profname = prof[0]
-        areas = prof[2]
-        profid = prof[1]
-        info = [profname, areas, profid] #create a list for the prof
-        profList.append(info)
+            info = [profname, areas, profid] #create a list for the prof
+            profList.append(info)
+
     resultsnum = len(profList)
     print(profList)
 
