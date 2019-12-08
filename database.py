@@ -26,32 +26,44 @@ class Database:
 
 
         for keyword in keywords:
-            cursor2 = self._connection.cursor()
-            stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
-            prep2 = '%'+keyword.lower().capitalize()+'%'
-            cursor2.execute(stmtStr2, (prep2,))
-            rows2 = cursor2.fetchall()
-            for row2 in rows2:
-                results.append(row2)
-            cursor2.close()
 
-            cursor3 = self._connection.cursor()
-            stmtStr3 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND bio LIKE %s ORDER BY name'
-            prep3 = '%'+keyword.lower()+'%'
-            cursor3.execute(stmtStr3, (prep3,))
-            rows3 = cursor3.fetchall()
-            for row3 in rows3:
-                results.append(row3)
-            cursor3.close()
+            cursor5 = self._connection.cursor()
+            stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = \"' + keyword.lower().capitalize() + '\" ORDER BY name'
+            cursor5.execute(stmtStr5)
+            rows5 = cursor5.fetchall()
+            if len(rows5) > 0:
+                for row5 in rows5:
+                    results.append(row5)
+            cursor5.close()
 
-            cursor4 = self._connection.cursor()
-            stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND title LIKE %s ORDER BY name'
-            prep4 = '%'+keyword.lower()+'%'
-            cursor4.execute(stmtStr4, (prep4,))
-            rows4 = cursor4.fetchall()
-            for row4 in rows4:
-                results.append(row4)
-            cursor4.close()
+
+            else:
+                cursor2 = self._connection.cursor()
+                stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
+                prep2 = '%'+keyword.lower().capitalize()+'%'
+                cursor2.execute(stmtStr2, (prep2,))
+                rows2 = cursor2.fetchall()
+                for row2 in rows2:
+                    results.append(row2)
+                cursor2.close()
+
+                cursor3 = self._connection.cursor()
+                stmtStr3 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND bio LIKE %s ORDER BY name'
+                prep3 = '%'+keyword.lower()+'%'
+                cursor3.execute(stmtStr3, (prep3,))
+                rows3 = cursor3.fetchall()
+                for row3 in rows3:
+                    results.append(row3)
+                cursor3.close()
+
+                cursor4 = self._connection.cursor()
+                stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND title LIKE %s ORDER BY name'
+                prep4 = '%'+keyword.lower()+'%'
+                cursor4.execute(stmtStr4, (prep4,))
+                rows4 = cursor4.fetchall()
+                for row4 in rows4:
+                    results.append(row4)
+                cursor4.close()
 
 
         for area in areas:
@@ -64,7 +76,6 @@ class Database:
             for row in rows:
                 results.append(row)
             cursor1.close()
-
 
 
         return results
@@ -128,11 +139,15 @@ class Database:
             area = prof[1]
             profid = prof[2]
             # check if name is in dictionary
-            for some in profDict:
-                if some[0] == name:
-                    some[2].append(area)
+            var = 0;
+            while var < len(profDict):
+                if (name in profDict[var]):
+                    if (area not in profDict[var][2]):
+                        profDict[var][2].append(area)
+                    break
+                var = var + 1
             # if not then create new prof in dictionary
-            else:
+            if var == len(profDict):
                 profDict.append([name, profid, [area]])
         # sort the dictionary based on values
         # profDict = self.sort_by_values_len(profDict)

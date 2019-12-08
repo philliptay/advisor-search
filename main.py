@@ -41,7 +41,7 @@ def index():
     html = render_template('index.html', user=username)
     response = make_response(html)
 
-    
+
     return(response)
 
 #-------------------------------------------------------------------------------
@@ -169,35 +169,55 @@ def profResults():
         titles = ''
         links = ''
 
-    html = '';
+    html = '<div class="container">';
+    html += '<div class="row">'
 
     if prof.getName() != '':
+        html+='<div class="col">'
     # add another if to make sure get pic from dict is not null
         if profPics.get(prof.getName()) != None:
             html+='<img src='+str(profPics.get(prof.getName()))+'>'
-    html+='<p>'+str(prof.getContact())+'</p>'
-    html+='<h3>'+str(prof.getName())+'</h3>'
-    html+='<p>'+str(prof.getBio())+'</p>'
-    html+='<h4>Research Areas:</h4><ul>'
-    for area in prof.getAreas():
-        html+='<li>'+str(area[0].strip('. '))+'</li>'
+        else:
+            html+='<img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">'
 
-    html+='</ul><h4>Current Projects:</h4>'
-    if prof.getProjects() == 'No projects found.':
-        html+='<p>'+prof.getProjects()+'</p>'
-    else:
-        html+='<ul>'
-        for proj in prof.getProjects():
-            html+='<li>'+str(proj[0].strip('. '))+'</li>'
-        html+='</ul>'
-    html+='<h4>Past Theses Advised:</h4>'
-    if links == '':
-        html+='<p>'+str(titles)+'</p>'
-    else :
-        html+='<ul>'
-        for i in range(len(titles)):
-            html+='<li><a href='+links[i].strip(', ')+' target="_blank">'+titles[i].strip(',. ')+'</li></a>'
-        html+='</ul>'
+        html+='<button type="button" name="button">Click to contact</button>'
+
+        html+='</div>'
+        html+='<div class="col-6">'
+
+        html+='<h3>'+str(prof.getName())+'</h3>'
+        html+='<p>'+str(prof.getContact())+'</p>'
+        html+='<p>'+str(prof.getBio())+'</p>'
+
+        html+='</div></div>'
+        html+='<div class="row">'
+
+        html+='<h4>Research Areas:</h4><ul>'
+        for area in prof.getAreas():
+            html+='<li>'+str(area[0].strip('. '))+'</li>'
+        html+='</ul></div>'
+
+        html+='<div class="row">'
+        html+='<h4>Current Projects:</h4>'
+        if prof.getProjects() == 'No projects found.':
+            html+='<p>'+prof.getProjects()+'</p>'
+        else:
+            html+='<ul>'
+            for proj in prof.getProjects():
+                html+='<li>'+str(proj[0].strip('. '))+'</li>'
+            html+='</ul>'
+        html+='</div>'
+
+        html+='<div class="row">'
+        html+='<h4>Past Theses Advised:</h4>'
+        if links == '':
+            html+='<p>'+str(titles)+'</p>'
+        else :
+            html+='<ul>'
+            for i in range(len(titles)):
+                html+='<li><a href='+links[i].strip(', ')+' target="_blank">'+titles[i].strip(',. ')+'</li></a>'
+            html+='</ul>'
+        html += '</div></div>'
 
     html.encode('utf-8')
     response = make_response(html)
