@@ -65,6 +65,7 @@ def searchResults():
         info = [profname, areas, profid] #create a list for the prof
         profList.append(info)
     resultsnum = len(profList)
+    print(profList)
 
     html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul>'
     for prof in profList:
