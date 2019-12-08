@@ -21,64 +21,57 @@ class Database:
 
         areas = input[0]
         keywords = input[1]
-        results = []
+        keyResults = []
+        areaResults = []
 
-
+        cursor = self._connection.cursor()
 
         for keyword in keywords:
 
             # direct name hit
-            cursor5 = self._connection.cursor()
-            stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
-            prep = keyword.lower().capitalize()
-            cursor5.execute(stmtStr5, (prep,))
-            rows5 = cursor5.fetchall()
-            cursor5.close()
+            stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = ' + keyword.lower().capitalize() + ' ORDER BY name'
+            cursor.execute(stmtStr5)
+            rows5 = cursor.fetchall()
             if len(rows5) > 0:
                 for row5 in rows5:
-                    results.append(row5)
-
+                    keyResults.append(row5)
 
             # if no direct name hit, is it part of name, bio, title?
             else:
-                cursor2 = self._connection.cursor()
                 stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
                 prep2 = keyword.lower().capitalize()+'%'
-                cursor2.execute(stmtStr2, (prep2,))
-                rows2 = cursor2.fetchall()
+                cursor.execute(stmtStr2, (prep2,))
+                rows2 = cursor.fetchall()
                 for row2 in rows2:
-                    results.append(row2)
-                cursor2.close()
+                    keyResults.append(row2)
 
-                cursor3 = self._connection.cursor()
                 stmtStr3 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND bio LIKE %s ORDER BY name'
                 prep3 = keyword.lower()+'%'
-                cursor3.execute(stmtStr3, (prep3,))
-                rows3 = cursor3.fetchall()
+                cursor.execute(stmtStr3, (prep3,))
+                rows3 = cursor.fetchall()
                 for row3 in rows3:
-                    results.append(row3)
-                cursor3.close()
+                    keyResults.append(row3)
 
-                cursor4 = self._connection.cursor()
                 stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND title LIKE %s ORDER BY name'
                 prep4 = keyword.lower()+'%'
-                cursor4.execute(stmtStr4, (prep4,))
-                rows4 = cursor4.fetchall()
+                cursor.execute(stmtStr4, (prep4,))
+                rows4 = cursor.fetchall()
                 for row4 in rows4:
-                    results.append(row4)
-                cursor4.close()
+                    keyResults.append(row4)
 
         # search through inputted areas
         for area in areas:
-            cursor1 = self._connection.cursor()
             # if (area is not None) or (area.strip != ''):
             stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
             prep = '%'+area.lower()+'%'
-            cursor1.execute(stmtStr, (prep,))
-            rows = cursor1.fetchall()
+            cursor.execute(stmtStr, (prep,))
+            rows = cursor.fetchall()
             for row in rows:
-                results.append(row)
-            cursor1.close()
+                areaResults.append(row)
+
+        cursor.close()
+
+        results = [keyResults, areaResults]
 
 
         return results
@@ -135,25 +128,36 @@ class Database:
         return professor
 
     def rankResults(self, results):
-        profDict = []
+        keyProfDict = {}
+        areaProfDict = {}
         # loop through results list
-        for prof in results:
+        for prof in results[0]:
             name = prof[0]
             area = prof[1]
             profid = prof[2]
-            # check if name is in dictionary
-            var = 0;
-            while var < len(profDict):
-                if (name in profDict[var]):
-                    if (area not in profDict[var][2]):
-                        profDict[var][2].append(area)
-                    break
-                var = var + 1
-            # if not then create new prof in dictionary
-            if var == len(profDict):
-                profDict.append([name, profid, [area]])
+            # check if key is in dictionary
+            if name in keyProfDict:
+                keyProfDict[name].append(area)
+            # if not then create new pair and set value to 0
+            else:
+                keyProfDict[name] = [profid, area]
+
+        for prof in results[1]:
+            name = prof[0]
+            area = prof[1]
+            profid = prof[2]
+            # check if key is in dictionary
+            if name in areaProfDict:
+                areaProfDict[name].append(area)
+            # if not then create new pair and set value to 0
+            else:
+                areaProfDict[name] = [profid, area]
+
+
         # sort the dictionary based on values
-        # profDict = self.sort_by_values_len(profDict)
+        keyProfDict = self.sort_by_values_len(areaProfDict)
+        areaProfDict = self.sort_by_values_len(areaProfDict)
+        profDict = keyProfDict + areaProfDict
         # return dictionary
         return(profDict)
 
