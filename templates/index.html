@@ -68,6 +68,8 @@
                      {% if prof.getName() != '' %}
                         {% if profPics.get(prof.getName()) != None %}
                            <img src={{profPics.get(prof.getName())}}>
+                        {% else %}
+                           <img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">
                         {% endif %}
                         <button type="button" name="button">Click to contact</button>
                      {% endif %}
