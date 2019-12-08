@@ -49,6 +49,15 @@ def searchResults():
     areas = request.args.getlist('areas')
     keywords = request.args.getlist('keywords')
 
+    # areas = []
+    # keywords = []
+    # tags = request.args.getlist('tags')
+    # for tag in tags:
+    #     if tag in allAreas:
+    #         areas.append(tag)
+    #     else:
+    #         keywords.append(tag)
+
     searchInput = [areas, keywords]
 
     database = Database()
