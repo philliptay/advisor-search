@@ -59,6 +59,7 @@ def searchResults():
     #         keywords.append(tag)
 
     searchInput = [areas, keywords]
+    print(searchInput)
 
     database = Database()
     database.connect()
@@ -84,7 +85,7 @@ def searchResults():
     html += '</ul>'
     html.encode('utf-8')
     response = make_response(html)
-    
+
     return(response)
 
 #-------------------------------------------------------------------------------
