@@ -29,8 +29,9 @@ class Database:
         for keyword in keywords:
 
             # direct name hit
-            stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = ' + keyword.lower().capitalize() + ' ORDER BY name'
-            cursor.execute(stmtStr5)
+            stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = %s ORDER BY name'
+            prep5 = keyword.lower().capitalize()
+            cursor.execute(stmtStr5, (prep5,))
             rows5 = cursor.fetchall()
             if len(rows5) > 0:
                 for row5 in rows5:
