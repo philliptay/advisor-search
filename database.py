@@ -142,10 +142,10 @@ class Database:
             # check if name is in dictionary
             var = 0;
             while var < len(profDict):
-                if profDict[var][0] == name:
+                if (profDict[var][0] == name) and (area not in profDict[var][2]):
                     profDict[var][2].append(area)
                     break
-                var++
+                var = var + 1
             # if not then create new prof in dictionary
             if var == len(profDict):
                 profDict.append([name, profid, [area]])
