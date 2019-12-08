@@ -27,42 +27,43 @@ class Database:
         cursor = self._connection.cursor()
 
         for keyword in keywords:
+            if (keyword is not None) and (keyword.strip != ''):
 
-            # direct name hit
-            stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = %s ORDER BY name'
-            prep5 = keyword.lower().capitalize()
-            cursor.execute(stmtStr5, (prep5,))
-            rows5 = cursor.fetchall()
-            if len(rows5) > 0:
-                for row5 in rows5:
-                    keyResults.append(row5)
+                # direct name hit
+                stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = %s ORDER BY name'
+                prep5 = keyword.lower().capitalize()
+                cursor.execute(stmtStr5, (prep5,))
+                rows5 = cursor.fetchall()
+                if len(rows5) > 0:
+                    for row5 in rows5:
+                        keyResults.append(row5)
 
-            # if no direct name hit, is it part of name, bio, title?
-            else:
-                stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
-                prep2 = keyword.lower().capitalize()+'%'
-                cursor.execute(stmtStr2, (prep2,))
-                rows2 = cursor.fetchall()
-                for row2 in rows2:
-                    keyResults.append(row2)
+                # if no direct name hit, is it part of name, bio, title?
+                else:
+                    stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
+                    prep2 = keyword.lower().capitalize()+'%'
+                    cursor.execute(stmtStr2, (prep2,))
+                    rows2 = cursor.fetchall()
+                    for row2 in rows2:
+                        keyResults.append(row2)
 
-                stmtStr3 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND bio LIKE %s ORDER BY name'
-                prep3 = keyword.lower()+'%'
-                cursor.execute(stmtStr3, (prep3,))
-                rows3 = cursor.fetchall()
-                for row3 in rows3:
-                    keyResults.append(row3)
+                    stmtStr3 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND bio LIKE %s ORDER BY name'
+                    prep3 = keyword.lower()+'%'
+                    cursor.execute(stmtStr3, (prep3,))
+                    rows3 = cursor.fetchall()
+                    for row3 in rows3:
+                        keyResults.append(row3)
 
-                stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND title LIKE %s ORDER BY name'
-                prep4 = keyword.lower()+'%'
-                cursor.execute(stmtStr4, (prep4,))
-                rows4 = cursor.fetchall()
-                for row4 in rows4:
-                    keyResults.append(row4)
+                    stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND title LIKE %s ORDER BY name'
+                    prep4 = keyword.lower()+'%'
+                    cursor.execute(stmtStr4, (prep4,))
+                    rows4 = cursor.fetchall()
+                    for row4 in rows4:
+                        keyResults.append(row4)
 
         # search through inputted areas
         for area in areas:
-            if (area is not None) or (area.strip != ''):
+            if (area is not None) and (area.strip != ''):
                 stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
                 prep = '%'+area.lower()+'%'
                 cursor.execute(stmtStr, (prep,))
