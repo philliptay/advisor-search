@@ -40,7 +40,7 @@ class Database:
             else:
                 cursor2 = self._connection.cursor()
                 stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
-                prep2 = keyword.lower().capitalize()+'%'
+                prep2 = '%'+keyword.lower().capitalize()+'%'
                 cursor2.execute(stmtStr2, (prep2,))
                 rows2 = cursor2.fetchall()
                 for row2 in rows2:
@@ -49,7 +49,7 @@ class Database:
 
                 cursor3 = self._connection.cursor()
                 stmtStr3 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND bio LIKE %s ORDER BY name'
-                prep3 = keyword.lower()+'%'
+                prep3 = '%'+keyword.lower()+'%'
                 cursor3.execute(stmtStr3, (prep3,))
                 rows3 = cursor3.fetchall()
                 for row3 in rows3:
@@ -58,7 +58,7 @@ class Database:
 
                 cursor4 = self._connection.cursor()
                 stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND title LIKE %s ORDER BY name'
-                prep4 = keyword.lower()+'%'
+                prep4 = '%'+keyword.lower()+'%'
                 cursor4.execute(stmtStr4, (prep4,))
                 rows4 = cursor4.fetchall()
                 for row4 in rows4:
@@ -66,19 +66,16 @@ class Database:
                 cursor4.close()
 
 
-
         for area in areas:
             cursor1 = self._connection.cursor()
             # if (area is not None) or (area.strip != ''):
             stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
-            prep = area.lower()+'%'
+            prep = '%'+area.lower()+'%'
             cursor1.execute(stmtStr, (prep,))
             rows = cursor1.fetchall()
             for row in rows:
                 results.append(row)
             cursor1.close()
-
-        cursor5.close()
 
 
         return results
