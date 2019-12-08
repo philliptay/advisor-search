@@ -26,6 +26,63 @@ def login():
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
+    if 'username' not in session:
+         session['profs'] = None
+         html = render_template('login.html')
+         response = make_response(html)
+         return(response)
+
+    username = session['username']
+
+    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
+    profList = session['profs']
+
+
+    html = render_template('index.html', user=username)
+    response = make_response(html)
+
+    
+    return(response)
+
+#-------------------------------------------------------------------------------
+
+@app.route('/searchresults')
+def searchResults():
+    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
+
+    areas = request.args.getlist('areas')
+    keywords = request.args.getlist('keywords')
+
+    searchInput = [areas, keywords]
+
+    database = Database()
+    database.connect()
+    results = database.search(searchInput)
+    profDict = database.rankResults(results)
+    database.disconnect()
+
+    profList = []
+    for prof in profDict:
+        profname = prof[0]
+        areas = prof[2]
+        profid = prof[1]
+        info = [profname, areas, profid] #create a list for the prof
+        profList.append(info)
+    resultsnum = len(profList)
+
+    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul>'
+    for prof in profList:
+        html += '<li><a href="#" onclick="getProfResults('+str(prof[2])+');">'+str(prof[0]) + ' ' + str(prof[1])+'</li></a>'
+    html += '</ul>'
+    html.encode('utf-8')
+    response = make_response(html)
+    session['profs'] = profList
+    return(response)
+
+#-------------------------------------------------------------------------------
+@app.route('/profresults')
+def profResults():
+
     profPics = {
         'Aarti Gupta': 'https://live.staticflickr.com/65535/49180373052_77e070b52a_n.jpg',
         'Adam Finkelstein': 'https://live.staticflickr.com/65535/49174808528_55680f30e5_n.jpg',
@@ -86,82 +143,68 @@ def index():
         'Zeev Dvir': 'https://live.staticflickr.com/65535/49180290322_14fc97ca95_n.jpg',
     }
 
-    if 'username' not in session:
-         session['profs'] = None
-         html = render_template('login.html')
-         response = make_response(html)
-         return(response)
+    prof = Professor('', '', '', '', '', '', '')
 
-    username = session['username']
+    profid = request.args.get('profid')
 
-    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
-    profList = session['profs']
-    profData = Professor('', '', '', '', '', '', '')
+    if profid is not None:
+        if  profid.strip() == '':
+            errorMsg = 'Missing profid'
+            return redirect(url_for('error', errorMsg=errorMsg))
+        try:
+            int(profid)
+        except ValueError:
+            errorMsg = 'Profid is not numeric'
+            return redirect(url_for('error', errorMsg=errorMsg))
 
-    if request.method == 'GET':
-        if request.args.get('profid') is not None:
-            profid = request.args.get('profid')
-            if  profid.strip() == '':
-                errorMsg = 'Missing profid'
-                return redirect(url_for('error', errorMsg=errorMsg))
-            try:
-                int(profid)
-            except ValueError:
-                errorMsg = 'Profid is not numeric'
-                return redirect(url_for('error', errorMsg=errorMsg))
+        database = Database()
+        database.connect()
+        prof = database.profSearch(profid)
+        database.disconnect()
 
-            database = Database()
-            database.connect()
-            profData = database.profSearch(profid)
-            database.disconnect()
+        titles = prof.getTitles()
+        links = prof.getLinks()
 
-            profTitles = profData.getTitles()
-            profLinks = profData.getLinks()
+    else:
+        titles = ''
+        links = ''
 
-        else:
-            profTitles = ''
-            profLinks = ''
+    html = '';
 
-    html = render_template('index.html', user=username, professors = profList, prof = profData, titles = profTitles, links = profLinks, profPics = profPics)
-    response = make_response(html)
+    if prof.getName() != '':
+    # add another if to make sure get pic from dict is not null
+        if profPics.get(prof.getName()) != None:
+            html+='<img src='+str(profPics.get(prof.getName()))+'>'
+    html+='<p>'+str(prof.getContact())+'</p>'
+    html+='<h3>'+str(prof.getName())+'</h3>'
+    html+='<p>'+str(prof.getBio())+'</p>'
+    html+='<h4>Research Areas:</h4><ul>'
+    for area in prof.getAreas():
+        html+='<li>'+str(area[0].strip('. '))+'</li>'
 
-    session['profs'] = profList
-    return(response)
+    html+='</ul><h4>Current Projects:</h4>'
+    if prof.getProjects() == 'No projects found.':
+        html+='<p>'+prof.getProjects()+'</p>'
+    else:
+        html+='<ul>'
+        for proj in prof.getProjects():
+            html+='<li>'+str(proj[0].strip('. '))+'</li>'
+        html+='</ul>'
+    html+='<h4>Past Theses Advised:</h4>'
+    if links == '':
+        html+='<p>'+str(titles)+'</p>'
+    else :
+        html+='<ul>'
+        for i in range(len(titles)):
+            html+='<li><a href='+links[i].strip(', ')+' target="_blank">'+titles[i].strip(',. ')+'</li></a>'
+        html+='</ul>'
 
-#-------------------------------------------------------------------------------
-
-@app.route('/searchresults')
-def searchResults():
-    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
-
-    areas = request.args.getlist('areas')
-    keywords = request.args.getlist('keywords')
-
-    searchInput = [areas, keywords]
-
-    database = Database()
-    database.connect()
-    results = database.search(searchInput)
-    profDict = database.rankResults(results)
-    database.disconnect()
-
-    profList = []
-    for prof in profDict:
-        profname = prof[0]
-        areas = prof[2]
-        profid = prof[1]
-        info = [profname, areas, profid] #create a list for the prof
-        profList.append(info)
-    resultsnum = len(profList)
-
-    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul>'
-    for prof in profList:
-        html += '<li><a href="/?profid='+str(prof[2])+'">'+str(prof[0]) + ' ' + str(prof[1])+'</li></a>'
-    html += '</ul>'
     html.encode('utf-8')
     response = make_response(html)
-    session['profs'] = profList
     return(response)
+
+
+
 
 #-------------------------------------------------------------------------------
 
