@@ -192,7 +192,7 @@ def profResults():
         else:
             html+='<img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">'
 
-        html+='<button type="button" name="button" onclick="createForm('+prof+');">Contact</button>'
+        html+='<button type="button" name="button" onclick="createForm('+ str(prof.getName()) +',' + prof.getAreas() + ',' + prof.getTitles() +')">Contact</button>'
 
         html+='</div>'
         html+='<div class="col-8">'
