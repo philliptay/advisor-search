@@ -182,17 +182,17 @@ def profResults():
     html += '<div class="row">'
 
     if prof.getName() != '':
-        html+='<div class="col">'
+        html+='<div class="col-4">'
     # add another if to make sure get pic from dict is not null
         if profPics.get(prof.getName()) != None:
             html+='<img src='+str(profPics.get(prof.getName()))+'>'
         else:
             html+='<img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">'
 
-        html+='<button type="button" name="button">Click to contact</button>'
+        html+='<button type="button" name="button">Contact</button>'
 
         html+='</div>'
-        html+='<div class="col-6">'
+        html+='<div class="col-8">'
 
         html+='<h3>'+str(prof.getName())+'</h3>'
         html+='<p>'+str(prof.getContact())+'</p>'
