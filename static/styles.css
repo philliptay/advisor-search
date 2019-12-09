@@ -8,6 +8,10 @@ body {
    width: 100%;
    height:100%;
 }
+.marginless {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 .header-image {
     background-size: auto;
@@ -67,6 +71,53 @@ body {
    flex-direction: row;
    height: 100%;
 }
+
+.flex-container-col {
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    overflow: hidden;
+
+}
+
+.flex-item-scroll {
+
+    flex-grow: 0;
+    flex-shrink: 10000;
+    flex-basis: auto;
+    overflow: auto;
+
+}
+
+.list-group-item {
+
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #eee;
+    color: black;
+    border: 1px solid #ddd;
+        border-top-color: rgb(221, 221, 221);
+        border-right-color: rgb(221, 221, 221);
+        border-bottom-color: rgb(221, 221, 221);
+        border-left-color: rgb(221, 221, 221);
+
+}
+
+.list-group-item:hover{
+
+    background-color: #ddd;
+
+}
+
+.list-group-item:focus{
+    color: white;
+    background-color: #0099ff;
+
+}
+
 
 .searchBar {
    position: relative;
@@ -173,8 +224,8 @@ ol.carousel-indicators li.active {
 .carousel-caption h3 {
     z-index: 10;
     font-size: 40px;
-    color: orange;
-    text-shadow: 2px 2px black;
+    color: black;
+    text-shadow: 2px 2px orange;
 }
 .carousel-inner>.item>img, .carousel-inner>.item>a>img {
         display: block;
@@ -191,17 +242,17 @@ ol.carousel-indicators li.active {
             margin-bottom: 20px;
             font-size: 30px;
             line-height: 1.4;
-            color: orange;
-            text-shadow: 2px 2px black;
+            color: black;
+            text-shadow: 2px 2px orange;
     }
     .carousel-caption h3 {
             margin-bottom: 20px;
             font-size: 30px;
             line-height: 1.4;
-            color: orange;
-            text-shadow: 2px 2px black;
+            color: black;
+            text-shadow: 2px 2px orange;
     }
 }
 #header-content {
-text-shadow: 5px 5px orange;
+text-shadow: 3px 5px orange;
 }

@@ -79,9 +79,9 @@ def searchResults():
     resultsnum = len(profList)
     print(profList)
 
-    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul>'
+    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul class="marginless">'
     for prof in profList:
-        html += '<li><a href="#" onclick="getProfResults('+str(prof[2])+');">'+str(prof[0]) + ' ' + str(prof[1])+'</li></a>'
+        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0">'+str(prof[0]) + ' ' + str(prof[1])+'</li></a>'
     html += '</ul>'
     html.encode('utf-8')
     response = make_response(html)
@@ -236,29 +236,14 @@ def profResults():
 
 @app.route('/resources')
 def resources():
-    if 'username' not in session:
-         return redirect(url_for('index'))
     html = render_template('resources.html')
     response = make_response(html)
     return(response)
 
 #-------------------------------------------------------------------------------
-@app.route('/error')
-def error():
-    if 'username' not in session:
-        return redirect(url_for('index'))
-    errorMsg = request.args.get('errorMsg')
-
-    html = render_template('error.html', errorMsg=errorMsg)
-    response = make_response(html)
-    return(response)
-#-------------------------------------------------------------------------------
 
 @app.route('/about')
 def about():
-    if 'username' not in session:
-        return redirect(url_for('index'))
-
     html = render_template('about.html')
     response = make_response(html)
     return(response)
