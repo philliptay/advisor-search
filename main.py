@@ -84,7 +84,7 @@ def searchResults():
         for i in range(min(3, len(prof[1]))) :
             topAreas += prof[1][i]+', '
         topAreas = topAreas.rstrip(', ')
-        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong><br><span>Top Areas: '+ topAreas+'</span></li></a>'
+        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong><br><span>Top Areas: '+ topAreas +'</span></li></a>'
     html += '</ul>'
     html.encode('utf-8')
     response = make_response(html)
@@ -192,7 +192,7 @@ def profResults():
         else:
             html+='<img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">'
 
-        html+='<button onclick="createForm('+ str(prof.getName()) +',' + str(prof.getAreas()).strip('[]') + ',' + str(prof.getTitles()).strip('[]') +')">Contact</button>'
+        html+='<button onclick="createForm('+ str(prof.getName()) + ',' + str(prof.getAreas()).strip('[]') + ',' + str(prof.getTitles()).strip('[]') +');">Contact</button>'
 
         html+='</div>'
         html+='<div class="col-8">'
