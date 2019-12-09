@@ -81,7 +81,7 @@ def searchResults():
 
     html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul class="marginless">'
     for prof in profList:
-        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong></li></a>'
+        html += '<a href="#" onclick="getProfResults('+str(prof[2])+')"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong></li></a>'
     html += '</ul>'
     html.encode('utf-8')
     response = make_response(html)
@@ -189,7 +189,8 @@ def profResults():
         else:
             html+='<img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">'
 
-        # html+='<button type="button" name="button">Contact</button>'
+        html+='<button type="button" name="button" onclick="createForm('+prof+')">Contact</button>'
+        onclick="getProfResults('+str(prof[2])+');
 
         html+='</div>'
         html+='<div class="col-8">'
