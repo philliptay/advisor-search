@@ -236,29 +236,14 @@ def profResults():
 
 @app.route('/resources')
 def resources():
-    if 'username' not in session:
-         return redirect(url_for('index'))
     html = render_template('resources.html')
     response = make_response(html)
     return(response)
 
 #-------------------------------------------------------------------------------
-@app.route('/error')
-def error():
-    if 'username' not in session:
-        return redirect(url_for('index'))
-    errorMsg = request.args.get('errorMsg')
-
-    html = render_template('error.html', errorMsg=errorMsg)
-    response = make_response(html)
-    return(response)
-#-------------------------------------------------------------------------------
 
 @app.route('/about')
 def about():
-    if 'username' not in session:
-        return redirect(url_for('index'))
-
     html = render_template('about.html')
     response = make_response(html)
     return(response)
