@@ -79,9 +79,9 @@ def searchResults():
     resultsnum = len(profList)
     print(profList)
 
-    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul>'
+    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul class="marginless">'
     for prof in profList:
-        html += '<li><a href="#" onclick="getProfResults('+str(prof[2])+');">'+str(prof[0]) + ' ' + str(prof[1])+'</li></a>'
+        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0">'+str(prof[0]) + ' ' + str(prof[1])+'</li></a>'
     html += '</ul>'
     html.encode('utf-8')
     response = make_response(html)

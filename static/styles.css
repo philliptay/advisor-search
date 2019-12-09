@@ -68,6 +68,58 @@ body {
    height: 100%;
 }
 
+.flex-container-col {
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    overflow: hidden;
+
+}
+
+.flex-item-scroll {
+
+    flex-grow: 0;
+    flex-shrink: 10000;
+    flex-basis: auto;
+    overflow: auto;
+
+}
+
+.list-group-item {
+
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #eee;
+    color: black;
+    border: 1px solid #ddd;
+        border-top-color: rgb(221, 221, 221);
+        border-right-color: rgb(221, 221, 221);
+        border-bottom-color: rgb(221, 221, 221);
+        border-left-color: rgb(221, 221, 221);
+
+}
+
+.list-group-item:hover{
+
+    background-color: #ddd;
+
+}
+
+.list-group-item:focus{
+    color: white;
+    background-color: #0099ff;
+
+}
+
+
+.marginless {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .searchBar {
    position: relative;
    background-color: white;
