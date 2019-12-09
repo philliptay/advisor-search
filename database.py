@@ -30,8 +30,8 @@ class Database:
             if (keyword is not None) and (keyword.strip() != ''):
 
                 # direct name hit
-                stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name = %s ORDER BY name'
-                prep5 = keyword.lower().capitalize()
+                stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
+                prep5 = '%'+keyword.lower().capitalize()+'%'
                 cursor.execute(stmtStr5, (prep5,))
                 rows5 = cursor.fetchall()
                 if len(rows5) > 0:
