@@ -16,55 +16,64 @@
 
    <body>
 
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Princeton Advisor Search</a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav navbar-right">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/resources">Resources</a></li>
-              <li><a href="/logout">Logout</a></li>
-            </ul>
-          </div>
-        </div>
-     </nav>
+      <div class="container">
+         <div class="row">
+            <nav class="navbar navbar-inverse">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/">Princeton Advisor Search</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/resources">Resources</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                  </ul>
+                </div>
+              </div>
+           </nav>
+         </div>
 
+         <div class="row searchArea">
+            <select id="searchBar" multiple="multiple" onchange="getResults()">
+               <script>
+                  $('#searchBar').select2({
+                     tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory"],
+                     tokenSeparators: [",", " "],
+                     placeholder: "Search research areas",
+                  });
+                  var data = $('searchBar').select2('data')
+              </script>
+            </select>
+            <br>
+            <input class="form-control" style="width:520px;" id="search" type="text" placeholder="Demo KeywordSearch.." name="search">
+         </div>
 
-      <div class="searchArea">
-        <select id="searchBar" multiple="multiple" onchange="getResults()">
-           <script>
-              $('#searchBar').select2({
-                 tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory"],
-                 tokenSeparators: [",", " "],
-                 placeholder: "Search research areas",
-              });
-              var data = $('searchBar').select2('data')
-          </script>
-        </select>
-        <br>
-        <input class="form-control" style="width:520px;" id="search" type="text" placeholder="Demo KeywordSearch.." name="search">
-
+         <div class="row">
+            <div id ="searchResults" class="col-4 overflow-auto">
+                <h3>Search to Begin!</h3>
+            </div>
+            <div id="profSection" class="col-8">
+               <h3>Welcome to Princeton AdvisorSearch!</h3>
+            </div>
+         </div>
       </div>
 
-
-
-      <div class="flex-container">
+      <!-- <div class="flex-container">
          <div id="searchResults" class="flex-container-col slide resizable flex-item-scroll">
-           <h3>Search to Begin!</h3>
+
          </div>
 
          <div id="profSection">
-           <h3>Welcome to Princeton AdvisorSearch!</h3>
+
          </div>
-       </div>
+       </div> -->
 
 
       <script src=
