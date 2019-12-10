@@ -188,7 +188,7 @@ def profResults():
     html = '<div class="row">'
 
     if prof.getName() != '':
-        html+='<div class="col-xs-4">'
+        html+='<div class="col-4 col-xs-4">'
     # add another if to make sure get pic from dict is not null
         if profPics.get(prof.getName()) != None:
             html+='<img src='+str(profPics.get(prof.getName()))+'>'
@@ -198,7 +198,7 @@ def profResults():
         html+='<button>Contact</button>'
         # onclick="createForm('+str(prof.getName()) + ',' + str(prof.getAreas()).strip('[]') + ',\'' + str(prof.getTitles()).strip('[]')'+);"
         html+='</div>'
-        html+='<div class="col-xs-8">'
+        html+='<div class="col-8 col-xs-8">'
 
         html+='<h3>'+str(prof.getName())+'</h3>'
         html+='<p>'+str(prof.getContact())+'</p>'

@@ -143,11 +143,13 @@ input {
 input[type=checkbox] {
    display: inline;
 }
-#searchBar {
+
+/* #searchBar {
    width: 31%;
-   /* background-color: #e6b3ff; */
+   background-color: #e6b3ff;
    flex-grow: 1;
-}
+} */
+
 #searchResults {
    position: absolute;
    height: 50%;
@@ -157,11 +159,11 @@ input[type=checkbox] {
    /* flex-grow: 1; */
 }
 
-#profSection {
-   /* width: 68%; */
-   /* background-color: #80bfff; */
-   /* flex-grow: 1; */
-}
+/* #profSection {
+   width: 68%;
+   background-color: #80bfff;
+   flex-grow: 1;
+} */
 
 @media (min-width: 768px) {
     .button {
