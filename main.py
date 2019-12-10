@@ -195,8 +195,8 @@ def profResults():
         else:
             html+='<img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">'
 
-        #html+='<button onclick="createForm('+str(prof.getName()) + ',' + str(prof.getAreas()).strip('[]') + ',\'' + str(prof.getTitles()).strip('[]')'+);">Contact</button>'
-
+        html+='<button>Contact</button>'
+        # onclick="createForm('+str(prof.getName()) + ',' + str(prof.getAreas()).strip('[]') + ',\'' + str(prof.getTitles()).strip('[]')'+);"
         html+='</div>'
         html+='<div class="col-xs-8">'
 
@@ -204,7 +204,7 @@ def profResults():
         html+='<p>'+str(prof.getContact())+'</p>'
         html+='<p>'+str(prof.getBio())+'</p>'
 
-        html+='</div>'
+        html+='</div></div>'
         html+='<div class="row">'
 
         html+='<h4>Research Areas:</h4><ul>'
