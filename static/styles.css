@@ -140,15 +140,17 @@ input[type=checkbox] {
    flex-grow: 1;
 }
 #searchResults {
-   width: 31%;
+   position: absolute;
+   overflow-y: scroll;
+   /* width: 31%; */
    /* background-color: #e6b3ff; */
-   flex-grow: 1;
+   /* flex-grow: 1; */
 }
 
 #profSection {
-   width: 68%;
+   /* width: 68%; */
    /* background-color: #80bfff; */
-   flex-grow: 1;
+   /* flex-grow: 1; */
 }
 
 @media (min-width: 768px) {
