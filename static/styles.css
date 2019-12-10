@@ -201,6 +201,8 @@ input[type=checkbox] {
 }
 .navbar {
   margin-bottom: 0px !important;
+  position: relative;
+  z-index: 10;
 }
 
 .navbar-inverse {
@@ -230,7 +232,7 @@ input[type=checkbox] {
 }
 ol.carousel-indicators {
    position: absolute;
-   bottom: 40px;
+   bottom: 10px;
    margin: 0;
    left: 0;
    right: 0;
