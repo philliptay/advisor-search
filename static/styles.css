@@ -269,10 +269,17 @@ ol.carousel-indicators li.active {
 /* https://community.adobe.com/t5/dreamweaver/customizing-left-right-arrows-on-carousel/td-p/9034881 */
 
 .carousel-controls a {
-color: orange;
+background-color: rgba(255, 255, 255, 0.6);
+color: #e65c00;
 padding: 10px 14px;
 font-size: 30px;
 }
+
+.carousel-controls a:hover {
+background-color: rgba(255, 255, 255, 0.6);
+color: #e65c00;
+}
+
 
 #header-content {
 text-shadow: 3px 5px orange;
