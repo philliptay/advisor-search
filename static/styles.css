@@ -11,8 +11,10 @@ body {
    margin: 0;
 }
 .marginless {
-  margin: 0px !important;
-  padding: 0px !important;
+   height: 50%;
+   overflow-y: scroll;
+   margin: 0px !important;
+   padding: 0px !important;
 }
 
 .header-image {
@@ -152,8 +154,6 @@ input[type=checkbox] {
 
 #searchResults {
    position: absolute;
-   height: 50%;
-   overflow-y: scroll;
    /* width: 31%; */
    /* background-color: #e6b3ff; */
    /* flex-grow: 1; */
