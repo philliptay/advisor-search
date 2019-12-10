@@ -36,6 +36,13 @@ body {
 
 }
 
+.container-fluid {
+    padding-right:0;
+    padding-left:0;
+    margin-right:auto;
+    margin-left:auto
+ }
+
 .navbar {
   margin-bottom: 0px !important;
 }
@@ -66,7 +73,7 @@ body {
    background-color: #e65c00;
 }
 
-.flex-container {
+/* .flex-container {
    display: flex;
    flex-direction: row;
    height: 100%;
@@ -88,7 +95,7 @@ body {
     flex-basis: auto;
     overflow: auto;
 
-}
+} */
 
 .list-group-item {
 
