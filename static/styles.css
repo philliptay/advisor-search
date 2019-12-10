@@ -197,6 +197,35 @@ input[type=checkbox] {
 
 
 }
+.navbar {
+  margin-bottom: 0px !important;
+}
+
+.navbar-inverse {
+   background-color: #ff9933 !important;
+   border-color: #ff9933 !important;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+   color: white !important;
+}
+
+.navbar-inverse .navbar-brand {
+   color: white !important;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+   color: white !important;
+   background-color: #e65c00 !important;
+}
+
+.navbar-inverse .navbar-toggle {
+   border-color: #e65c00;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+   background-color: #e65c00;
+}
 ol.carousel-indicators {
    position: absolute;
    bottom: 40px;
@@ -217,7 +246,7 @@ ol.carousel-indicators li.active {
 }
 
 ol.carousel-indicators li {
-   background: rgba(255,255,255);
+   background: rgba(0, 0, 0);
    margin-left: .5rem;
    margin-right: .5rem;
 }
