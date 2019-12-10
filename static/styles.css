@@ -150,6 +150,7 @@ input[type=checkbox] {
 }
 #searchResults {
    position: absolute;
+   height: 50%;
    overflow-y: scroll;
    /* width: 31%; */
    /* background-color: #e6b3ff; */
