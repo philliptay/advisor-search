@@ -185,8 +185,7 @@ def profResults():
     areas = str(prof.getAreas()).strip('[]')
     theses = str(prof.getTitles()).strip('[]')
 
-    html = '<div class="container">'
-    html += '<div class="row">'
+    html = '<div class="row">'
 
     if prof.getName() != '':
         html+='<div class="col-xs-4">'
@@ -205,7 +204,7 @@ def profResults():
         html+='<p>'+str(prof.getContact())+'</p>'
         html+='<p>'+str(prof.getBio())+'</p>'
 
-        html+='</div></div>'
+        html+='</div>'
         html+='<div class="row">'
 
         html+='<h4>Research Areas:</h4><ul>'
