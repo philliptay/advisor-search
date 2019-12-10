@@ -110,10 +110,10 @@ body {
     background-color: #eee;
     color: black;
     border: 1px solid #ddd;
-        border-top-color: rgb(221, 221, 221);
-        border-right-color: rgb(221, 221, 221);
-        border-bottom-color: rgb(221, 221, 221);
-        border-left-color: rgb(221, 221, 221);
+    border-top-color: rgb(221, 221, 221);
+    border-right-color: rgb(221, 221, 221);
+    border-bottom-color: rgb(221, 221, 221);
+    border-left-color: rgb(221, 221, 221);
 
 }
 
@@ -138,26 +138,18 @@ body {
 }
 
 
-input {
-   display: block;
-}
-
-input[type=checkbox] {
-   display: inline;
-}
-
 /* #searchBar {
    width: 31%;
    background-color: #e6b3ff;
    flex-grow: 1;
 } */
 
-#searchResults {
+/* #searchResults {
    position: absolute;
-   /* width: 31%; */
-   /* background-color: #e6b3ff; */
-   /* flex-grow: 1; */
-}
+   width: 31%;
+   background-color: #e6b3ff;
+   flex-grow: 1;
+} */
 
 /* #profSection {
    width: 68%;
