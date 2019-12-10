@@ -151,25 +151,26 @@ input[type=checkbox] {
    flex-grow: 1;
 }
 
-.button {
-   -webkit-transition-duration: 0.4s; /* Safari */
-   transition-duration: 0.4s;
-   text-align: center;
-   white-space: nowrap;
-   vertical-align: middle;
-   margin: 20px 0 10px;
-   border-color: #000;
-   display: inline-block;
-   font-size: 2em;
-   border-width: 3px;
-   border-radius: 6px;
-   width: 42%;
-   z-index: 10;
-}
-.button h3 {
+@media (min-width: 768px) {
+    .button {
+       -webkit-transition-duration: 0.4s; /* Safari */
+       transition-duration: 0.4s;
+       text-align: center;
+       white-space: nowrap;
+       vertical-align: middle;
+       margin: 20px 0 10px;
+       border-color: #000;
+       display: inline-block;
+       font-size: 2em;
+       border-width: 3px;
+       border-radius: 6px;
+       width: 42%;
+       z-index: 10;
+    }
+    .button h3 {
 
+    }
 }
-
 .button:hover {
   background-color: #ff9933; /* Green */
   color: white;
@@ -181,7 +182,6 @@ input[type=checkbox] {
    position: absolute;
    left: 20%;
    background-repeat: no-repeat;
-   background-image: url(magny-glass.png);
    background-size: 700px 1000px;
 }
 
@@ -271,6 +271,7 @@ ol.carousel-indicators li.active {
 .carousel-controls a {
 background-color: rgba(255, 255, 255, 0.6);
 color: #e65c00;
+outline: black;
 padding: 10px 14px;
 font-size: 30px;
 }
@@ -284,4 +285,3 @@ color: #e65c00;
 #header-content {
 text-shadow: 3px 5px orange;
 }
-.
