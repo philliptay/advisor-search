@@ -181,9 +181,9 @@ def profResults():
         titles = ''
         links = ''
 
-    name = str(prof.getName())
-    areas = str(prof.getAreas()).strip('[]')
-    theses = str(prof.getTitles()).strip('[]')
+    # name = str(prof.getName())
+    # areas = str(prof.getAreas()).strip('[]')
+    # theses = str(prof.getTitles()).strip('[]')
 
     html = '<div class="row">'
 
