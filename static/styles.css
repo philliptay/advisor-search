@@ -199,7 +199,7 @@ input[type=checkbox] {
 }
 ol.carousel-indicators {
    position: absolute;
-   bottom: 5px;
+   bottom: 10px;
    margin: 0;
    left: 0;
    right: 0;
@@ -217,7 +217,7 @@ ol.carousel-indicators li.active {
 }
 
 ol.carousel-indicators li {
-   background: rgba(200,200,200,0.39);
+   background: rgba(255,255,255,0.39);
    margin-left: .5rem;
    margin-right: .5rem;
 }
