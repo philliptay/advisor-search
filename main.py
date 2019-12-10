@@ -232,7 +232,7 @@ def profResults():
             for i in range(len(titles)):
                 html+='<li><a href='+links[i].strip(', ')+' target="_blank">'+titles[i].strip(',. ')+'</li></a>'
             html+='</ul>'
-        html += '</div></div>'
+        html += '</div>'
 
     html.encode('utf-8')
     response = make_response(html)
