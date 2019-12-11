@@ -78,14 +78,14 @@ def searchResults():
 
     resultsnum = len(profList)
 
-    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><div id="resultsWrapper"><ul class="marginless"></div>'
+    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><div id="resultsWrapper"><ul class="marginless">'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
             topAreas += prof[1][i]+', '
         topAreas = topAreas.rstrip(', ')
-        html += '<a href="/" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong><br><span>Top Areas: '+ topAreas +'</span></li></a>'
-    html += '</ul>'
+        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong><br><span>Top Areas: '+ topAreas +'</span></li></a>'
+    html += '</ul></div>'
     html.encode('utf-8')
     response = make_response(html)
 
