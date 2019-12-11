@@ -78,13 +78,13 @@ def searchResults():
 
     resultsnum = len(profList)
 
-    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><ul class="marginless">'
+    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><div id="resultsWrapper"><ul class="marginless"></div>'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
             topAreas += prof[1][i]+', '
         topAreas = topAreas.rstrip(', ')
-        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong><br><span>Top Areas: '+ topAreas +'</span></li></a>'
+        html += '<a href="/" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong><br><span>Top Areas: '+ topAreas +'</span></li></a>'
     html += '</ul>'
     html.encode('utf-8')
     response = make_response(html)
@@ -188,7 +188,7 @@ def profResults():
     html = '<div class="row">'
 
     if prof.getName() != '':
-        html+='<div class="col-xs-4">'
+        html+='<div class="col-xs-4" id="profPic">'
     # add another if to make sure get pic from dict is not null
         if profPics.get(prof.getName()) != None:
             html+='<img src='+str(profPics.get(prof.getName()))+'>'
