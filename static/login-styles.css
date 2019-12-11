@@ -10,7 +10,23 @@ body {
    height: 100%;
    margin: 0;
 }
+#header-content {
+    position: absolute;
+    padding: 20px;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    color: #000;
+    z-index: 10;
 
+}
+
+.container-fluid {
+    padding-right:0;
+    padding-left:0;
+    margin-right:auto;
+    margin-left:auto
+ }
 @media (min-width: 768px) {
     .button {
        -webkit-transition-duration: 0.4s; /* Safari */
