@@ -44,19 +44,24 @@
               </nav>
             </div>
 
-            <div class="row">
-               <select id="searchBar" multiple="multiple" onchange="getResults()">
-                  <script>
-                     $('#searchBar').select2({
-                        tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory"],
-                        tokenSeparators: [",", " "],
-                        placeholder: "Search research areas",
-                     });
-                     var data = $('searchBar').select2('data')
-                 </script>
-               </select>
-               <br>
-               <input class="form-control" style="width:520px;" id="search" type="text" placeholder="Demo KeywordSearch.." name="search">
+            <div class="row searchArea">
+               <div class="col-md-4 col-xs-4">
+                  <select id="searchBar" multiple="multiple" onchange="getResults()">
+                     <script>
+                        $('#searchBar').select2({
+                           tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory"],
+                           tokenSeparators: [",", " "],
+                           placeholder: "Search research areas",
+                        });
+                        var data = $('searchBar').select2('data')
+                    </script>
+                  </select>
+                  <br>
+                  <input class="form-control" id="search" type="text" placeholder="Search keywords" name="search">
+               </div>
+               <div class="col-md-8 col-xs-8">
+                  Research Area Legend Placeholder
+               </div>
             </div>
 
             <div class="row">
@@ -70,15 +75,7 @@
          </div>
       </div>
 
-      <!-- <div class="flex-container">
-         <div id="searchResults" class="flex-container-col slide resizable flex-item-scroll">
 
-         </div>
-
-         <div id="profSection">
-
-         </div>
-       </div> -->
 
 
       <script src=

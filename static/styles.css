@@ -10,6 +10,7 @@ body {
    height: 100%;
    margin: 0;
 }
+
 .marginless {
    height: 50%;
    overflow-y: scroll;
@@ -26,7 +27,6 @@ body {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-
 }
 
 .row {
@@ -42,7 +42,6 @@ body {
     transform: translate(-50%,-50%);
     color: #000;
     z-index: 10;
-
 }
 
 .container-fluid {
@@ -50,7 +49,7 @@ body {
     padding-left:0;
     margin-right:auto;
     margin-left:auto
- }
+}
 
 .navbar {
    margin-left: 0;
@@ -83,30 +82,6 @@ body {
    background-color: #e65c00;
 }
 
-/* .flex-container {
-   display: flex;
-   flex-direction: row;
-   height: 100%;
-}
-
-.flex-container-col {
-
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: stretch;
-    overflow: hidden;
-
-}
-
-.flex-item-scroll {
-
-    flex-grow: 0;
-    flex-shrink: 10000;
-    flex-basis: auto;
-    overflow: auto;
-
-} */
-
 .list-group-item {
 
     position: relative;
@@ -124,23 +99,17 @@ body {
 }
 
 .list-group-item:hover{
-
     background-color: #ddd;
-
 }
 
 .list-group-item:focus{
     color: white;
     background-color: #e65c00;
-
 }
 
-
-.searchBar {
-   position: relative;
+.searchArea {
    background-color: white;
-
-   width:100%;
+   height: 10%;
 }
 
 
