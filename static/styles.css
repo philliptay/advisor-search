@@ -108,16 +108,13 @@ body {
 }
 
 .searchArea {
-   background-color: white;
-   height: 10%;
+   height: 15%;
 }
 
 
-/* #searchBar {
-   width: 31%;
-   background-color: #e6b3ff;
-   flex-grow: 1;
-} */
+#searchBar {
+   width: 100%;
+}
 
 /* #searchResults {
    position: absolute;
