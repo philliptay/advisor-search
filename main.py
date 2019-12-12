@@ -78,7 +78,7 @@ def searchResults():
 
     resultsnum = len(profList)
 
-    html = '<hr></hr> <h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><div id="resultsWrapper"><ul class="marginless">'
+    html = '<h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><div id="resultsWrapper"><ul class="marginless">'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
