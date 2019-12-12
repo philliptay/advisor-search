@@ -195,25 +195,14 @@ def profResults():
         else:
             html+='<img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">'
 
-        html+='</div>'
-        html+='<div class="col-xs-8">'
-
-        html+='<h3>'+str(prof.getName())+'</h3>'
-        html+='<p>'+str(prof.getContact())+'</p>'
-        html+='<p>'+str(prof.getBio())+'</p>'
-
-        html+='</div></div>'
-        html+='<div class="row">'
         # open contact modal button
-        html+='<button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">'
-        html+='Contact'
-        html+='</button>'
+        html+='<button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">Contact</button>'
         # contact modal contents
-        html+='<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">'
+        html+='<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">'
         html+='<div class="modal-dialog" role="document">'
         html+='<div class="modal-content">'
         html+='<div class="modal-header">'
-        html+='<h5 class="modal-title" id="exampleModalLabel">Advisor Email Builder</h5>'
+        html+='<h5 class="modal-title" id="contactModalLabel">Advisor Email Builder</h5>'
         html+='<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
         html+='<span aria-hidden="true">&times;</span>'
         html+='</button>'
@@ -228,8 +217,15 @@ def profResults():
         html+='</div>'
         html+='</div>'
         html+='</div>'
+        html+='</div>'
+        html+='<div class="col-xs-8">'
 
+        html+='<h3>'+str(prof.getName())+'</h3>'
+        html+='<p>'+str(prof.getContact())+'</p>'
+        html+='<p>'+str(prof.getBio())+'</p>'
 
+        html+='</div></div>'
+        html+='<div class="row">'
 
         # onclick="createForm('+str(prof.getName()) + ',' + str(prof.getAreas()).strip('[]') + ',\'' + str(prof.getTitles()).strip('[]')'+);"
         html+='<h4>Research Areas:</h4><ul>'
