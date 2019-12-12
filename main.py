@@ -205,7 +205,7 @@ def profResults():
         html+='</div></div>'
         html+='<div class="row">'
         # open contact modal button
-        html+='<button>class="btn btn-info" data-toggle="modal" data-target="#contactModal">'
+        html+='<button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">'
         html+='Contact'
         html+='</button>'
         # contact modal contents
