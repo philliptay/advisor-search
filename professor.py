@@ -1,5 +1,5 @@
 class Professor:
-    def __init__(self, name, bio, areas, projects, titles, links, contact):
+    def __init__(self, name, bio, areas, projects, titles, links, contact, picLink):
         self._name = name
         self._bio = bio
         self._areas = areas
@@ -7,6 +7,7 @@ class Professor:
         self._titles = titles
         self._links = links
         self._contact = contact
+        self._picLink = picLink
 
     def getName(self):
         return self._name
@@ -28,3 +29,6 @@ class Professor:
 
     def getContact(self):
         return self._contact
+
+    def getPicLink(self):
+        return self._picLink

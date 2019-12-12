@@ -2,7 +2,9 @@ CREATE TABLE profs(
    prof_id serial PRIMARY KEY,
    bio VARCHAR (500),
    email VARCHAR (50),
-   name VARCHAR(50)
+   name VARCHAR(50),
+   favorites serial,
+   pic_link VARCHAR(100)
 );
 
 CREATE TABLE projects(
@@ -28,5 +30,16 @@ CREATE TABLE areas(
 
 CREATE TABLE users(
    username VARCHAR(50) PRIMARY KEY,
-   password VARCHAR(50)
+);
+
+CREATE TABLE favorited_profs(
+  FOREIGN KEY (username) REFERENCES users(username)
+  FOREIGN KEY (prof_id) REFERENCES profs(prof_id)
+);
+
+
+
+CREATE TABLE courses(
+  course VARCHAR(10) PRIMARY KEY,
+  FOREIGN KEY (prof_id) REFERENCES profs(prof_id)
 );

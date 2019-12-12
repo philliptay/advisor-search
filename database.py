@@ -84,13 +84,14 @@ class Database:
     def profSearch(self, profid):
 
         cursor = self._connection.cursor()
-        stmtStr = 'SELECT profs.name, profs.email, profs.bio FROM profs WHERE profs.prof_id = %s'
+        stmtStr = 'SELECT profs.name, profs.email, profs.bio, profs.pic_links FROM profs WHERE profs.prof_id = %s'
         cursor.execute(stmtStr, (profid,))
         rows = cursor.fetchall()
         for row in rows:
             name = row[0]
             contact = row[1]
             bio = row[2]
+            picLink = row[3]
 
         areas = []
         projects = []
@@ -128,7 +129,7 @@ class Database:
             titles = 'This advisor has no previous works advised.'
             links = ''
 
-        professor = Professor(name, bio, areas, projects, titles, links, contact)
+        professor = Professor(name, bio, areas, projects, titles, links, contact, picLink)
         return professor
 
     def rankResults(self, results):
@@ -173,3 +174,24 @@ class Database:
         sorted_key_list = sorted(dict_len.items(), key=operator.itemgetter(1), reverse=True)
         sorted_dict = [{item[0]: dict[item [0]]} for item in sorted_key_list]
         return(sorted_dict)
+
+    # check user in database - if not, add
+    def loginSearch(self, username):
+        cursor = connection.cursor()
+        stmtStr = 'SELECT username FROM uers WHERE username = ?'
+        cursor.execute(stmtStr, [username])
+
+        row = cursor.fetchone()
+        if row is None:
+            cursor.close()
+            connection.close()
+            return "username does not exist error"
+        else:
+            if password != row[1]:
+                cursor.close()
+                connection.close()
+                return "incorrect password"
+            else:
+                cursor.close()
+                connection.close()
+                return "success"
