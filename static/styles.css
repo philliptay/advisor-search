@@ -17,7 +17,7 @@ body {
 }
 
 .marginless {
-   max-height: 50vh;
+   max-height: 70vh;
    overflow: auto;
    margin: 0px !important;
    padding: 0px !important;

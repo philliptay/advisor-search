@@ -193,7 +193,7 @@ def profResults():
         if profPics.get(prof.getName()) != None:
             html+='<img src='+str(profPics.get(prof.getName()))+'>'
         else:
-            html+='<img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">'
+            html+='<img src="https://live.staticflickr.com/65535/49209978778_7a78b133be_n.jpg">'
 
         html+='<div class="col-xs-8">'
 
