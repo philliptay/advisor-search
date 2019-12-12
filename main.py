@@ -123,7 +123,7 @@ def profResults():
         titles = ''
         links = ''
 
-    html = render_template('profpage.html')
+    html = render_template('profpage.html', prof = prof, pic = pic, titles = titles, links = links)
     response = make_response(html)
     return(response)
 
