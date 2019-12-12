@@ -135,31 +135,8 @@ def profResults():
         if pic != None:
             html+='<img src='+pic+'>'
         else:
-            html+='<img src="https://live.staticflickr.com/65535/49189707262_510e60d7d6_n.jpg">'
+            html+='<img src="https://live.staticflickr.com/65535/49209978778_7a78b133be_n.jpg">'
 
-        # open contact modal button
-        html+='<button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">Contact</button>'
-        # contact modal contents
-        html+='<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">'
-        html+='<div class="modal-dialog" role="document">'
-        html+='<div class="modal-content">'
-        html+='<div class="modal-header">'
-        html+='<h5 class="modal-title" id="contactModalLabel">Advisor Email Builder</h5>'
-        html+='<button type="button" class="close" data-dismiss="modal" aria-label="Close">'
-        html+='<span aria-hidden="true">&times;</span>'
-        html+='</button>'
-        html+='</div>'
-        html+='<div class="modal-body">'
-        html+='<p>Hi there</p>'
-        html+='</div>'
-        html+='<div class="modal-footer">'
-        html+='<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>'
-        html+='<button type="button" class="btn btn-primary">Send Email</button>'
-        html+='</div>'
-        html+='</div>'
-        html+='</div>'
-        html+='</div>'
-        html+='</div>'
         html+='<div class="col-xs-8">'
 
         html+='<h3>'+str(prof.getName())+'</h3>'
