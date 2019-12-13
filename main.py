@@ -126,58 +126,7 @@ def profResults():
         titles = ''
         links = ''
 
-    # name = str(prof.getName())
-    # areas = str(prof.getAreas()).strip('[]')
-    # theses = str(prof.getTitles()).strip('[]')
-
-    html = '<div class="row">'
-
-    if prof.getName() != '':
-        html+='<div class="col-xs-4" id="profPic">'
-    # add another if to make sure get pic from dict is not null
-        if pic != None:
-            html+='<img src='+pic+'>'
-        else:
-            html+='<img src="https://live.staticflickr.com/65535/49209978778_7a78b133be_n.jpg">'
-
-        html+='<div class="col-xs-8">'
-
-        html+='<h3>'+str(prof.getName())+'</h3>'
-        html+='<p>'+str(prof.getContact())+'</p>'
-        html+='<p>'+str(prof.getBio())+'</p>'
-
-        html+='</div></div>'
-        html+='<div class="row">'
-
-        # onclick="createForm('+str(prof.getName()) + ',' + str(prof.getAreas()).strip('[]') + ',\'' + str(prof.getTitles()).strip('[]')'+);"
-        html+='<h4>Research Areas:</h4><ul>'
-        for area in prof.getAreas():
-            html+='<li>'+str(area[0].strip('. '))+'</li>'
-        html+='</ul></div>'
-
-        html+='<div class="row">'
-        html+='<h4>Current Projects:</h4>'
-        if prof.getProjects() == 'No projects found.':
-            html+='<p>'+prof.getProjects()+'</p>'
-        else:
-            html+='<ul>'
-            for proj in prof.getProjects():
-                html+='<li>'+str(proj[0].strip('. '))+'</li>'
-            html+='</ul>'
-        html+='</div>'
-
-        html+='<div class="row">'
-        html+='<h4>Past Theses Advised:</h4>'
-        if links == '':
-            html+='<p>'+str(titles)+'</p>'
-        else :
-            html+='<ul>'
-            for i in range(len(titles)):
-                html+='<li><a href='+links[i].strip(', ')+' target="_blank">'+titles[i].strip(',. ')+'</li></a>'
-            html+='</ul>'
-        html += '</div>'
-
-    html.encode('utf-8')
+    html = render_template('profpage.html', prof = prof, pic = pic, titles = titles, links = links)
     response = make_response(html)
     return(response)
 
