@@ -18,19 +18,22 @@ db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 @app.route('/login', methods=['GET'])
 def login():
-    CASClient().authenticate()
-    return redirect(url_for('index'))
+    # CASClient().authenticate()
+    # return redirect(url_for('index'))
+    html = render_template('login.html')
+    response = make_response(html)
+    return(response)
 
 #-------------------------------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    if 'username' not in session:
-         session['profs'] = None
-         html = render_template('login.html')
-         response = make_response(html)
-         return(response)
+    # if 'username' not in session:
+    #      session['profs'] = None
+    #      html = render_template('login.html')
+    #      response = make_response(html)
+    #      return(response)
 
     username = session['username']
 
