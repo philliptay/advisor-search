@@ -84,7 +84,7 @@ def searchResults():
         for i in range(min(3, len(prof[1]))) :
             topAreas += prof[1][i]+', '
         topAreas = topAreas.rstrip(', ')
-        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong><br><span>Top Areas: '+ topAreas +'</span></li></a>'
+        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><strong>'+str(prof[0])+'</strong><i data-toggle="tooltip" data-original-title="Click to favorite" class="fa fa-heart fav-icon"></i><br><span>Top Areas: '+ topAreas +'</span></li></a>'
     html += '</ul></div>'
     html.encode('utf-8')
     response = make_response(html)
