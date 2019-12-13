@@ -35,7 +35,8 @@ def index():
     #      response = make_response(html)
     #      return(response)
 
-    username = session['username']
+    # username = session['username']
+    username = ''
 
     html = render_template('index.html', user=username)
     response = make_response(html)
