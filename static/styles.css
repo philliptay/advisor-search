@@ -16,9 +16,9 @@ body {
    height: 65vh;
 }
 
-#infoWrapper {
+.infoWrapper {
    height: 30vh;
-   overflow: auto;
+   overflow-y: scroll;
 }
 
 .bioArea {
@@ -27,7 +27,7 @@ body {
 }
 
 .marginless {
-   max-height: 65vh;
+   max-height: 68vh;
    overflow: auto;
    margin: 0px !important;
    padding: 0px !important;
@@ -67,7 +67,7 @@ body {
 }
 
 .navbar {
-   height: 6vh;
+   height: 7vh;
    margin-left: 0;
    margin-bottom: 0px !important;
 }
