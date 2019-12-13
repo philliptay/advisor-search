@@ -1,10 +1,19 @@
-<!-- Trigger the modal with a button -->
-<button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">Open Modal</button>
+<div class="row">
+   <div class="col-xs-4" id="profPic">
+      {% if prof.getName() != '' %}
+         {% if pic != None %}
+            <img src={{pic}}>
+         {% else %}
+            <img src="https://live.staticflickr.com/65535/49209978778_7a78b133be_n.jpg">
+         {% endif %}
+         <!-- Trigger the modal with a button -->
+         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">Contact</button>
 
-<!-- Modal -->
-<div id="contactModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+         <!-- Modal -->
+         <div id="contactModal" class="modal fade" role="dialog">
+           <div class="modal-dialog">
 
+<<<<<<< HEAD
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -13,12 +22,90 @@
       </div>
       <div class="modal-body">
         <p>Van sucks.</p>
+        <div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        This is a dropdown menu
+         <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a href="#">Some</a></li>
+        <li><a href="#">Nice</a></li>
+        <li><a href="#">Links</a></li>
+        <li><a href="#">Here</a></li>
+    </ul>
+</div>
+=======
+             <!-- Modal content-->
+             <div class="modal-content">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="modal-title">Advisor Email Builder</h4>
+               </div>
+               <div class="modal-body">
+                 <p>Aaron sucks.</p>
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Send</button>
+               </div>
+             </div>
+
+           </div>
+         </div>
+      {% endif %}
+   </div>
+
+   <div class="col-xs-8">
+      <div class="row">
+         {% if prof.getName() != '' %}
+            <h3>{{prof.getName()}}</h3>
+            <p>{{prof.getContact()}}</p>
+         {% endif %}
+>>>>>>> da26bba60538942e191fa4688d2e8476b06742cf
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Send</button>
+      <div class="row bioArea">
+         {% if prof.getName() != '' %}
+            <p>{{prof.getBio()}}</p>
+         {% endif %}
       </div>
+<<<<<<< HEAD
     </div>
-    
+
   </div>
+=======
+   </div>
+</div>
+
+<div class="row infoWrapper">
+   {% if prof.getName() != '' %}
+      <h4>Research Areas</h4>
+      <ul>
+         {% for area in prof.getAreas() %}
+         <li>{{area[0].strip('. ')}}</li>
+         {% endfor %}
+      </ul>
+
+      <h4>Current Projects:</h4>
+      {% if prof.getProjects() == 'No projects found.' %}
+        <p>{{prof.getProjects()}}</p>
+      {% else %}
+      <ul>
+        {% for proj in prof.getProjects() %}
+        <li>{{proj[0].strip('. ')}}</li>
+        {% endfor %}
+      {% endif %}
+      </ul>
+
+      <h4>Past Theses Advised:</h4>
+      {% if links == '' %}
+        <p>{{titles}}</p>
+      {% else %}
+      <ul>
+        {% for i in range(titles|length) %}
+        <li><a href={{links[i].strip(', ')}} target="_blank">{{titles[i].strip(',. ')}}</li></a>
+        {% endfor %}
+      {% endif %}
+      </ul>
+   {% endif %}
+>>>>>>> da26bba60538942e191fa4688d2e8476b06742cf
 </div>
