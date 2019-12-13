@@ -101,7 +101,7 @@ def main():
     #     cursor.execute(stmt, (profPics.get(name), name))
     areas = ['software engineering', 'software engineering education','programming languages', 'instructional design']
     for area in areas:
-        stmt = "UPDATE areas SET area = %s WHERE prof_id = (SELECT prof_id FROM profs WHERE name = 'Robert Dondero')"
+        stmt = "INSERT INTO areas (area, prof_id) VALUES (%s, 44)"
         cursor.execute(stmt, (area,))
 
     conn.commit()
