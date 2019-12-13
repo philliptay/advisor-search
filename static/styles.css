@@ -49,6 +49,10 @@ body {
    margin-right: auto;
 }
 
+.searchBarLeft {
+   padding-left: 0;
+}
+
 #header-content {
     position: absolute;
     padding: 20px;
@@ -133,31 +137,6 @@ body {
 
 #profPic {
    text-align: left;
-}
-
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-        font-size: 14px;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-}
-
-.fav-icon {
-
-    color: #ddd;
-    cursor: pointer;
-    transition: color .4s ease;
-
-}
-
-.active .fav-icon {
-
-    color: #f4f4f4;
-
 }
 
 /* #searchResults {
