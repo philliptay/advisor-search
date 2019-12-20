@@ -162,9 +162,23 @@ class Database:
         # sort the dictionary based on values
         keyProfDict = self.sort_by_values_len(keyProfDict)
         areaProfDict = self.sort_by_values_len(areaProfDict)
-        profDict = keyProfDict + areaProfDict
-        # return dictionary
-        return(profDict)
+        profResults = []
+
+        #make results the AND of area search and keyword search (absolutely disgusting code here)
+        if len(keyProfDict) > 0 and len(areaProfDict) > 0:
+            for aProf in areaProfDict:
+                for kProf in keyProfDict:
+                    for aKey in aProf.keys():
+                        for kKey in kProf.keys():
+                            if aKey == kKey:
+                                profResults.append(aProf)
+            return(profResults)
+
+        if len(keyProfDict) > 0:
+            return(keyProfDict)
+
+        else:
+            return(areaProfDict)
 
 
     #taken from stack overflow

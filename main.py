@@ -63,7 +63,6 @@ def searchResults():
     #         keywords.append(tag)
 
     searchInput = [areas, keywords]
-    print(searchInput)
 
     database = Database()
     database.connect()
@@ -104,33 +103,54 @@ def profResults():
 
     profid = request.args.get('profid')
 
-    if profid is not None:
-        if  profid.strip() == '':
-            errorMsg = 'Missing profid'
-            return redirect(url_for('error', errorMsg=errorMsg))
-        try:
-            int(profid)
-        except ValueError:
-            errorMsg = 'Profid is not numeric'
-            return redirect(url_for('error', errorMsg=errorMsg))
+    database = Database()
+    database.connect()
+    prof = database.profSearch(profid)
+    database.disconnect()
 
-        database = Database()
-        database.connect()
-        prof = database.profSearch(profid)
-        database.disconnect()
-
-        titles = prof.getTitles()
-        links = prof.getLinks()
-        pic = prof.getPicLink()
-
-    else:
-        titles = ''
-        links = ''
+    titles = prof.getTitles()
+    links = prof.getLinks()
+    pic = prof.getPicLink()
 
     html = render_template('profpage.html', prof = prof, pic = pic, titles = titles, links = links)
     response = make_response(html)
     return(response)
 
+#-------------------------------------------------------------------------------
+@app.route('/emailresults')
+def emailResults():
+    #get name and contact of prof
+    year = request.args.get('year')
+    type = request.args.get('type')
+    areas = request.args.getlist('areas')
+    if len(areas) > 1:
+        for area in areas[:-1]:
+            areasFormatted += area
+            areasFormatted += ", "
+        areasFormatted += ", and "
+        areasFormatted += areas[-1]
+    else:
+        areasFormatted = areas[0]
+
+    projs = request.args.getlist('projs')
+    projFormatted = ""
+    for word in projs:
+        projFormatted += word
+
+
+    body1 = "Dear Professor Van (will get when prof is sent to main.py),"
+    body2 = "I am a " + str(year) + " in the Computer Science department and I am exploring areas of research to do my " + str(type) + ". In this search process, I reviewed academic work in " + str(areasFormatted) + "and found " + str(projFormatted) + " to be a fascinating project."
+    body3 = "     Specifically… ******** in this section, discuss something in the paper that excites you. This could be something that you want to build off of in your own project, or something you hope to work on in the future. Feel free to talk personally about why you might want to work in this area. ********"
+    body4 = "     Your work in " + str(areasFormatted) + " is inspiring and I would be honored if you advised me for my " + str(type) + ". Please let me know if I can send you information about myself, or if there are other steps that I should take."
+    body5 = "     Sincerely,"
+    body6 = "     (Your name here)"
+
+    subject = "Request for you to be my Advisor"
+
+    #build email body here
+    html = render_template('emailpage.html', subject = subject, body1 = body1, body2 = body2, body3 = body3, body4 = body4, body5 = body5, body6 = body6)
+    response = make_response(html)
+    return(response)
 #-------------------------------------------------------------------------------
 
 @app.route('/resources')

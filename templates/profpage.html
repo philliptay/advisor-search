@@ -15,24 +15,120 @@
            <div class="modal-dialog">
 
              <!-- Modal content-->
-             <div class="modal-content">
+             <div class="modal-content" id="modal-content">
                <div class="modal-header">
                  <button type="button" class="close" data-dismiss="modal">&times;</button>
                  <h4 class="modal-title">Advisor Email Builder</h4>
                </div>
                <div class="modal-body">
-                 <p>Aaron sucks.</p>
-               </div>
-               <div class="modal-footer">
-                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                 <button type="button" class="btn btn-default" data-dismiss="modal">Send</button>
-               </div>
-             </div>
+                 <p>Enter the information then click generate to build a customized email to Professor {{prof.getName()}}</p>
 
-           </div>
-         </div>
-      {% endif %}
-   </div>
+                <form id="emailForm">
+
+                  <h4>Select Class: </h4>
+                  <select name="year" id="year">
+                    <option value="Junior">Junior</option>
+                    <option value="Senior">Senior</option>
+                  </select>
+
+                  <h4>Select Project Type: </h4>
+                  <select name="type" id="type">
+                    <option value="Independent Work">Independent Work</option>
+                    <option value="Thesis">Thesis</option>
+                  </select>
+
+                  <h4>Area(s) of Research that Interest you most: (will be dropdown)</h4>
+                  <input type="text" id="areas" placeholder="research areas">
+
+                  <h4>Select the Project that Interests you most: (will be dropdown)  </h4>
+                  <input type="text" id="projs" placeholder="current proj or thesis">
+
+
+                </form>
+
+              </div>
+              <div class="modal-footer">
+                <input type="button" class="btn btn-primary" value="Generate" onclick="getEmailResults();"/>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+     {% endif %}
+  </div>
+
+
+
+
+<!--
+                  <select id="areaBar" multiple="multiple">
+                     <script>
+                        $('#areaBar').select2({
+                           placeholder: "Select or type research area(s)",
+                        });
+                        var areaData = $('areaBar').select2('data')
+                    </script>
+                  </select>
+                  {% for area in prof.getAreas() %}
+                  <input id="area" value={{area[0].strip('. ')}}></input>
+                  <script>
+
+                    var area = document.getElementById('area').value;
+                    var data = {
+                    id: area,
+                    text: area
+                    };
+                    var newOption = new Option(data.text, data.id, false, false);
+                    $('#areaBar').append(newOption).trigger('change');
+                  </script>
+                  {% endfor %}
+
+                  <h4>Select Project: </h4>
+                  <select id="projectBar" name="projectBar">
+                    <script>
+                       $('#projectBar').select2({
+                          placeholder: "Select or type project(s)",
+                       });
+                       var projectData = $('projectBar').select2('data')
+                   </script>
+                  </select>
+                  {% for project in prof.getProjects() %}
+                  <input id="project" value={{project[0].strip('. ')}}></input> #need to add a count so to diff the projects
+                  <script>
+                    var project = document.getElementById('project').value;
+                    var data = {
+                    id: project,
+                    text: project
+                    };
+                    var newOption = new Option(data.text, data.id, false, false);
+                    $('#projectBar').append(newOption).trigger('change');
+                  </script>
+                  {% endfor %}
+-->
+
+
+<!--
+                 <form method="POST" name="emailform" action="form-to-email.js">
+                 Name: <input type="text" name="name">
+                 <input type="submit" value="Send Form">
+                 </form>
+
+
+
+                 <p>Subject Line:</p>
+
+                 <p>Body of Email:</p>
+                 <p>It is best to get started with finding your advisor as early as possible. Once you have found a professor whose work excites you, go ahead and send an email expressing your interest in being their advisee. Here is an example email for you to build off: </p>
+                 <p>Dear Professor _______,</p>
+                 <p>I am a junior/senior in the Computer Science department and I am exploring areas of research to do my thesis/IW work. In this search process, I reviewed past theses/IW projects in AreasOfReasearch: _______. One paper that fascinated me was (Title of Project) by (author of IW/thesis name).</p>
+                 <p>Specifically… ******** in this section, discuss something that you found exciting in the field of computer science, that was in this paper. Feel free to talk personally about why you want to work in this area. ********</p>
+                 <p>Your work in AreasOfResearch has made me want to be your advisee for my IW/Thesis. Please let me know if I can send you information about myself, or if there are other steps that I should take.</p>
+                 <p>Sincerely,</p>
+                 <p>__________</p>
+ -->
+
 
    <div class="col-xs-8">
       <div class="row">
@@ -75,9 +171,67 @@
       {% else %}
       <ul>
         {% for i in range(titles|length) %}
-        <li><a href={{links[i].strip(', ')}} target="_blank">{{titles[i].strip(',. ')}}</li></a>
+        <li><a href={{links[i].strip(', ')}} target="_blank">{{titles[i].strip(',. ')}}</a></li>
         {% endfor %}
       {% endif %}
       </ul>
    {% endif %}
 </div>
+
+<script>
+  function handleEmailResponse(response)
+  {
+    $('#modal-content').html(response);
+    console.log("alert 2");
+  }
+  function getEmailResults()
+  {
+    let year = $("#year").val();
+    let type = $("#type").val();
+    let areas = $("#areas").val();
+    let projs = $("#projs").val();
+
+
+    year = encodeURIComponent(year);
+    type = encodeURIComponent(type);
+    areas = encodeURIComponent(areas);
+    projs = encodeURIComponent(projs);
+    let url = '/emailresults?year=' + year + '&type=' + type + '&areas=' + areas + '&projs=' + projs;
+    request = $.ajax({
+    type: "GET",
+    url: url,
+    success: handleEmailResponse
+    }
+    );
+  }
+</script>
+
+<!--  taken from https://stackoverflow.com/questions/5773174/html-button-to-send-email/29975611
+<script>
+    function loadEvents() {
+        var mailString;
+        function updateMailString() {
+            mailString = '?subject=' + encodeURIComponent($('#subject').val())
+                + '&body=' + encodeURIComponent($('#message').val());
+            $('#mail-link').attr('href',  'mailto:person@email.com' + mailString);
+        }
+        $( "#subject" ).focusout(function() { updateMailString(); });
+        $( "#message" ).focusout(function() { updateMailString(); });
+        console.log(mailString);
+        updateMailString();
+    }
+    $(document).ready(function() {
+    $('#bt1').click(function() {
+        $('#fr1').attr('action',
+                       'mailto:test@test.com?subject=' +
+                       $('#tb1').val() + '&body=' + $('#tb2').val());
+        $('#fr1').submit();
+    });
+  });
+  function addAreas(area) {
+    area = area[0].strip('. ');
+    console.log(area);
+  }
+
+</script>
+-->

@@ -202,6 +202,17 @@ body {
     flex-shrink: 0;
 
 }
+#contactModal {
+}
+#fr1{
+}
+#areaBar{
+  width: 50%;
+}
+#projectBar{
+  width: 50%;
+}
+
 
 /* #searchResults {
    position: absolute;
