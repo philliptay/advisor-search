@@ -20,6 +20,7 @@ db = SQLAlchemy(app)
 def login():
     # CASClient().authenticate()
     # return redirect(url_for('index'))
+
     html = render_template('login.html')
     response = make_response(html)
     return(response)
@@ -30,18 +31,23 @@ def login():
 def index():
 
     # if 'username' not in session:
-    #      session['profs'] = None
-    #      html = render_template('login.html')
-    #      response = make_response(html)
-    #      return(response)
+    #     logState = 'Login'
+    #     logLink = '/login'
+    #     session['profs'] = None
+    #     html = render_template('login.html', logState = logState, logLink = logLink)
+    #     response = make_response(html)
+    #     return(response)
 
     # username = session['username']
-    username = ''
+    # logState = 'Logout'
+    # logLink = '/logout'
+    # html = render_template('index.html', user=username, logState = logState, logLink = logLink)
+    # response = make_response(html)
+    # return(response)
 
+    username = ''
     html = render_template('index.html', user=username)
     response = make_response(html)
-
-
     return(response)
 
 #-------------------------------------------------------------------------------
@@ -155,7 +161,14 @@ def emailResults():
 
 @app.route('/resources')
 def resources():
-    html = render_template('resources.html')
+    if 'username' not in session:
+        logState = 'Login'
+        logLink = '/login'
+    else:
+        logState = 'Logout'
+        logLink = '/logout'
+
+    html = render_template('resources.html', logState = logState, logLink = logLink)
     response = make_response(html)
     return(response)
 
@@ -163,7 +176,14 @@ def resources():
 
 @app.route('/about')
 def about():
-    html = render_template('about.html')
+    if 'username' not in session:
+        logState = 'Login'
+        logLink = '/login'
+    else:
+        logState = 'Logout'
+        logLink = '/logout'
+
+    html = render_template('about.html', logState = logState, logLink = logLink)
     response = make_response(html)
     return(response)
 #-------------------------------------------------------------------------------
