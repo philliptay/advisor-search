@@ -6,7 +6,7 @@
   <h4>Subject:</h4>
   <p>{{subject}}</p>
   <h4>Body:</h4>
-  <p>{{body1}}</p>
+  <p>{{body1}}{{prof.getName()}},</p>
   <p>{{body2}}</p>
   <p>{{body3}}</p>
   <p>{{body4}}</p>
@@ -15,6 +15,6 @@
 </div>
 <div class="modal-footer">
   <button type="button" name="button">Edit Inputs (doesn't work)</button>
-  <a href="mailto:testprofemail@vansucks.trolol?subject=test subj&body=testing body">Review Email</a>
-  <!--{{subject}}"&body="{{body1}}{{body2}}{{body3}}{{body4}}{{body5}}{{body6}} -->
+  <!--<a href="mailto:"{{prof.getContact()}}"?subject="{{subject}}"&body="{{body1}}{{prof.getName()}},{{body2}}{{body3}}{{body4}}{{body5}}{{body6}}>Review Email</a>
+  href does not work yet -> need to pass in contact subj and body, need to get paragraph breaks -->
 </div>

@@ -125,7 +125,7 @@ def profResults():
 #-------------------------------------------------------------------------------
 @app.route('/emailresults')
 def emailResults():
-    #get name and contact of prof
+
     year = request.args.get('year')
     type = request.args.get('type')
     areas = request.args.getlist('areas')
@@ -144,7 +144,7 @@ def emailResults():
         projFormatted += word
 
 
-    body1 = "Dear Professor Van (will get when prof is sent to main.py),"
+    body1 = "Dear Professor "
     body2 = "I am a " + str(year) + " in the Computer Science department and I am exploring areas of research to do my " + str(type) + ". In this search process, I reviewed academic work in " + str(areasFormatted) + "and found " + str(projFormatted) + " to be a fascinating project."
     body3 = "     Specifically… ******** in this section, discuss something in the paper that excites you. This could be something that you want to build off of in your own project, or something you hope to work on in the future. Feel free to talk personally about why you might want to work in this area. ********"
     body4 = "     Your work in " + str(areasFormatted) + " is inspiring and I would be honored if you advised me for my " + str(type) + ". Please let me know if I can send you information about myself, or if there are other steps that I should take."
