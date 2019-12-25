@@ -118,13 +118,107 @@ def profResults():
     links = prof.getLinks()
     pic = prof.getPicLink()
 
-    html = render_template('profpage.html', prof = prof, pic = pic, titles = titles, links = links)
+    html = render_template('profpage.html', profid = profid, prof = prof, pic = pic, titles = titles, links = links)
     response = make_response(html)
     return(response)
 
 #-------------------------------------------------------------------------------
+@app.route('/backresults')
+def backResults():
+    prof = Professor('', '', '', '', '', '', '', '')
+
+    profid = request.args.get('profid')
+
+    database = Database()
+    database.connect()
+    prof = database.profSearch(profid)
+    database.disconnect()
+
+    html = '<div class="modal-header">'
+    html += '<button type="button" class="close" data-dismiss="modal">&times;</button>'
+    html += '<h4 class="modal-title">Advisor Email Builder</h4>'
+    html += '</div>'
+    html += '<div class="modal-body">'
+    html += '<p>Enter the information then click generate to build a customized email to Professor ' + str(prof.getName()) + '</p>'
+    html += '<form id="emailForm">'
+    html += '<input type="hidden" id="profid" value=' + profid + '>'
+    html += '<h4>Select Class: </h4>'
+    html += '<select name="year" id="year">'
+    html += '<option value="Junior">Junior</option>'
+    html += '<option value="Senior">Senior</option>'
+    html += '</select>'
+    html += '<h4>Select Project Type: </h4>'
+    html += '<select name="type" id="type">'
+    html += '<option value="Independent Work">Independent Work</option>'
+    html += '<option value="Thesis">Thesis</option>'
+    html += '</select>'
+    html += '<h4>Area of Research that interests you most: </h4>'
+    html += '<select name="areas" id="areas">'
+    for area in prof.getAreas():
+        html += '<option value=' + str(area[0].strip('. ')) + '>' + str(area[0].strip('. ')) + '</option>'
+    html += '</select>'
+    html += '<h4>Select the Project or Thesis that Interests you most: </h4>'
+    if (prof.getProjects() == 'No projects found.') and (prof.getLinks() == ""):
+        html += '<input type="text" id="projs" placeholder="Enter a project or thesis">'
+    else:
+        html += '<select name="projs" id="projs">'
+        if prof.getProjects() != 'No projects found.':
+            for proj in prof.getProjects():
+                html += '<option value=' + str(proj[0].strip('. ')) + '>' + str(proj[0].strip('. ')) + '</option>'
+        if prof.getLinks() != "":
+            for title in prof.getTitles():
+                html += '<option value=' + str(title.strip(',. ')) + '>' + str(title.strip(',. ')) + '</option>'
+        html += '</select>'
+    html += '</form>'
+    html += '</div>'
+    html += '<div class="modal-footer">'
+    html += '<input type="button" class="btn btn-primary" value="Generate" onclick="getEmailResults();"/>'
+    html += '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+    html += '</div>'
+
+
+    html.encode('utf-8')
+    response = make_response(html)
+
+    return(response)
+
+#-------------------------------------------------------------------------------
+
+# @app.route('/opencontact')
+# def openContact():
+#     print("in main")
+#     prof = Professor('', '', '', '', '', '', '', '')
+#
+#     profid = request.args.get('profid')
+#
+#     database = Database()
+#     database.connect()
+#     prof = database.profSearch(profid)
+#     database.disconnect()
+#
+#     html = '<div class="modal-content" id="modal-content">'
+#     html += '<div class="modal-header">'
+#     html += '<button type="button" class="close" data-dismiss="modal">&times;</button>'
+#     html += '<h4 class="modal-title">Advisor Email Builder to </h4>' + str(prof.getName())
+#     html += '</div>'
+#
+#     html.encode('utf-8')
+#     response = make_response(html)
+#
+#     return(response)
+
+
+#-------------------------------------------------------------------------------
 @app.route('/emailresults')
 def emailResults():
+    prof = Professor('', '', '', '', '', '', '', '')
+
+    profid = request.args.get('profid')
+
+    database = Database()
+    database.connect()
+    prof = database.profSearch(profid)
+    database.disconnect()
 
     year = request.args.get('year')
     type = request.args.get('type')
@@ -143,9 +237,8 @@ def emailResults():
     for word in projs:
         projFormatted += word
 
-
-    body1 = "Dear Professor "
-    body2 = "I am a " + str(year) + " in the Computer Science department and I am exploring areas of research to do my " + str(type) + ". In this search process, I reviewed academic work in " + str(areasFormatted) + "and found " + str(projFormatted) + " to be a fascinating project."
+    body1 = "Dear Professor " + str(prof.getName()) + ","
+    body2 = "I am a " + str(year) + " in the Computer Science department and I am exploring areas of research to do my " + str(type) + ". In this search process, I reviewed academic work in " + str(areasFormatted) + " and found " + str(projFormatted) + " to be a fascinating project."
     body3 = "     Specifically… ******** in this section, discuss something in the paper that excites you. This could be something that you want to build off of in your own project, or something you hope to work on in the future. Feel free to talk personally about why you might want to work in this area. ********"
     body4 = "     Your work in " + str(areasFormatted) + " is inspiring and I would be honored if you advised me for my " + str(type) + ". Please let me know if I can send you information about myself, or if there are other steps that I should take."
     body5 = "     Sincerely,"
@@ -153,8 +246,9 @@ def emailResults():
 
     subject = "Request for you to be my Advisor"
 
+    mail = "mailto:" + str(prof.getContact()) + "?subject=" + str(subject) + "&body=" + str(body1) + str(body2) + str(body3) + str(body4) + str(body5) + str(body6)
     #build email body here
-    html = render_template('emailpage.html', subject = subject, body1 = body1, body2 = body2, body3 = body3, body4 = body4, body5 = body5, body6 = body6)
+    html = render_template('emailpage.html', profid = profid, mail = mail, subject = subject, body1 = body1, body2 = body2, body3 = body3, body4 = body4, body5 = body5, body6 = body6)
     response = make_response(html)
     return(response)
 #-------------------------------------------------------------------------------

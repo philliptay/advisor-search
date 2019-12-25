@@ -73,6 +73,13 @@
                </div>
                <div class="col-md-8 col-xs-8" id="profSection">
                   <h3>Welcome to Princeton AdvisorSearch!</h3>
+                  <!-- Modal -->
+                  <div id="contactModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal Content -->
+                      <div class="modal-content" id="modal-content">
+                      </div>
                </div>
             </div>
          </div>
@@ -135,6 +142,34 @@
         }
       );
       }
+
+
+
+
+
+      // function handleOpenResponse(response)
+      // {
+      //   jQuery.noConflict();
+      //   alert("in response");
+      //   document.getElementById('modal-content').html(response);
+      //   alert("put in new title");
+      //   document.getElementById('contactModal').modal('show');
+      // }
+      // function getOpenContact()
+      // {
+      //   jQuery.noConflict();
+      //   let profid = document.getElementById('profid').val();
+      //   alert("got profid");
+      //   let url = '/opencontact?profid=' + profid;
+      //   if (request != null)
+      //     request.abort();
+      //   request = $.ajax({
+      //     type: "GET",
+      //     url: url,
+      //     success: handleOpenResponse
+      //     }
+      //   );
+      // }
 
 
       // function createForm(name, areas, theses) {

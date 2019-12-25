@@ -2,11 +2,13 @@
   <button type="button" class="close" data-dismiss="modal">&times;</button>
   <h4 class="modal-title">Advisor Email Builder</h4>
 </div>
+<input type="hidden" id="profid" value={{profid}}>
+
 <div class="modal-body">
   <h4>Subject:</h4>
   <p>{{subject}}</p>
   <h4>Body:</h4>
-  <p>{{body1}}{{prof.getName()}},</p>
+  <p>{{body1}}</p>
   <p>{{body2}}</p>
   <p>{{body3}}</p>
   <p>{{body4}}</p>
@@ -14,7 +16,24 @@
   <p>{{body6}}</p>
 </div>
 <div class="modal-footer">
-  <button type="button" name="button">Edit Inputs (doesn't work)</button>
-  <!--<a href="mailto:"{{prof.getContact()}}"?subject="{{subject}}"&body="{{body1}}{{prof.getName()}},{{body2}}{{body3}}{{body4}}{{body5}}{{body6}}>Review Email</a>
-  href does not work yet -> need to pass in contact subj and body, need to get paragraph breaks -->
+  <button type="button" name="button" onclick="getBackResponse();">Edit Inputs</button>
+  <a href={{mail}}>Review Email</a>
 </div>
+<script>
+  function handleBackResponse(response)
+  {
+    $('#modal-content').html(response);
+  }
+  function getBackResponse()
+  {
+    let profid = $("#profid").val();
+    profid = encodeURIComponent(profid);
+    let url = '/backresults?profid=' + profid;
+    request = $.ajax({
+    type: "GET",
+    url: url,
+    success: handleBackResponse
+    }
+    );
+  }
+</script>

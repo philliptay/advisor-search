@@ -24,6 +24,7 @@
                  <p>Enter the information then click generate to build a customized email to Professor {{prof.getName()}}</p>
 
                 <form id="emailForm">
+                  <input type="hidden" id="profid" value={{profid}}>
 
                   <h4>Select Class: </h4>
                   <select name="year" id="year">
@@ -37,12 +38,30 @@
                     <option value="Thesis">Thesis</option>
                   </select>
 
-                  <h4>Area(s) of Research that Interest you most: (will be dropdown)</h4>
-                  <input type="text" id="areas" placeholder="research areas">
+                  <h4>Area of Research that interests you most: </h4>
+                  <select name="areas" id="areas">
+                    {% for area in prof.getAreas() %}
+                    <option value={{area[0].strip('. ')}}>{{area[0].strip('. ')}}</option>
+                    {% endfor %}
+                  </select>
 
-                  <h4>Select the Project that Interests you most: (will be dropdown)  </h4>
-                  <input type="text" id="projs" placeholder="current proj or thesis">
-
+                  <h4>Select the Project or Thesis that interests you most:  </h4>
+                  {% if prof.getProjects() == 'No projects found.' and links == '' %}
+                  <input type="text" id="projs" placeholder="Enter a project or thesis">
+                  {% else %}
+                  <select name="projs" id="projs">
+                    {% if prof.getProjects() != 'No projects found.' %}
+                      {% for proj in prof.getProjects() %}
+                      <option value={{proj[0].strip('. ')}}>{{proj[0].strip('. ')}}</option>
+                      {% endfor %}
+                    {% endif %}
+                    {% if links != '' %}
+                      {% for i in range(titles|length) %}
+                      <option value={{titles[i].strip(',. ')}}>{{titles[i].strip(',. ')}}</option>
+                      {% endfor %}
+                    {% endif %}
+                  </select>
+                  {% endif %}
 
                 </form>
 
@@ -74,7 +93,6 @@
                   {% for area in prof.getAreas() %}
                   <input id="area" value={{area[0].strip('. ')}}></input>
                   <script>
-
                     var area = document.getElementById('area').value;
                     var data = {
                     id: area,
@@ -84,7 +102,6 @@
                     $('#areaBar').append(newOption).trigger('change');
                   </script>
                   {% endfor %}
-
                   <h4>Select Project: </h4>
                   <select id="projectBar" name="projectBar">
                     <script>
@@ -114,11 +131,7 @@
                  Name: <input type="text" name="name">
                  <input type="submit" value="Send Form">
                  </form>
-
-
-
                  <p>Subject Line:</p>
-
                  <p>Body of Email:</p>
                  <p>It is best to get started with finding your advisor as early as possible. Once you have found a professor whose work excites you, go ahead and send an email expressing your interest in being their advisee. Here is an example email for you to build off: </p>
                  <p>Dear Professor _______,</p>
@@ -182,21 +195,19 @@
   function handleEmailResponse(response)
   {
     $('#modal-content').html(response);
-    console.log("alert 2");
   }
   function getEmailResults()
   {
+    let profid = $("#profid").val();
     let year = $("#year").val();
     let type = $("#type").val();
     let areas = $("#areas").val();
     let projs = $("#projs").val();
-
-
     year = encodeURIComponent(year);
     type = encodeURIComponent(type);
     areas = encodeURIComponent(areas);
     projs = encodeURIComponent(projs);
-    let url = '/emailresults?year=' + year + '&type=' + type + '&areas=' + areas + '&projs=' + projs;
+    let url = '/emailresults?profid=' + profid + '&year=' + year + '&type=' + type + '&areas=' + areas + '&projs=' + projs;
     request = $.ajax({
     type: "GET",
     url: url,
@@ -232,6 +243,5 @@
     area = area[0].strip('. ');
     console.log(area);
   }
-
 </script>
 -->
