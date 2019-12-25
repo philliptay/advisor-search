@@ -57,6 +57,7 @@ def searchResults():
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
 
     areas = request.args.getlist('areas')
+    print(areas)
     keywords = request.args.getlist('keywords')
 
     # areas = []
@@ -155,7 +156,7 @@ def backResults():
     html += '<h4>Area of Research that interests you most: </h4>'
     html += '<select name="areas" id="areas">'
     for area in prof.getAreas():
-        html += '<option value=' + str(area[0].strip('. ')) + '>' + str(area[0].strip('. ')) + '</option>'
+        html += '<option value="' + str(area[0].strip('. ')) + '">' + str(area[0].strip('. ')) + '</option>'
     html += '</select>'
     html += '<h4>Select the Project or Thesis that Interests you most: </h4>'
     if (prof.getProjects() == 'No projects found.') and (prof.getLinks() == ""):
@@ -164,16 +165,16 @@ def backResults():
         html += '<select name="projs" id="projs">'
         if prof.getProjects() != 'No projects found.':
             for proj in prof.getProjects():
-                html += '<option value=' + str(proj[0].strip('. ')) + '>' + str(proj[0].strip('. ')) + '</option>'
+                html += '<option value="' + str(proj[0].strip('. ')) + '">' + str(proj[0].strip('. ')) + '</option>'
         if prof.getLinks() != "":
             for title in prof.getTitles():
-                html += '<option value=' + str(title.strip(',. ')) + '>' + str(title.strip(',. ')) + '</option>'
+                html += '<option value="' + str(title.strip(',. ')) + '">' + str(title.strip(',. ')) + '</option>'
         html += '</select>'
     html += '</form>'
     html += '</div>'
     html += '<div class="modal-footer">'
-    html += '<input type="button" class="btn btn-primary" value="Generate" onclick="getEmailResults();"/>'
     html += '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+    html += '<input type="button" class="btn btn-primary" value="Generate" onclick="getEmailResults();"/>'
     html += '</div>'
 
 
@@ -237,7 +238,7 @@ def emailResults():
     for word in projs:
         projFormatted += word
 
-    body1 = "Dear Professor " + str(prof.getName()) + ","
+    body1 = "Dear Professor " + str(prof.getName().split()[1]) + ","
     body2 = "I am a " + str(year) + " in the Computer Science department and I am exploring areas of research to do my " + str(type) + ". In this search process, I reviewed academic work in " + str(areasFormatted) + " and found " + str(projFormatted) + " to be a fascinating project."
     body3 = "     Specifically… ******** in this section, discuss something in the paper that excites you. This could be something that you want to build off of in your own project, or something you hope to work on in the future. Feel free to talk personally about why you might want to work in this area. ********"
     body4 = "     Your work in " + str(areasFormatted) + " is inspiring and I would be honored if you advised me for my " + str(type) + ". Please let me know if I can send you information about myself, or if there are other steps that I should take."
