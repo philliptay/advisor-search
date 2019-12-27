@@ -41,7 +41,7 @@
                   <h4>Area of Research that interests you most: </h4>
                   <select name="areas" id="areas">
                     {% for area in prof.getAreas() %}
-                    <option value={{area[0].strip('. ')}}>{{area[0].strip('. ')}}</option>
+                    <option value={{loop.index0}}>{{area[0].strip('. ')}}</option>
                     {% endfor %}
                   </select>
 
@@ -52,12 +52,12 @@
                   <select name="projs" id="projs">
                     {% if prof.getProjects() != 'No projects found.' %}
                       {% for proj in prof.getProjects() %}
-                      <option value={{proj[0].strip('. ')}}>{{proj[0].strip('. ')}}</option>
+                      <option value={{loop.index0}}>{{proj[0].strip('. ')}}</option>
                       {% endfor %}
                     {% endif %}
                     {% if links != '' %}
                       {% for i in range(titles|length) %}
-                      <option value={{titles[i].strip(',. ')}}>{{titles[i].strip(',. ')}}</option>
+                      <option value={{loop.index0 + (prof.getProjects()|length)}}>{{titles[i].strip(',. ')}}</option>
                       {% endfor %}
                     {% endif %}
                   </select>
@@ -69,6 +69,7 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 <input type="button" class="btn btn-primary" value="Generate" onclick="getEmailResults();"/>
+
               </div>
             </div>
 
@@ -211,6 +212,22 @@
     type: "GET",
     url: url,
     success: handleEmailResponse
+    }
+    );
+  }
+  function handleBackResponse(response)
+  {
+    $('#modal-content').html(response);
+  }
+  function getBackResponse()
+  {
+    let profid = $("#profid").val();
+    profid = encodeURIComponent(profid);
+    let url = '/backresults?profid=' + profid;
+    request = $.ajax({
+    type: "GET",
+    url: url,
+    success: handleBackResponse
     }
     );
   }

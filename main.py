@@ -57,7 +57,6 @@ def searchResults():
     allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
 
     areas = request.args.getlist('areas')
-    print(areas)
     keywords = request.args.getlist('keywords')
 
     # areas = []
@@ -142,7 +141,7 @@ def backResults():
     html += '<div class="modal-body">'
     html += '<p>Enter the information then click generate to build a customized email to Professor ' + str(prof.getName()) + '</p>'
     html += '<form id="emailForm">'
-    html += '<input type="hidden" id="profid" value=' + profid + '>'
+    html += '<input type="hidden" id="profid" value=' + str(profid) + '>'
     html += '<h4>Select Class: </h4>'
     html += '<select name="year" id="year">'
     html += '<option value="Junior">Junior</option>'
@@ -155,8 +154,10 @@ def backResults():
     html += '</select>'
     html += '<h4>Area of Research that interests you most: </h4>'
     html += '<select name="areas" id="areas">'
+    areaCount = 0
     for area in prof.getAreas():
-        html += '<option value="' + str(area[0].strip('. ')) + '">' + str(area[0].strip('. ')) + '</option>'
+        html += '<option value="' + str(areaCount) + '">' + str(area[0].strip('. ')) + '</option>'
+        areaCount += 1
     html += '</select>'
     html += '<h4>Select the Project or Thesis that Interests you most: </h4>'
     if (prof.getProjects() == 'No projects found.') and (prof.getLinks() == ""):
@@ -223,7 +224,11 @@ def emailResults():
 
     year = request.args.get('year')
     type = request.args.get('type')
-    areas = request.args.getlist('areas')
+    areasNum = request.args.getlist('areas')
+    areas = []
+    for num in areasNum:
+        areas.append(prof.getAreas()[int(num)][0].strip('. '))
+
     if len(areas) > 1:
         for area in areas[:-1]:
             areasFormatted += area
@@ -233,24 +238,58 @@ def emailResults():
     else:
         areasFormatted = areas[0]
 
-    projs = request.args.getlist('projs')
+    projNum = request.args.getlist('projs')
+    profProjects = prof.getProjects()
+    print("Number used:")
+    print(projNum[0])
+    print("number of projs:")
+    print(len(profProjects))
+    print("number of theses:")
+    print(len(prof.getTitles()))
+    if int(projNum[0]) >= len(profProjects):
+        proj = prof.getTitles()[int(projNum[0]) - len(profProjects)]
+    else:
+        proj = profProjects[int(projNum[0])][0].strip('. ')
+
     projFormatted = ""
-    for word in projs:
+    for word in proj:
         projFormatted += word
 
     body1 = "Dear Professor " + str(prof.getName().split()[1]) + ","
     body2 = "I am a " + str(year) + " in the Computer Science department and I am exploring areas of research to do my " + str(type) + ". In this search process, I reviewed academic work in " + str(areasFormatted) + " and found " + str(projFormatted) + " to be a fascinating project."
-    body3 = "     Specifically… ******** in this section, discuss something in the paper that excites you. This could be something that you want to build off of in your own project, or something you hope to work on in the future. Feel free to talk personally about why you might want to work in this area. ********"
-    body4 = "     Your work in " + str(areasFormatted) + " is inspiring and I would be honored if you advised me for my " + str(type) + ". Please let me know if I can send you information about myself, or if there are other steps that I should take."
-    body5 = "     Sincerely,"
-    body6 = "     (Your name here)"
+    body3 = "Specifically… ******** in this section, discuss something in the paper that excites you. This could be something that you want to build off of in your own project, or something you hope to work on in the future. Feel free to talk personally about why you might want to work in this area. ********"
+    body4 = "Your work in " + str(areasFormatted) + " is inspiring and I would be honored if you advised me for my " + str(type) + ". Please let me know if I can send you information about myself, or if there are other steps that I should take."
+    body5 = "Sincerely,"
+    body6 = "(Your name here)"
 
     subject = "Request for you to be my Advisor"
 
-    mail = "mailto:" + str(prof.getContact()) + "?subject=" + str(subject) + "&body=" + str(body1) + str(body2) + str(body3) + str(body4) + str(body5) + str(body6)
-    #build email body here
-    html = render_template('emailpage.html', profid = profid, mail = mail, subject = subject, body1 = body1, body2 = body2, body3 = body3, body4 = body4, body5 = body5, body6 = body6)
+    mail = "mailto:" + str(prof.getContact()) + "?subject=" + str(subject) + "&body=" + str(body1) + "%0D%0A%0D%0A" + str(body2) + "%0D%0A%0D%0A" + str(body3) + "%0D%0A%0D%0A" + str(body4) + "%0D%0A%0D%0A" + str(body5) + "%0D%0A%0D%0A" + str(body6)
+
+
+    html = '<div class="modal-header">'
+    html += '<button type="button" class="close" data-dismiss="modal">&times;</button>'
+    html += '<h4 class="modal-title">Advisor Email Builder</h4>'
+    html += '</div>'
+    html += '<input type="hidden" id="profid" value=' + str(profid) + '>'
+    html += '<div class="modal-body">'
+    html += '<h4>Subject:</h4>'
+    html += '<p>' + str(subject) + '</p>'
+    html += '<h4>Body:</h4>'
+    html += '<p>' + str(body1) + '</p>'
+    html += '<p>' + str(body2) + '</p>'
+    html += '<p>' + str(body3) + '</p>'
+    html += '<p>' + str(body4) + '</p>'
+    html += '<p>' + str(body5) + '</p>'
+    html += '<p>' + str(body6) + '</p>'
+    html += '</div>'
+    html += '<div class="modal-footer">'
+    html += '<button type="button" name="button" onclick="getBackResponse();">Edit Inputs</button>'
+    html += '<a href="' + str(mail) + '">Review Email</a>'
+    html += '</div>'
+    html.encode('utf-8')
     response = make_response(html)
+
     return(response)
 #-------------------------------------------------------------------------------
 

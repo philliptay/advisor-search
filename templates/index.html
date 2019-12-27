@@ -61,9 +61,23 @@
                   </select>
                   <br>
                   <input class="form-control" id="search" type="text" placeholder="Search keywords" name="search">
+                  <button type="button" class="btn btn-success" name="button" onclick="clearAll();">Clear Selections</button>
                </div>
                <div class="col-md-8 col-xs-8">
-                  Research Area Legend Placeholder
+                 <p>Click Research Areas</p>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectCompBio();">Computational Biology</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectCompArch();">Computer Architecture</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectEconComp();">Economics/Computation</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectGraphics();">Graphics</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectVision();">Vision</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectML();">Machine Learning</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectAI();">AI</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectNatLangProc();">Natural Language Processing</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectPolicy();">Policy</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectProgLangComp();">Programming Languages/Compilers</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectSecPriv();">Security & Privacy</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectSystems();">Systems</button>
+                  <button type="button" name="button" class="btn btn-info" onclick="selectTheory();">Theory</button>
                </div>
             </div>
 
@@ -143,7 +157,76 @@
       );
       }
 
+      function clearAll(){
+        $('#searchBar').val(null).trigger('change');
+      }
 
+      function selectCompBio()
+      {
+        $('#searchBar').val('Computational Biology'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectCompArch()
+      {
+        $('#searchBar').val('Computer Architecture'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectEconComp()
+      {
+        $('#searchBar').val('Economics/Computation'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectGraphics()
+      {
+        $('#searchBar').val('Graphics'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectVision()
+      {
+        $('#searchBar').val('Vision'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectML()
+      {
+        $('#searchBar').val('Machine Learning'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+
+      function selectAI()
+      {
+        $('#searchBar').val('AI'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectNatLangProc()
+      {
+        $('#searchBar').val('Natural Language Processing'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectPolicy()
+      {
+        $('#searchBar').val('Policy'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectProgLangComp()
+      {
+        $('#searchBar').val('Programming Languages/Compilers'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectSecPriv()
+      {
+        $('#searchBar').val('Security & Privacy'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectSystems()
+      {
+        $('#searchBar').val('Systems'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
+      function selectTheory()
+      {
+        $('#searchBar').val('Theory'); // Select the option with a value of '1'
+        $('#searchBar').trigger('change');
+      }
 
 
 
