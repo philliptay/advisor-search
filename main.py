@@ -240,12 +240,7 @@ def emailResults():
 
     projNum = request.args.getlist('projs')
     profProjects = prof.getProjects()
-    print("Number used:")
-    print(projNum[0])
-    print("number of projs:")
-    print(len(profProjects))
-    print("number of theses:")
-    print(len(prof.getTitles()))
+
     if int(projNum[0]) >= len(profProjects):
         proj = prof.getTitles()[int(projNum[0]) - len(profProjects)]
     else:
