@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+      <title>Princeton AdvisorSearch Resources</title>
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
+      <link rel="icon" href="https://www.cs.princeton.edu/favicon" />
+
+   </head>
+
+   <body>
+
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Princeton Advisor Search</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li class="active"><a href="/resources">Resources</a></li>
+              <li><a href={{logLink}}>{{logState}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <center>
+        <h1><b>Resources</b></h1>
+      </center>
+      <br>
+      <center>
+        <div style="width:800px; height:300px;">
+          <div style="width:500px; height:300px; float:left;">
+            <p align="left">
+            <b>Funding Options:</b> <br />
+            AB students can apply for <a href="http://undergraduateresearch.princeton.edu/funding/thesis-funding" target="_blank">IW project/senior thesis research funding</a> by accessing the online application in the <a href="http://www.princeton.edu/studentfunding/" target="_blank">Student Activities Funding Engine (SAFE)</a>. Please refer to the Office of Undergraduate Research <a href="http://undergraduateresearch.princeton.edu/calendar" target="_blank">calendar</a> for deadline dates for funding. <br />
+            <br />
+            BSE students will receive an email from the School of Eingeering and Applied Sciences regarding <a href="http://undergraduateresearch.princeton.edu/funding/thesis-funding" target="_blank">funding</a> at the beginning of the semester. The deadline date for Fall 2019 is TBD, but you can expect it to be in mid-October. <br />
+            <br />
+            IW Students are also encouraged to review the <a href="https://csguide.cs.princeton.edu/independent-work-hardware" target="_blank">Independent Work Equipment List</a> for materials for their upcooming project. All equipment/materials must be returned at the conclusion of the project.
+            </p>
+
+          </div>
+          <div style="width:300px; height:300px; float:right;">
+            <img src="https://pbs.twimg.com/media/De_uU5FWAAA8p1D.jpg" alt="Charlie" style="width:300px;height:300px;">
+          </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div style="width:800px; height:300px;">
+          <div style="width:200px; height:300px; float:left;">
+            <img src="https://vignette.wikia.nocookie.net/peanuts/images/e/eb/Woodstock5.jpg/revision/latest?cb=20160508092305" alt="Woodstock" style="width:200px;height:200px;">
+          </div>
+          <div style="width:400px; height:300px; float:left;"><b>Timeline:</b> <br />
+            Refer to the <a href="https://www.cs.princeton.edu/ugrad/independent-work/important-steps-and-deadlines" target="blank">schedule</a> for a comprehensive list of deadlines to be met on your IW/Thesis journey.
+          </div>
+          <div style="width:200px; height:300px; float:right;">
+            <img src="https://i.pinimg.com/originals/3d/f4/76/3df4760b7c03022ff5df069e86c9fddd.png" alt="Snoopy" style="width:200px;height:200px;">
+          </div>
+        </div>
+        <div style="width:600px;height:200px;">
+          <div style="width:200px;height:200px;float:left;">
+            Mikki Hornstein <br />
+            Independent Work Administrator
+          </div>
+          <div style="width:200px;height:200px;float:right;">
+            David Dobkin <br />
+            IW coordinator
+            https://engineering.princeton.edu/sites/default/files/thumbnails/image/Dobkin-600x450.jpg
+          </div>
+        </div>
+        <div style="width:600px;height:200px;">
+          <div style="width:200px;height:200px;float:left;">
+            Dr. Robert Fish <br />
+            IW coordinator
+            https://engineering.princeton.edu/sites/default/files/thumbnails/image/rfish_450x600.jpg
+          </div>
+        </div>
+        <img src="https://pics.me.me/if-you-think-you-are-too-small-to-make-a-18490599.png" alt="quote" style="width:400px;height:300px;">
+      </center>
+
+      <p> People to Contact</p>
+      <br>
+      <br>
+
+      <h3>Getting Started</h3>
+      <br>
+      <p>It is best to get started with finding your advisor as early as possible. Once you have found a professor whose work excites you, go ahead and send an email expressing your interest in being their advisee. Here is an example email for you to build off:</p>
+      <br>
+      <p>Dear Professor _______,</p>
+      <br>
+      <p>I am a junior/senior in the Computer Science department and I am exploring areas of research to do my thesis/IW work. In this search process, I reviewed past theses/IW projects in AreasOfReasearch: _______. One paper that fascinated me was (Title of Project) by (author of IW/thesis name).</p>
+      <br>
+      <p>Specifically… in this section, discuss something that you found exciting in the field of computer science, that was in this paper. Feel free to talk personally, about why you want to work in this area.</p>
+      <br>
+      <p>Your work in these fields has made me want to be your advisee for my IW/Thesis. Please let me know if you are open to discuss being my IW/Thesis advisor further.</p>
+      <br>
+      <p>Sincerely,</p>
+      <p>The Great Dondini</p>
+      <br>
+      <img src="static/friendship2.png" alt="friendship2">
+      <br>
+      <h3>Funding Options</h3>
+      <br>
+      <p>Your Independent Work of Thesis may require expensive tools. But it is not your job to purchase them. The University encourages students to apply for funding through a variety of grants. Below, you will find a few places to search for funding. However, if you are unsuccessful in finding a grant to apply for, do not hesitate to reach out to Mikki Hornstein for advice. </p>
+      <br>
+      <p>This is the current SEAS funding application. Be sure to look it over and know what to expect when applying for funding.</p>
+      <img src="static/friendship3.png" alt="friendship3">
+  </body>
+</html>
