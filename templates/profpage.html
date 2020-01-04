@@ -204,17 +204,22 @@
     let type = $("#type").val();
     let areas = $("#areas").val();
     let projs = $("#projs").val();
-    year = encodeURIComponent(year);
-    type = encodeURIComponent(type);
-    areas = encodeURIComponent(areas);
-    projs = encodeURIComponent(projs);
-    let url = '/emailresults?profid=' + profid + '&year=' + year + '&type=' + type + '&areas=' + areas + '&projs=' + projs;
-    request = $.ajax({
-    type: "GET",
-    url: url,
-    success: handleEmailResponse
+    if (projs == ''){
+      alert("Please enter a project");
     }
-    );
+    else {
+      year = encodeURIComponent(year);
+      type = encodeURIComponent(type);
+      areas = encodeURIComponent(areas);
+      projs = encodeURIComponent(projs);
+      let url = '/emailresults?profid=' + profid + '&year=' + year + '&type=' + type + '&areas=' + areas + '&projs=' + projs;
+      request = $.ajax({
+      type: "GET",
+      url: url,
+      success: handleEmailResponse
+      }
+      );
+    }
   }
   function handleBackResponse(response)
   {

@@ -164,12 +164,15 @@ def backResults():
         html += '<input type="text" id="projs" placeholder="Enter a project or thesis">'
     else:
         html += '<select name="projs" id="projs">'
+        projCount = 0
         if prof.getProjects() != 'No projects found.':
             for proj in prof.getProjects():
-                html += '<option value="' + str(proj[0].strip('. ')) + '">' + str(proj[0].strip('. ')) + '</option>'
+                html += '<option value="' + str(projCount) + '">' + str(proj[0].strip('. ')) + '</option>'
+                projCount += 1
         if prof.getLinks() != "":
             for title in prof.getTitles():
-                html += '<option value="' + str(title.strip(',. ')) + '">' + str(title.strip(',. ')) + '</option>'
+                html += '<option value="' + str(projCount) + '">' + str(title.strip(',. ')) + '</option>'
+                projCount += 1
         html += '</select>'
     html += '</form>'
     html += '</div>'
@@ -241,10 +244,16 @@ def emailResults():
     projNum = request.args.getlist('projs')
     profProjects = prof.getProjects()
 
-    if int(projNum[0]) >= len(profProjects):
-        proj = prof.getTitles()[int(projNum[0]) - len(profProjects)]
+
+    try:
+        int(projNum)
+    except:
+        proj = projNum
     else:
-        proj = profProjects[int(projNum[0])][0].strip('. ')
+        if int(projNum[0]) >= len(profProjects):
+            proj = prof.getTitles()[int(projNum[0]) - len(profProjects)]
+        else:
+            proj = profProjects[int(projNum[0])][0].strip('. ')
 
     projFormatted = ""
     for word in proj:
