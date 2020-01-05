@@ -153,8 +153,8 @@ p {
 
 .searchArea {
    height: 15%;
+   background-color: black;
 }
-
 
 #searchBar {
    width: 100%;

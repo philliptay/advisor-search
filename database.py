@@ -63,6 +63,7 @@ class Database:
 
         # search through inputted areas
         areas = areas[0].split(',')
+        
         for area in areas:
             subareaList = [area]
             if area == "Programming Languages/Compilers":

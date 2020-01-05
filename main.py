@@ -49,11 +49,13 @@ def index():
 
 @app.route('/searchresults')
 def searchResults():
-    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
+    allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
 
     areas = request.args.getlist('areas')
     keywords = request.args.getlist('keywords')
-
+    print(str(areas[0]))
+    if str(areas[0]) == 'All':
+        areas = allAreas
     # areas = []
     # keywords = []
     # tags = request.args.getlist('tags')
@@ -82,7 +84,7 @@ def searchResults():
 
     resultsnum = len(profList)
 
-    html = '<h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><div id="resultsWrapper"><ul class="marginless">'
+    html = '<h3>Search Results ('+str(resultsnum)+')</h3><div id="resultsWrapper"><ul class="marginless">'
     for prof in profList:
         active = ''
         topAreas = ''
@@ -148,7 +150,7 @@ def favoritedProf():
 
     resultsnum = len(profList)
     html = '<div class="flex-container-row">'
-    html += '<h3 class="flex-item-stretch truncate">'+str(resultsnum)+' Favorited Professors</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button fa-minus" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: 30vh;"><ul class="marginless">'
+    html += '<h3 class="flex-item-stretch truncate">Favorite Advisors ('+str(resultsnum)+')</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button fa-minus" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: 30vh;"><ul class="marginless">'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
