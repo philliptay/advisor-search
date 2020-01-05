@@ -18,27 +18,32 @@ db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 @app.route('/login', methods=['GET'])
 def login():
-    CASClient().authenticate()
-    database = Database()
-    database.connect()
-    database.insertUser(session['username'])
-    database.disconnect()
-    return redirect(url_for('index'))
+    # CASClient().authenticate()
+    # database = Database()
+    # database.connect()
+    # database.insertUser('placeholder')
+    # database.disconnect()
+    # return redirect(url_for('index'))
+
+    html = render_template('login.html', logState = logState, logLink = logLink)
+    response = make_response(html)
+    return(response)
 
 #-------------------------------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    if 'username' not in session:
-        logState = 'Login'
-        logLink = '/login'
-        session['profs'] = None
-        html = render_template('login.html', logState = logState, logLink = logLink)
-        response = make_response(html)
-        return(response)
+    #if 'username' not in session:
+    #    logState = 'Login'
+    #    logLink = '/login'
+    #    session['profs'] = None
+    #    html = render_template('login.html', logState = logState, logLink = logLink)
+    #    response = make_response(html)
+    #    return(response)
 
-    username = session['username']
+    #username = session['username']
+    username = 'placeholder'
     logState = 'Logout'
     logLink = '/logout'
     html = render_template('index.html', user=username, logState = logState, logLink = logLink)
@@ -53,6 +58,7 @@ def searchResults():
 
     areas = request.args.getlist('areas')
     keywords = request.args.getlist('keywords')
+    username = 'placeholder'
     print(str(areas[0]))
     if str(areas[0]) == 'All':
         areas = allAreas
@@ -92,7 +98,7 @@ def searchResults():
             topAreas += prof[1][i]+', '
         topAreas = topAreas.rstrip(', ')
 
-        if database.isProfFavorited(session['username'], prof[2]):
+        if database.isProfFavorited(username, prof[2]):
             active = 'active'
 
         html += '<div class=prof'+str(prof[2])+' onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch truncate"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to favorite" class="fa fa-heart fav-icon '+active+'" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span>Top Areas: '+ topAreas +'</span></li></div>'
