@@ -151,8 +151,7 @@
 
       function getFavorited(profid)
       {
-      $(event.target).toggleClass("active");
-      $($('#prof'+profid).find('i')).toggleClass("active");
+      $($('.prof'+profid).find('i')).toggleClass("active");
       let url = '/favoritedProf?profid=' + profid;
       if (request != null)
         request.abort();
