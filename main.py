@@ -137,11 +137,12 @@ def profResults():
 def favoritedProf():
 
     profid = request.args.get('profid')
+    username = 'placeholder'
 
     database = Database()
     database.connect()
-    database.updateFavoritedProf(session['username'], profid)
-    results = database.favoritedProfSearch(session['username'])
+    database.updateFavoritedProf(username, profid)
+    results = database.favoritedProfSearch(username)
     profDict = database.rankResults(results)
     database.disconnect()
 
