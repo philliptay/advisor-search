@@ -11,6 +11,10 @@ body {
    margin: 0;
 }
 
+p {
+  margin: 10px !important;
+}
+
 #resultsWrapper {
    /* border: 1px solid #000000; */
    height: 64vh;
@@ -21,6 +25,10 @@ body {
    /* border: 1px solid #000000; */
    background-color: #e6e6e6;
    overflow-y: scroll;
+}
+
+.info {
+  margin: 10px;
 }
 
 .bioArea {
