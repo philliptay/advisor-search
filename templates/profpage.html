@@ -106,7 +106,7 @@
 
       <h4>Current Projects:</h4>
       {% if prof.getProjects() == 'No projects found.' %}
-        <p>{{prof.getProjects()}}</p>
+        <p>{{prof.getProjects()capitalize()}}</p>
       {% else %}
       <ul>
         {% for proj in prof.getProjects() %}
