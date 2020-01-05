@@ -47,9 +47,9 @@
               </nav>
             </div>
 
-            <div class="row searchArea">
+            <div class="row searchArea" style="background-color: rgb(53, 52, 50);">
                <div class="col-md-4 col-xs-4 searchBarLeft">
-                  <p style='text-align: left; font-size:130%;'>Type a Professor's Name or Project Title</p>
+                  <p style='text-align: center; font-size:130%;'>Type a Professor's Name or Project Title</p>
                   <select id="searchBar" multiple="multiple" onchange="getResults()">
                      <script>
                         $('#searchBar').select2({
@@ -66,7 +66,7 @@
                   <button style="margin: 2px;" type="button" class="btn btn-danger" name="button" onclick="clearAll();">Clear Results</button>
                </div>
                <div class="col-md-8 col-xs-8 searchButtons">
-                  <p style='text-align: center; font-size:130%;'> Click Area of Research buttons</p>
+                  <p style='text-align: center; font-size:130%;'> Click Areas of Research</p>
                   <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectCompBio();">Computational Biology</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectCompArch();">Computer Architecture</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectEconComp();">Economics/Computation</button>
@@ -83,13 +83,13 @@
                </div>
             </div>
             <hr>
-            <div class="row">
+            <div class="row" style="background-color: rgb(153, 152, 150);">
                <div class="col-md-4 col-xs-4">
                    <div id="favorited"></div>
                    <div id="searchResults"><h3>Search to Begin!</h3></div>
                </div>
                <div class="col-md-8 col-xs-8" id="profSection">
-                  <h3>Welcome to Princeton AdvisorSearch!</h3>
+                  <h3>Welcome to Princeton Advisor Search!</h3>
                   <!-- Modal -->
 
                   <div id="contactModal" class="modal fade" role="dialog">
