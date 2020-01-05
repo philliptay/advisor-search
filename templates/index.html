@@ -47,21 +47,20 @@
               </nav>
             </div>
 
-            <div class="row searchArea">
+            <div class="row searchArea" style="background-color: rgb(163, 162, 160);">
                <div class="col-md-4 col-xs-4 searchBarLeft">
-                  <p style='color: orange; text-align: left; font-size:130%;'>Type a Professor's name, Course Number, or Project</p>
-                  <select id="searchBar" multiple="multiple" onchange="getResults()">
+                  <p style='text-align: left; font-size:130%;'>Type a Professor's Name or Project Title</p>
+                  <select id="searchBar" style = "width: 100%;" multiple="multiple" onchange="getResults()">
                      <script>
                         $('#searchBar').select2({
                            tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory", "All"],
                            tokenSeparators: [",", " "],
-                           placeholder: "Search research areas",
+                           placeholder: "Big Search Bar",
                         });
                         var data = $('searchBar').select2('data')
                     </script>
                   </select>
                   <br>
-                  <input class="form-control" id="search" type="text" placeholder="Search keywords" name="search">
                   <button style="margin: 2px;" type="button" class="btn btn-success" name="button" onclick="getAll();">All Results</button>
                   <button style="margin: 2px;" type="button" class="btn btn-danger" name="button" onclick="clearAll();">Clear Results</button>
                </div>
@@ -89,7 +88,7 @@
                    <div id="searchResults"><h3>Search to Begin!</h3></div>
                </div>
                <div class="col-md-8 col-xs-8" id="profSection">
-                  <h3>Welcome to Princeton AdvisorSearch!</h3>
+                  <h3>Welcome to Princeton Advisor Search!</h3>
                   <!-- Modal -->
 
                   <div id="contactModal" class="modal fade" role="dialog">
@@ -114,27 +113,24 @@
       function setup(){
           $('#search').focus();
           $('#search').on('input', getResults);
-
       }
-
+      let faveHeight = 0;
       function handleResponse(response)
       {
         if (response == "")
            $('#searchResults').html("(None)");
         else
            $('#searchResults').html(response);
+        faveHeight = $('#fav-content').height();
+        $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-faveHeight+"px");
       }
 
       let request = null;
       function getResults()
       {
-      let areas = $("#searchBar").val();
-      let keywords = $("#search").val();
-
-      areas = encodeURIComponent(areas);
-      keywords = encodeURIComponent(keywords);
-
-      let url = '/searchresults?areas=' + areas + '&keywords='+keywords;
+      let inputs = $("#searchBar").val();
+      inputs = encodeURIComponent(inputs);
+      let url = '/searchresults?inputs=' + inputs;
       if (request != null)
         request.abort();
       request = $.ajax({
@@ -149,7 +145,15 @@
       function handleFavoritedResponse(response)
       {
       $('#favorited').html(response);
-      }
+
+      if (faveHeight < $('#fav-content').height())
+        $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-($('#fav-content').height()-faveHeight)+"px");
+
+      else if (faveHeight > $('#fav-content').height())
+        $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()+(faveHeight-$('#fav-content').height())+"px");
+
+      faveHeight = $('#fav-content').height();
+    }
 
       function getFavorited(profid)
       {
@@ -187,6 +191,22 @@
           }
         );
         }
+      }
+
+      function toggleFavs() {
+        if($('#fav-content').css("max-height") != "0px") {
+          $('#fav-content').css("max-height", "0vh");
+          $('#fav-toggle').removeClass("fa-minus").addClass("fa-plus");
+          $('#resultsWrapper').css("max-height", "64vh");
+        }
+        else {
+          $('#fav-content').css("max-height", "30vh");
+          $('#fav-toggle').removeClass("fa-plus").addClass("fa-minus");
+          $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-faveHeight+"px");
+        }
+
+
+
       }
 
       function clearAll(){
@@ -259,42 +279,6 @@
         $('#searchBar').val('Theory'); // Select the option with a value of '1'
         $('#searchBar').trigger('change');
       }
-
-
-
-      // function handleOpenResponse(response)
-      // {
-      //   jQuery.noConflict();
-      //   alert("in response");
-      //   document.getElementById('modal-content').html(response);
-      //   alert("put in new title");
-      //   document.getElementById('contactModal').modal('show');
-      // }
-      // function getOpenContact()
-      // {
-      //   jQuery.noConflict();
-      //   let profid = document.getElementById('profid').val();
-      //   alert("got profid");
-      //   let url = '/opencontact?profid=' + profid;
-      //   if (request != null)
-      //     request.abort();
-      //   request = $.ajax({
-      //     type: "GET",
-      //     url: url,
-      //     success: handleOpenResponse
-      //     }
-      //   );
-      // }
-
-
-      // function createForm(name, areas, theses) {
-      //    console.log(name);
-      //    areas = areas.split(', ');
-      //    theses = theses.split(', ');
-      //    console.log(areas[0]);
-      //    console.log(theses[0]);
-      //
-      // }
 
 
       $('document').ready(setup);

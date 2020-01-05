@@ -38,7 +38,7 @@ class Database:
                     for row5 in rows5:
                         keyResults.append(row5)
 
-                # if no direct name hit, is it part of name, bio, title?
+                # if no direct name hit, is it part of name, bio, title, random area?
                 else:
                     stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
                     prep2 = keyword.lower().capitalize()+'%'
@@ -61,17 +61,35 @@ class Database:
                     for row4 in rows4:
                         keyResults.append(row4)
 
+
+                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+                    prep5 = '%'+keyword.lower()+'%'
+                    cursor.execute(stmtStr, (prep5,))
+                    rows5 = cursor.fetchall()
+                    for row in rows5:
+                        keyResults.append(row)
+
         # search through inputted areas
         areas = areas[0].split(',')
-        
+
         for area in areas:
-            if (area is not None) and (area.strip() != ''):
-                stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
-                prep = '%'+area.lower()+'%'
-                cursor.execute(stmtStr, (prep,))
-                rows = cursor.fetchall()
-                for row in rows:
-                    areaResults.append(row)
+            subareaList = [area]
+            if area == "Programming Languages/Compilers":
+                subareaList = ["programming", "languages", "compilers"]
+            elif area == "AI":
+                subareaList = ["ai", "vision", "machine learning"]
+            elif area == "Economics/Computation":
+                subareaList = ["economics/eomputation", "economics", "computation"]
+            elif area == "Security & Privacy":
+                subareaList = ["security", "privacy"]
+            for subarea in subareaList:
+                if (subarea is not None) and (subarea.strip() != ''):
+                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+                    prep = '%'+subarea.lower()+'%'
+                    cursor.execute(stmtStr, (prep,))
+                    rows = cursor.fetchall()
+                    for row in rows:
+                        areaResults.append(row)
 
 
         cursor.close()

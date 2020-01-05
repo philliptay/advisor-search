@@ -49,7 +49,7 @@
                   {% if prof.getProjects() == 'No projects found.' and links == '' %}
                   <input type="text" id="projs" placeholder="Enter a project or thesis">
                   {% else %}
-                  <select name="projs" id="projs">
+                  <select name="projs" id="projs" style="width: 500px;">
                     {% if prof.getProjects() != 'No projects found.' %}
                       {% for proj in prof.getProjects() %}
                       <option value={{loop.index0}}>{{proj[0].strip('. ')}}</option>
@@ -95,17 +95,18 @@
 </div>
 
 <div class="row infoWrapper">
+  <div class="info">
    {% if prof.getName() != '' %}
       <h4>Research Areas</h4>
       <ul>
          {% for area in prof.getAreas() %}
-         <li>{{area[0].strip('. ')}}</li>
+         <li>{{area[0].strip('. ').capitalize()}}</li>
          {% endfor %}
       </ul>
 
       <h4>Current Projects:</h4>
       {% if prof.getProjects() == 'No projects found.' %}
-        <p>{{prof.getProjects()}}</p>
+        <p>{{prof.getProjects()capitalize()}}</p>
       {% else %}
       <ul>
         {% for proj in prof.getProjects() %}
@@ -125,6 +126,7 @@
       {% endif %}
       </ul>
    {% endif %}
+   </div>
 </div>
 
 <script>
@@ -173,32 +175,3 @@
     );
   }
 </script>
-
-<!--  taken from https://stackoverflow.com/questions/5773174/html-button-to-send-email/29975611
-<script>
-    function loadEvents() {
-        var mailString;
-        function updateMailString() {
-            mailString = '?subject=' + encodeURIComponent($('#subject').val())
-                + '&body=' + encodeURIComponent($('#message').val());
-            $('#mail-link').attr('href',  'mailto:person@email.com' + mailString);
-        }
-        $( "#subject" ).focusout(function() { updateMailString(); });
-        $( "#message" ).focusout(function() { updateMailString(); });
-        console.log(mailString);
-        updateMailString();
-    }
-    $(document).ready(function() {
-    $('#bt1').click(function() {
-        $('#fr1').attr('action',
-                       'mailto:test@test.com?subject=' +
-                       $('#tb1').val() + '&body=' + $('#tb2').val());
-        $('#fr1').submit();
-    });
-  });
-  function addAreas(area) {
-    area = area[0].strip('. ');
-    console.log(area);
-  }
-</script>
--->

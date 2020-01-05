@@ -18,27 +18,32 @@ db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 @app.route('/login', methods=['GET'])
 def login():
-    CASClient().authenticate()
-    database = Database()
-    database.connect()
-    database.insertUser(session['username'])
-    database.disconnect()
-    return redirect(url_for('index'))
+    # CASClient().authenticate()
+    # database = Database()
+    # database.connect()
+    # database.insertUser('placeholder')
+    # database.disconnect()
+    # return redirect(url_for('index'))
+
+    html = render_template('login.html', logState = logState, logLink = logLink)
+    response = make_response(html)
+    return(response)
 
 #-------------------------------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    if 'username' not in session:
-        logState = 'Login'
-        logLink = '/login'
-        session['profs'] = None
-        html = render_template('login.html', logState = logState, logLink = logLink)
-        response = make_response(html)
-        return(response)
+    #if 'username' not in session:
+    #    logState = 'Login'
+    #    logLink = '/login'
+    #    session['profs'] = None
+    #    html = render_template('login.html', logState = logState, logLink = logLink)
+    #    response = make_response(html)
+    #    return(response)
 
-    username = session['username']
+    #username = session['username']
+    username = 'placeholder'
     logState = 'Logout'
     logLink = '/logout'
     html = render_template('index.html', user=username, logState = logState, logLink = logLink)
@@ -50,20 +55,20 @@ def index():
 @app.route('/searchresults')
 def searchResults():
     allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
+    allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
-    areas = request.args.getlist('areas')
-    keywords = request.args.getlist('keywords')
-    print(str(areas[0]))
-    if str(areas[0]) == 'All':
-        areas = allAreas
-    # areas = []
-    # keywords = []
-    # tags = request.args.getlist('tags')
-    # for tag in tags:
-    #     if tag in allAreas:
-    #         areas.append(tag)
-    #     else:
-    #         keywords.append(tag)
+    inputs = request.args.getlist('inputs')
+
+    if str(inputs[0]) == 'All':
+        inputs = allAreas
+    areas = []
+    keywords = []
+
+    for input in inputs:
+        if input in allAreasArray:
+            areas.append(input)
+        else:
+            keywords.append(input)
 
     searchInput = [areas, keywords]
 
@@ -84,7 +89,7 @@ def searchResults():
 
     resultsnum = len(profList)
 
-    html = '<h3>Search Results ('+str(resultsnum)+')</h3><div id="resultsWrapper"><ul class="marginless">'
+    html = '<h3>Search Results ('+str(resultsnum)+')</h3><div id="resultsWrapper" class="flex-item-shrink resizable"><ul class="marginless">'
     for prof in profList:
         active = ''
         topAreas = ''
@@ -92,7 +97,7 @@ def searchResults():
             topAreas += prof[1][i]+', '
         topAreas = topAreas.rstrip(', ')
 
-        if database.isProfFavorited(session['username'], prof[2]):
+        if database.isProfFavorited(username, prof[2]):
             active = 'active'
 
         html += '<div class=prof'+str(prof[2])+' onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch truncate"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to favorite" class="fa fa-heart fav-icon '+active+'" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span>Top Areas: '+ topAreas +'</span></li></div>'
@@ -131,11 +136,12 @@ def profResults():
 def favoritedProf():
 
     profid = request.args.get('profid')
+    username = 'placeholder'
 
     database = Database()
     database.connect()
-    database.updateFavoritedProf(session['username'], profid)
-    results = database.favoritedProfSearch(session['username'])
+    database.updateFavoritedProf(username, profid)
+    results = database.favoritedProfSearch(username)
     profDict = database.rankResults(results)
     database.disconnect()
 
@@ -149,8 +155,8 @@ def favoritedProf():
             profList.append(info)
 
     resultsnum = len(profList)
-
-    html = '<h3>Favorite Advisors (' + str(resultsnum) + ')</h3><div><ul class="marginless">'
+    html = '<div class="flex-container-row">'
+    html += '<h3 class="flex-item-stretch truncate">Favorite Advisors ('+str(resultsnum)+')</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button fa-minus" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: 30vh;"><ul class="marginless">'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
@@ -205,7 +211,7 @@ def backResults():
     if (prof.getProjects() == 'No projects found.') and (prof.getLinks() == ""):
         html += '<input type="text" id="projs" placeholder="Enter a project or thesis">'
     else:
-        html += '<select name="projs" id="projs">'
+        html += '<select name="projs" id="projs" style="width: 500px;">'
         projCount = 0
         if prof.getProjects() != 'No projects found.':
             for proj in prof.getProjects():
@@ -228,32 +234,6 @@ def backResults():
     response = make_response(html)
 
     return(response)
-
-#-------------------------------------------------------------------------------
-
-# @app.route('/opencontact')
-# def openContact():
-#     print("in main")
-#     prof = Professor('', '', '', '', '', '', '', '')
-#
-#     profid = request.args.get('profid')
-#
-#     database = Database()
-#     database.connect()
-#     prof = database.profSearch(profid)
-#     database.disconnect()
-#
-#     html = '<div class="modal-content" id="modal-content">'
-#     html += '<div class="modal-header">'
-#     html += '<button type="button" class="close" data-dismiss="modal">&times;</button>'
-#     html += '<h4 class="modal-title">Advisor Email Builder to </h4>' + str(prof.getName())
-#     html += '</div>'
-#
-#     html.encode('utf-8')
-#     response = make_response(html)
-#
-#     return(response)
-
 
 #-------------------------------------------------------------------------------
 @app.route('/emailresults')
@@ -330,8 +310,8 @@ def emailResults():
     html += '<p>' + str(body6) + '</p>'
     html += '</div>'
     html += '<div class="modal-footer">'
-    html += '<button type="button" name="button" onclick="getBackResponse();">Edit Inputs</button>'
-    html += '<a href="' + str(mail) + '">Review Email</a>'
+    html += '<button type="button" class="btn btn-default" style="margin: 2px;" onclick="getBackResponse();">Edit Inputs</button>'
+    html += '<a type="button" class="btn btn-primary" href="' + str(mail) + '">Review Email</a>'
     html += '</div>'
     html.encode('utf-8')
     response = make_response(html)
