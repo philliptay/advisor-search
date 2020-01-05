@@ -120,6 +120,7 @@ body {
 
     position: relative;
     display: block;
+    cursor: pointer;
     padding: 10px 15px;
     margin-bottom: -1px;
     background-color: #eee;
@@ -166,6 +167,7 @@ body {
 
     color: #ddd;
     cursor: pointer;
+    z-index: 10;
     transition: color .4s ease;
 
 }
@@ -173,16 +175,28 @@ body {
 
     color: #de6965;
     cursor: pointer;
+    z-index: 10;
     transition: color .4s ease;
 
 }
 
+.fav-icon.active {
 
-.active .fav-icon {
-
-    color: #f4f4f4;
+    color: #de6965;
+    cursor: pointer;
+    z-index: 10;
+    transition: color .4s ease;
 
 }
+.fav-icon:hover.active {
+
+    color: #ddd;
+    cursor: pointer;
+    z-index: 10;
+    transition: color .4s ease;
+
+}
+
 
 .truncate {
 

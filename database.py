@@ -190,23 +190,45 @@ class Database:
         sorted_dict = [{item[0]: dict[item [0]]} for item in sorted_key_list]
         return(sorted_dict)
 
+    def favoritedProfSearch(self, username):
+        cursor = self._connection.cursor()
+        stmtStr =  'SELECT profs.name, areas.area, favorited_profs.prof_id FROM areas, profs, favorited_profs WHERE favorited_profs.prof_id = profs.prof_id AND areas.prof_id = favorited_profs.prof_id AND username = %s ORDER BY name'
+        cursor.execute(stmtStr, (username,))
+        rows = cursor.fetchall()
+        return [rows, []]
+
+    def isProfFavorited(self, username, prof_id):
+        cursor = self._connection.cursor()
+        stmtStr =  'SELECT username, prof_id FROM favorited_profs WHERE username = %s AND prof_id = %s'
+        cursor.execute(stmtStr, (username, prof_id))
+        row = cursor.fetchone()
+        if row is None:
+            return False
+        return True
+
     # check user in database - if not, add
-    def loginSearch(self, username):
-        cursor = connection.cursor()
-        stmtStr = 'SELECT username FROM uers WHERE username = ?'
+    def insertUser(self, username):
+        cursor = self._connection.cursor()
+        stmtStr = 'SELECT username FROM users WHERE username = %s'
         cursor.execute(stmtStr, [username])
 
         row = cursor.fetchone()
         if row is None:
-            cursor.close()
-            connection.close()
-            return "username does not exist error"
-        else:
-            if password != row[1]:
-                cursor.close()
-                connection.close()
-                return "incorrect password"
-            else:
-                cursor.close()
-                connection.close()
-                return "success"
+            stmt = "INSERT INTO users (username) VALUES (%s)"
+            cursor.execute(stmt, (username,))
+            self._connection.commit()
+        cursor.close()
+
+    def updateFavoritedProf(self, username, prof_id):
+        if prof_id == 'None':
+            return
+        cursor = self._connection.cursor()
+        if not self.isProfFavorited(username, prof_id):
+            stmt = 'INSERT INTO favorited_profs (username, prof_id) VALUES (%s, %s)'
+            cursor.execute(stmt, (username, prof_id))
+            self._connection.commit()
+        else :
+            stmt = 'DELETE FROM favorited_profs WHERE username = %s AND prof_id = %s'
+            cursor.execute(stmt, (username, prof_id))
+            self._connection.commit()
+        cursor.close()
