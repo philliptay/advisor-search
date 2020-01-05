@@ -113,15 +113,16 @@
       function setup(){
           $('#search').focus();
           $('#search').on('input', getResults);
-
       }
-
+      let faveHeight = 0;
       function handleResponse(response)
       {
         if (response == "")
            $('#searchResults').html("(None)");
         else
            $('#searchResults').html(response);
+        faveHeight = $('#fav-content').height();
+        $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-faveHeight+"px");
       }
 
       let request = null;
@@ -144,7 +145,15 @@
       function handleFavoritedResponse(response)
       {
       $('#favorited').html(response);
-      }
+
+      if (faveHeight < $('#fav-content').height())
+        $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-($('#fav-content').height()-faveHeight)+"px");
+
+      else if (faveHeight > $('#fav-content').height())
+        $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()+(faveHeight-$('#fav-content').height())+"px");
+
+      faveHeight = $('#fav-content').height();
+    }
 
       function getFavorited(profid)
       {
@@ -188,10 +197,12 @@
         if($('#fav-content').css("max-height") != "0px") {
           $('#fav-content').css("max-height", "0vh");
           $('#fav-toggle').removeClass("fa-minus").addClass("fa-plus");
+          $('#resultsWrapper').css("max-height", "64vh");
         }
         else {
           $('#fav-content').css("max-height", "30vh");
           $('#fav-toggle').removeClass("fa-plus").addClass("fa-minus");
+          $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-faveHeight+"px");
         }
 
 
