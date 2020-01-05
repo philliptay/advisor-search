@@ -331,7 +331,7 @@ def emailResults():
     html += '</div>'
     html += '<div class="modal-footer">'
     html += '<button type="button" name="button" onclick="getBackResponse();">Edit Inputs</button>'
-    html += '<a href="' + str(mail) + '">Review Email</a>'
+    html += '<a type="button" class="btn btn-primary" href="' + str(mail) + '">Review Email</a>'
     html += '</div>'
     html.encode('utf-8')
     response = make_response(html)
