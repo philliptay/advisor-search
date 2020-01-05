@@ -18,35 +18,30 @@ db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 @app.route('/login', methods=['GET'])
 def login():
-    # CASClient().authenticate()
-    # return redirect(url_for('index'))
-
-    html = render_template('login.html')
-    response = make_response(html)
-    return(response)
+    CASClient().authenticate()
+    database = Database()
+    database.connect()
+    database.insertUser(session['username'])
+    database.disconnect()
+    return redirect(url_for('index'))
 
 #-------------------------------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    # if 'username' not in session:
-    #     logState = 'Login'
-    #     logLink = '/login'
-    #     session['profs'] = None
-    #     html = render_template('login.html', logState = logState, logLink = logLink)
-    #     response = make_response(html)
-    #     return(response)
+    if 'username' not in session:
+        logState = 'Login'
+        logLink = '/login'
+        session['profs'] = None
+        html = render_template('login.html', logState = logState, logLink = logLink)
+        response = make_response(html)
+        return(response)
 
-    # username = session['username']
-    # logState = 'Logout'
-    # logLink = '/logout'
-    # html = render_template('index.html', user=username, logState = logState, logLink = logLink)
-    # response = make_response(html)
-    # return(response)
-
-    username = ''
-    html = render_template('index.html', user=username)
+    username = session['username']
+    logState = 'Logout'
+    logLink = '/logout'
+    html = render_template('index.html', user=username, logState = logState, logLink = logLink)
     response = make_response(html)
     return(response)
 
@@ -74,7 +69,7 @@ def searchResults():
     database.connect()
     results = database.search(searchInput)
     profDict = database.rankResults(results)
-    database.disconnect()
+
 
     profList = []
     for prof in profDict:
@@ -89,13 +84,19 @@ def searchResults():
 
     html = '<h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><div id="resultsWrapper"><ul class="marginless">'
     for prof in profList:
+        active = ''
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
             topAreas += prof[1][i]+', '
         topAreas = topAreas.rstrip(', ')
-        html += '<a href="#" onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch truncate"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to favorite" class="fa fa-heart fav-icon"></i></div></div><br><span>Top Areas: '+ topAreas +'</span></li></a>'
+
+        if database.isProfFavorited(session['username'], prof[2]):
+            active = 'active'
+
+        html += '<div onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch truncate"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to favorite" class="fa fa-heart fav-icon '+active+'" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span>Top Areas: '+ topAreas +'</span></li></div>'
     html += '</ul></div>'
     html.encode('utf-8')
+    database.disconnect()
     response = make_response(html)
 
     return(response)
@@ -121,6 +122,45 @@ def profResults():
     html = render_template('profpage.html', profid = profid, prof = prof, pic = pic, titles = titles, links = links)
     response = make_response(html)
     return(response)
+
+#-------------------------------------------------------------------------------
+
+@app.route('/favoritedProf')
+def favoritedProf():
+
+    profid = request.args.get('profid')
+
+    database = Database()
+    database.connect()
+    database.updateFavoritedProf(session['username'], profid)
+    results = database.favoritedProfSearch(session['username'])
+    profDict = database.rankResults(results)
+    database.disconnect()
+
+    profList = []
+    for prof in profDict:
+        for key in prof:
+            profname = key
+            areas = prof[profname][1:]
+            profid = prof[profname][0]
+            info = [profname, areas, profid] #create a list for the prof
+            profList.append(info)
+
+    resultsnum = len(profList)
+
+    html = '<h3>'+str(resultsnum)+' Favorited Professors</h3><div><ul class="marginless">'
+    for prof in profList:
+        topAreas = ''
+        for i in range(min(3, len(prof[1]))) :
+            topAreas += prof[1][i]+', '
+        topAreas = topAreas.rstrip(', ')
+        html += '<div onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch truncate"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to unfavorite" class="fa fa-heart fav-icon active" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span>Top Areas: '+ topAreas +'</span></li></div>'
+    html += '</ul></div>'
+    html.encode('utf-8')
+    response = make_response(html)
+
+    return(response)
+
 
 #-------------------------------------------------------------------------------
 @app.route('/backresults')

@@ -19,7 +19,7 @@
 
    </head>
 
-   <body>
+   <body onLoad="getFavorited('None')">
 
       <div class="container-fluid">
          <div class="row">
@@ -82,12 +82,14 @@
             </div>
 
             <div class="row">
-               <div class="col-md-4 col-xs-4" id="searchResults">
-                   <h3>Search to Begin!</h3>
+               <div class="col-md-4 col-xs-4">
+                   <div id="favorited"></div>
+                   <div id="searchResults"><h3>Search to Begin!</h3></div>
                </div>
                <div class="col-md-8 col-xs-8" id="profSection">
                   <h3>Welcome to Princeton AdvisorSearch!</h3>
                   <!-- Modal -->
+
                   <div id="contactModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
 
@@ -106,9 +108,11 @@
       "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
            </script>
       <script>
+
       function setup(){
           $('#search').focus();
           $('#search').on('input', getResults);
+
       }
 
       function handleResponse(response)
@@ -139,6 +143,26 @@
       );
       }
 
+
+      function handleFavoritedResponse(response)
+      {
+      $('#favorited').html(response);
+      }
+
+      function getFavorited(profid)
+      {
+      $(event.target).toggleClass("active");
+      let url = '/favoritedProf?profid=' + profid;
+      if (request != null)
+        request.abort();
+      request = $.ajax({
+        type: "GET",
+        url: url,
+        success: handleFavoritedResponse
+        }
+      );
+      }
+
       function handleProfResponse(response)
       {
       $('#profSection').html(response);
@@ -146,15 +170,17 @@
 
       function getProfResults(profid)
       {
-      let url = '/profresults?profid=' + profid;
-      if (request != null)
-        request.abort();
-      request = $.ajax({
-        type: "GET",
-        url: url,
-        success: handleProfResponse
+      if(!$(event.target).is("i")) {
+        let url = '/profresults?profid=' + profid;
+        if (request != null)
+          request.abort();
+        request = $.ajax({
+          type: "GET",
+          url: url,
+          success: handleProfResponse
+          }
+        );
         }
-      );
       }
 
       function clearAll(){
