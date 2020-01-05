@@ -84,7 +84,7 @@ def searchResults():
 
     resultsnum = len(profList)
 
-    html = '<h3>Search Results ('+str(resultsnum)+')</h3><div id="resultsWrapper"><ul class="marginless">'
+    html = '<h3>Search Results ('+str(resultsnum)+')</h3><div id="resultsWrapper" class="flex-item-shrink resizable"><ul class="marginless">'
     for prof in profList:
         active = ''
         topAreas = ''
