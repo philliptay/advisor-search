@@ -93,6 +93,10 @@ p {
    border-color: #ff9933 !important;
 }
 
+.navbar > .container-fluid .navbar-brand {
+    margin-left: 0px;
+}
+
 .navbar-inverse .navbar-nav > li > a {
    color: white !important;
 }
@@ -267,7 +271,6 @@ p {
 #projectBar{
   width: 50%;
 }
-
 
 /* #searchResults {
    position: absolute;

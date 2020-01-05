@@ -1,5 +1,5 @@
 <div class="row">
-   <div class="col-xs-3" id="profPic">
+   <div class="col-md-3 visible-lg" id="profPic">
       {% if prof.getName() != '' %}
          {% if pic != None %}
             <br>
@@ -9,7 +9,6 @@
          {% endif %}
          <!-- Trigger the modal with a button -->
          <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">Contact</button>
-         <br>
          <!-- Modal -->
          <div id="contactModal" class="modal fade" role="dialog">
            <div class="modal-dialog">
@@ -79,7 +78,7 @@
      {% endif %}
   </div>
 
-   <div class="col-xs-9">
+   <div class="col-lg-9 col-sm-12">
       <div class="row">
          {% if prof.getName() != '' %}
             <h3>{{prof.getName()}}</h3>
@@ -92,6 +91,11 @@
          {% endif %}
       </div>
     </div>
+
+    <div class="col-xs-12">
+      <br>
+    </div>
+
 </div>
 
 <div class="row infoWrapper">
@@ -106,11 +110,11 @@
 
       <h4>Current Projects:</h4>
       {% if prof.getProjects() == 'No projects found.' %}
-        <p>{{prof.getProjects()capitalize()}}</p>
+        <p>{{prof.getProjects()}}</p>
       {% else %}
       <ul>
         {% for proj in prof.getProjects() %}
-        <li>{{proj[0].strip('. ')}}</li>
+        <li>{{proj[0].strip('. ').capitalize()}}</li>
         {% endfor %}
       {% endif %}
       </ul>
