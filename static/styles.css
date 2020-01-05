@@ -84,6 +84,10 @@ body {
    border-color: #ff9933 !important;
 }
 
+.navbar > .container-fluid .navbar-brand {
+    margin-left: 0px;
+}
+
 .navbar-inverse .navbar-nav > li > a {
    color: white !important;
 }
