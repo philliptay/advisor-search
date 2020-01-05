@@ -54,11 +54,13 @@ def index():
 
 @app.route('/searchresults')
 def searchResults():
-    allAreas = ['Computational Biology', 'Computer Architecture', 'Economics/Computation', 'Graphics', 'Vision', 'Machine Learning', 'AI', 'Natural Language Processing', 'Policy', 'Programming Languages/Compilers', 'Security & Privacy', 'Systems', 'Theory']
+    allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
 
     areas = request.args.getlist('areas')
     keywords = request.args.getlist('keywords')
-
+    print(str(areas[0]))
+    if str(areas[0]) == 'All':
+        areas = allAreas
     # areas = []
     # keywords = []
     # tags = request.args.getlist('tags')

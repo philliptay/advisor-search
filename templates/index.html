@@ -49,10 +49,11 @@
 
             <div class="row searchArea">
                <div class="col-md-4 col-xs-4 searchBarLeft">
+                  <p style='color: orange; text-align: left; font-size:130%;'>Type a Professor's name, Course Number, or Project</p>
                   <select id="searchBar" multiple="multiple" onchange="getResults()">
                      <script>
                         $('#searchBar').select2({
-                           tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory"],
+                           tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory", "All"],
                            tokenSeparators: [",", " "],
                            placeholder: "Search research areas",
                         });
@@ -61,20 +62,21 @@
                   </select>
                   <br>
                   <input class="form-control" id="search" type="text" placeholder="Search keywords" name="search">
-                  <button type="button" class="btn btn-success" name="button" onclick="clearAll();">Clear Results</button>
+                  <button style="margin: 2px;" type="button" class="btn btn-success" name="button" onclick="getAll();">All Results</button>
+                  <button style="margin: 2px;" type="button" class="btn btn-danger" name="button" onclick="clearAll();">Clear Results</button>
                </div>
-               <div class="col-md-8 col-xs-8">
-                 <h5>Click Research Areas</h5>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectCompBio();">Computational Biology</button>
+               <div class="col-md-8 col-xs-8 searchButtons">
+                  <p style='color: orange; text-align: center; font-size:130%;'> Click Area of Research buttons</p>
+                  <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectCompBio();">Computational Biology</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectCompArch();">Computer Architecture</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectEconComp();">Economics/Computation</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectGraphics();">Graphics</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectVision();">Vision</button>
+                  <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectVision();">Vision</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectML();">Machine Learning</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectAI();">AI</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectNatLangProc();">Natural Language Processing</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectPolicy();">Policy</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectProgLangComp();">Programming Languages/Compilers</button>
+                  <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectProgLangComp();">Programming Languages/Compilers</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectSecPriv();">Security & Privacy</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectSystems();">Systems</button>
                   <button type="button" name="button" class="btn btn-info" onclick="selectTheory();">Theory</button>
@@ -155,6 +157,10 @@
         success: handleProfResponse
         }
       );
+      }
+      function getAll(){
+        $('#searchBar').val('All');
+        $('#searchBar').trigger('change');
       }
 
       function clearAll(){
