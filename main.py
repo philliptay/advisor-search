@@ -230,32 +230,6 @@ def backResults():
     return(response)
 
 #-------------------------------------------------------------------------------
-
-# @app.route('/opencontact')
-# def openContact():
-#     print("in main")
-#     prof = Professor('', '', '', '', '', '', '', '')
-#
-#     profid = request.args.get('profid')
-#
-#     database = Database()
-#     database.connect()
-#     prof = database.profSearch(profid)
-#     database.disconnect()
-#
-#     html = '<div class="modal-content" id="modal-content">'
-#     html += '<div class="modal-header">'
-#     html += '<button type="button" class="close" data-dismiss="modal">&times;</button>'
-#     html += '<h4 class="modal-title">Advisor Email Builder to </h4>' + str(prof.getName())
-#     html += '</div>'
-#
-#     html.encode('utf-8')
-#     response = make_response(html)
-#
-#     return(response)
-
-
-#-------------------------------------------------------------------------------
 @app.route('/emailresults')
 def emailResults():
     prof = Professor('', '', '', '', '', '', '', '')
