@@ -205,7 +205,7 @@ def backResults():
     if (prof.getProjects() == 'No projects found.') and (prof.getLinks() == ""):
         html += '<input type="text" id="projs" placeholder="Enter a project or thesis">'
     else:
-        html += '<select name="projs" id="projs">'
+        html += '<select name="projs" id="projs" style="width: 500px;">'
         projCount = 0
         if prof.getProjects() != 'No projects found.':
             for proj in prof.getProjects():
@@ -330,7 +330,7 @@ def emailResults():
     html += '<p>' + str(body6) + '</p>'
     html += '</div>'
     html += '<div class="modal-footer">'
-    html += '<button type="button" name="button" onclick="getBackResponse();">Edit Inputs</button>'
+    html += '<button type="button" class="btn btn-default" style="margin: 2px;" onclick="getBackResponse();">Edit Inputs</button>'
     html += '<a type="button" class="btn btn-primary" href="' + str(mail) + '">Review Email</a>'
     html += '</div>'
     html.encode('utf-8')

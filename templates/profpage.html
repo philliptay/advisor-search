@@ -49,7 +49,7 @@
                   {% if prof.getProjects() == 'No projects found.' and links == '' %}
                   <input type="text" id="projs" placeholder="Enter a project or thesis">
                   {% else %}
-                  <select name="projs" id="projs" style="width: 50px;">
+                  <select name="projs" id="projs" style="width: 500px;">
                     {% if prof.getProjects() != 'No projects found.' %}
                       {% for proj in prof.getProjects() %}
                       <option value={{loop.index0}}>{{proj[0].strip('. ')}}</option>
