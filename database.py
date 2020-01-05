@@ -68,7 +68,7 @@ class Database:
             if area == "Programming Languages/Compilers":
                 subareaList = ["programming", "languages", "compilers"]
             elif area == "AI":
-                subareaList = ["ai", "vision", "maching learning", "data"]
+                subareaList = ["ai", "vision", "machine learning"]
             elif area == "Economics/Computation":
                 subareaList = ["economics/eomputation", "economics", "computation"]
             elif area == "Security & Privacy":

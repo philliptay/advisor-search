@@ -18,6 +18,7 @@ p {
 #resultsWrapper {
    /* border: 1px solid #000000; */
    height: 64vh;
+   margin-bottom: 20px;
 }
 
 .infoWrapper {
@@ -226,6 +227,38 @@ p {
 
     flex-grow: 0;
     flex-shrink: 0;
+
+}
+
+.flex-item-shrink {
+
+    flex-shrink: 1;
+    overflow: auto;
+
+}
+.text-button {
+
+    cursor: pointer;
+    color: #636c72;
+
+}
+
+#fav-toggle{
+    margin-top: 15px;
+}
+
+#fav-toggle:hover {
+    color: #a1a6aa;
+    transition: color .4s ease;
+}
+
+#fav-content, #searchResults {
+
+    transition: max-height .6s ease-in-out;
+        transition-property: max-height;
+        transition-duration: 0.6s;
+        transition-timing-function: ease-in-out;
+        transition-delay: 0s;
 
 }
 #contactModal {

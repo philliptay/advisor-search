@@ -147,8 +147,8 @@ def favoritedProf():
             profList.append(info)
 
     resultsnum = len(profList)
-
-    html = '<h3>'+str(resultsnum)+' Favorited Professors</h3><div><ul class="marginless">'
+    html = '<div class="flex-container-row">'
+    html += '<h3 class="flex-item-stretch truncate">'+str(resultsnum)+' Favorited Professors</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button fa-minus" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: 30vh;"><ul class="marginless">'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
