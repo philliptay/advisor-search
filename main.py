@@ -54,8 +54,8 @@ def searchResults():
 
     inputs = request.args.getlist('inputs')
 
-    if str(areas[0]) == 'All':
-        areas = allAreas
+    if str(inputs[0]) == 'All':
+        inputs = allAreas
     areas = []
     keywords = []
 
