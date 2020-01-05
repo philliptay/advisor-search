@@ -84,7 +84,7 @@ def searchResults():
 
     resultsnum = len(profList)
 
-    html = '<h3>'+str(resultsnum)+' Search Results</h3><h3>Advisors</h3><div id="resultsWrapper"><ul class="marginless">'
+    html = '<h3>Search Results ('+str(resultsnum)+')</h3><div id="resultsWrapper"><ul class="marginless">'
     for prof in profList:
         active = ''
         topAreas = ''
@@ -150,7 +150,7 @@ def favoritedProf():
 
     resultsnum = len(profList)
 
-    html = '<h3>'+str(resultsnum)+' Favorited Professors</h3><div><ul class="marginless">'
+    html = '<h3>Favorite Advisors (' + str(resultsnum) + ')</h3><div><ul class="marginless">'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :

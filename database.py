@@ -63,7 +63,7 @@ class Database:
 
         # search through inputted areas
         areas = areas[0].split(',')
-        print(areas)
+        
         for area in areas:
             if (area is not None) and (area.strip() != ''):
                 stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
