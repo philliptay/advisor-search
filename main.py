@@ -50,20 +50,20 @@ def index():
 @app.route('/searchresults')
 def searchResults():
     allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
+    allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
-    areas = request.args.getlist('areas')
-    keywords = request.args.getlist('keywords')
-    print(str(areas[0]))
+    inputs = request.args.getlist('inputs')
+
     if str(areas[0]) == 'All':
         areas = allAreas
-    # areas = []
-    # keywords = []
-    # tags = request.args.getlist('tags')
-    # for tag in tags:
-    #     if tag in allAreas:
-    #         areas.append(tag)
-    #     else:
-    #         keywords.append(tag)
+    areas = []
+    keywords = []
+
+    for input in inputs:
+        if input in allAreasArray:
+            areas.append(input)
+        else:
+            keywords.append(input)
 
     searchInput = [areas, keywords]
 

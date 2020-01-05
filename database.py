@@ -38,7 +38,7 @@ class Database:
                     for row5 in rows5:
                         keyResults.append(row5)
 
-                # if no direct name hit, is it part of name, bio, title?
+                # if no direct name hit, is it part of name, bio, title, random area?
                 else:
                     stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
                     prep2 = keyword.lower().capitalize()+'%'
@@ -61,9 +61,17 @@ class Database:
                     for row4 in rows4:
                         keyResults.append(row4)
 
+
+                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+                    prep5 = '%'+keyword.lower()+'%'
+                    cursor.execute(stmtStr, (prep5,))
+                    rows5 = cursor.fetchall()
+                    for row in rows5:
+                        keyResults.append(row)
+
         # search through inputted areas
         areas = areas[0].split(',')
-        
+
         for area in areas:
             subareaList = [area]
             if area == "Programming Languages/Compilers":

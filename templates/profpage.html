@@ -175,32 +175,3 @@
     );
   }
 </script>
-
-<!--  taken from https://stackoverflow.com/questions/5773174/html-button-to-send-email/29975611
-<script>
-    function loadEvents() {
-        var mailString;
-        function updateMailString() {
-            mailString = '?subject=' + encodeURIComponent($('#subject').val())
-                + '&body=' + encodeURIComponent($('#message').val());
-            $('#mail-link').attr('href',  'mailto:person@email.com' + mailString);
-        }
-        $( "#subject" ).focusout(function() { updateMailString(); });
-        $( "#message" ).focusout(function() { updateMailString(); });
-        console.log(mailString);
-        updateMailString();
-    }
-    $(document).ready(function() {
-    $('#bt1').click(function() {
-        $('#fr1').attr('action',
-                       'mailto:test@test.com?subject=' +
-                       $('#tb1').val() + '&body=' + $('#tb2').val());
-        $('#fr1').submit();
-    });
-  });
-  function addAreas(area) {
-    area = area[0].strip('. ');
-    console.log(area);
-  }
-</script>
--->
