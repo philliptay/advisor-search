@@ -78,15 +78,16 @@
 
    <div class="col-lg-9 col-sm-12">
       <div class="row">
-         <div class="col-xs-6">
+         <div class="col-lg-5 col-xs-12">
             {% if prof.getName() != '' %}
                <h3>{{prof.getName()}}</h3>
                <p>{{prof.getContact()}}</p>
             {% endif %}
          </div>
-         <div class="col-xs-6 ">
+         <div class="col-md-7 visible-lg">
             <!-- Trigger the modal with a button -->
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">Contact</button>
+            <br>
+            <button type="button" class="btn btn-warning btn-lg" style="background-color: #c09cd9" data-toggle="modal" data-target="#contactModal">Contact</button>
          </div>
 
       </div>

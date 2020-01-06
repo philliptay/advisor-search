@@ -272,15 +272,8 @@ p {
   width: 50%;
 }
 
-/* #searchResults {
-   position: absolute;
-   width: 31%;
-   background-color: #e6b3ff;
-   flex-grow: 1;
-} */
-
-/* #profSection {
-   width: 68%;
-   background-color: #80bfff;
-   flex-grow: 1;
-} */
+@media (max-width: 900px) {
+  .topareas {
+    display: none;
+  }
+}
