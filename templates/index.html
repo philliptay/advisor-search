@@ -66,19 +66,19 @@
                </div>
                <div class="col-md-8 visible-lg searchButtons">
                   <p style='text-align: left; font-size:130%;'> Click Areas of Research</p>
-                  <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectCompBio();">Computational Biology</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectCompArch();">Computer Architecture</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectEconComp();">Economics/Computation</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectGraphics();">Graphics</button>
-                  <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectVision();">Vision</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectML();">Machine Learning</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectAI();">AI</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectNatLangProc();">Natural Language Processing</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectPolicy();">Policy</button>
-                  <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectProgLangComp();">Programming Languages/Compilers</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectSecPriv();">Security & Privacy</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectSystems();">Systems</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectTheory();">Theory</button>
+                  <button style="margin: 1px;" type="button" name="button" id="CBbut" class="btn btn-info" style="color: info" onclick="addArea('Computational Biology');">Computational Biology</button>
+                  <button type="button" name="button" class="btn btn-info" id="CAbut" style="color: info" onclick="addArea('Computer Architecture');">Computer Architecture</button>
+                  <button type="button" name="button" class="btn btn-info" id="ECbut" style="color: info" onclick="addArea('Economics/Computation');">Economics/Computation</button>
+                  <button type="button" name="button" class="btn btn-info" id="Gbut" style="color: info" onclick="addArea('Graphics');">Graphics</button>
+                  <button style="margin: 1px;" type="button" name="button" id="Vbut" style="color: info" class="btn btn-info" onclick="addArea('Vision');">Vision</button>
+                  <button type="button" name="button" class="btn btn-info" id="MLbut" style="color: info" onclick="addArea('Machine Learning');">Machine Learning</button>
+                  <button type="button" name="button" class="btn btn-info" id="AIbut" style="color: info" onclick="addArea('AI');">AI</button>
+                  <button type="button" name="button" class="btn btn-info" id="NLPbut" style="color: info" onclick="addArea('Natural Language Processing');">Natural Language Processing</button>
+                  <button type="button" name="button" class="btn btn-info" id="POLbut" style="color: info" onclick="addArea('Policy');">Policy</button>
+                  <button style="margin: 1px;" type="button" name="button" id="PLCbut" style="color: info" class="btn btn-info" onclick="addArea('Programming Languages/Compilers');">Programming Languages/Compilers</button>
+                  <button type="button" name="button" class="btn btn-info" id="SPbut" style="color: info" onclick="addArea('Security & Privacy');">Security & Privacy</button>
+                  <button type="button" name="button" class="btn btn-info" id="SYSbut" style="color: info" onclick="addArea('Systems');">Systems</button>
+                  <button type="button" name="button" class="btn btn-info" id="THEbut" style="color: info" onclick="addArea('Theory');">Theory</button>
                </div>
             </div>
 
@@ -129,6 +129,151 @@
       function getResults()
       {
       let inputs = $("#searchBar").val();
+      var property1 = document.getElementById('CBbut');
+      var property2 = document.getElementById('CAbut');
+      var property3 = document.getElementById('ECbut');
+      var property4 = document.getElementById('Gbut');
+      var property5 = document.getElementById('Vbut');
+      var property6 = document.getElementById('MLbut');
+      var property7 = document.getElementById('AIbut');
+      var property8 = document.getElementById('NLPbut');
+      var property9 = document.getElementById('POLbut');
+      var property10 = document.getElementById('PLCbut');
+      var property11 = document.getElementById('SPbut');
+      var property12 = document.getElementById('SYSbut');
+      var property13 = document.getElementById('THEbut');
+      var compBio = false;
+      if (inputs.includes("Computational Biology") || inputs.includes("All")){
+        compBio = true;
+      }
+      var compArch = false;
+      if (inputs.includes("Computer Architecture") || inputs.includes("All")){
+        compArch = true;
+      }
+      var econComp = false;
+      if (inputs.includes("Economics/Computation") || inputs.includes("All")){
+        econComp = true;
+      }
+      var graph = false;
+      if (inputs.includes("Graphics") || inputs.includes("All")) {
+        graph = true;
+      }
+      var vis = false;
+      if (inputs.includes("Vision") || inputs.includes("All")){
+        vis = true;
+      }
+      var ml = false;
+      if (inputs.includes("Machine Learning") || inputs.includes("All")) {
+        ml = true;
+      }
+      var ai = false;
+      if (inputs.includes("AI") || inputs.includes("All")) {
+        ai = true;
+      }
+      var nlp = false;
+      if (inputs.includes("Natural Language Processing") || inputs.includes("All")) {
+        nlp = true;
+      }
+      var pol = false;
+      if (inputs.includes("Policy") || inputs.includes("All")) {
+        pol = true;
+      };
+      var plc = false;
+      if (inputs.includes("Programming Languages/Compilers") || inputs.includes("All")) {
+        plc = true;
+      }
+      var sp = false;
+      if (inputs.includes("Security & Privacy") || inputs.includes("All")) {
+        sp = true;
+      }
+      var sys = false;
+      if (inputs.includes("Systems") || inputs.includes("All")) {
+        sys = true;
+      }
+      var theory = false;
+      if (inputs.includes("Theory") || inputs.includes("All")) {
+        theory = true;
+      }
+      if (compBio) {
+        property1.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property1.style.backgroundColor = "#5bc0de";
+      }
+      if (compArch) {
+        property2.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property2.style.backgroundColor = "#5bc0de";
+      }
+      if (econComp) {
+        property3.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property3.style.backgroundColor = "#5bc0de";
+      }
+      if (graph) {
+        property4.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property4.style.backgroundColor = "#5bc0de";
+      }
+      if (vis) {
+        property5.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property5.style.backgroundColor = "#5bc0de";
+      }
+      if (ml) {
+        property6.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property6.style.backgroundColor = "#5bc0de";
+      }
+      if (ai) {
+        property7.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property7.style.backgroundColor = "#5bc0de";
+      }
+      if (nlp) {
+        property8.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property8.style.backgroundColor = "#5bc0de";
+      }
+      if (pol) {
+        property9.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property9.style.backgroundColor = "#5bc0de";
+      }
+      if (plc) {
+        property10.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property10.style.backgroundColor = "#5bc0de";
+      }
+      if (sp) {
+        property11.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property11.style.backgroundColor = "#5bc0de";
+      }
+      if (sys) {
+        property12.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property12.style.backgroundColor = "#5bc0de";
+      }
+      if (theory) {
+        property13.style.backgroundColor = "#e65c00";
+      }
+      else {
+        property13.style.backgroundColor = "#5bc0de";
+      }
+
+
       inputs = encodeURIComponent(inputs);
       let url = '/searchresults?inputs=' + inputs;
       if (request != null)
@@ -170,6 +315,32 @@
       }
       function getAll(){
         $('#searchBar').val('All');
+        var property1 = document.getElementById('CBbut');
+        property1.style.backgroundColor = "#e65c00";
+        var property2 = document.getElementById('CAbut');
+        property2.style.backgroundColor = "#e65c00";
+        var property3 = document.getElementById('ECbut');
+        property3.style.backgroundColor = "#e65c00";
+        var property4 = document.getElementById('Gbut');
+        property4.style.backgroundColor = "#e65c00";
+        var property5 = document.getElementById('Vbut');
+        property5.style.backgroundColor = "#e65c00";
+        var property6 = document.getElementById('MLbut');
+        property6.style.backgroundColor = "#e65c00";
+        var property7 = document.getElementById('AIbut');
+        property7.style.backgroundColor = "#e65c00";
+        var property8 = document.getElementById('NLPbut');
+        property8.style.backgroundColor = "#e65c00";
+        var property9 = document.getElementById('POLbut');
+        property9.style.backgroundColor = "#e65c00";
+        var property10 = document.getElementById('PLCbut');
+        property10.style.backgroundColor = "#e65c00";
+        var property11 = document.getElementById('SPbut');
+        property11.style.backgroundColor = "#e65c00";
+        var property12 = document.getElementById('SYSbut');
+        property12.style.backgroundColor = "#e65c00";
+        var property13 = document.getElementById('THEbut');
+        property13.style.backgroundColor = "#e65c00";
         $('#searchBar').trigger('change');
       }
 
@@ -204,82 +375,28 @@
           $('#fav-toggle').removeClass("fa-plus").addClass("fa-minus");
           $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-faveHeight+"px");
         }
-
-
-
       }
 
       function clearAll(){
         $('#searchBar').val(null).trigger('change');
       }
 
-      function selectCompBio()
+      function addArea(area)
       {
-        $('#searchBar').val('Computational Biology'); // Select the option with a value of '1'
+        let inputs = $("#searchBar").val();
+        if (inputs.includes(area)){
+          for (var i=0; i < inputs.length; i++) {
+            if (inputs[i] == area){
+              inputs.splice(i,1);
+            }
+          }
+        }
+        else{
+          inputs.push(area);
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
-      }
-      function selectCompArch()
-      {
-        $('#searchBar').val('Computer Architecture'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectEconComp()
-      {
-        $('#searchBar').val('Economics/Computation'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectGraphics()
-      {
-        $('#searchBar').val('Graphics'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectVision()
-      {
-        $('#searchBar').val('Vision'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectML()
-      {
-        $('#searchBar').val('Machine Learning'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-
-      function selectAI()
-      {
-        $('#searchBar').val('AI'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectNatLangProc()
-      {
-        $('#searchBar').val('Natural Language Processing'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectPolicy()
-      {
-        $('#searchBar').val('Policy'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectProgLangComp()
-      {
-        $('#searchBar').val('Programming Languages/Compilers'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectSecPriv()
-      {
-        $('#searchBar').val('Security & Privacy'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectSystems()
-      {
-        $('#searchBar').val('Systems'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectTheory()
-      {
-        $('#searchBar').val('Theory'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-
+    }
 
       $('document').ready(setup);
 

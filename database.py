@@ -21,6 +21,7 @@ class Database:
 
         areas = input[0]
         keywords = input[1]
+
         keyResults = []
         areaResults = []
 
@@ -70,8 +71,6 @@ class Database:
                         keyResults.append(row)
 
         # search through inputted areas
-        areas = areas[0].split(',')
-
         for area in areas:
             subareaList = [area]
 
@@ -112,12 +111,8 @@ class Database:
                     for row in rows:
                         areaResults.append(row)
 
-
         cursor.close()
-
         results = [keyResults, areaResults]
-
-
         return results
 
 

@@ -57,10 +57,12 @@ def searchResults():
     allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
     allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
-    inputs = request.args.getlist('inputs')
+    inputString = request.args.getlist('inputs')
+    inputs = inputString[0].split(',')
+    for input in inputs:
+        if input == 'All':
+            inputs = allAreasArray
 
-    if str(inputs[0]) == 'All':
-        inputs = allAreas
     areas = []
     keywords = []
 
