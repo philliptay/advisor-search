@@ -129,6 +129,16 @@ p {
    background-color: #e65c00;
 }
 
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 100px;
+}
+
 .list-group-item {
 
     position: relative;
