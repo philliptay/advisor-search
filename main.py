@@ -268,17 +268,19 @@ def emailResults():
     projNum = request.args.getlist('projs')
     profProjects = prof.getProjects()
 
+    print(projNum)
 
     try:
-        int(projNum)
+        int(projNum[0])
     except:
+        print('hi')
         proj = projNum
     else:
         if int(projNum[0]) >= len(profProjects):
             proj = prof.getTitles()[int(projNum[0]) - len(profProjects)]
         else:
             proj = profProjects[int(projNum[0])][0].strip('. ')
-
+    print(proj)
     projFormatted = ""
     for word in proj:
         projFormatted += word
