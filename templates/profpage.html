@@ -7,8 +7,6 @@
          {% else %}
             <img src="https://live.staticflickr.com/65535/49209978778_7a78b133be_n.jpg">
          {% endif %}
-         <!-- Trigger the modal with a button -->
-         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">Contact</button>
          <!-- Modal -->
          <div id="contactModal" class="modal fade" role="dialog">
            <div class="modal-dialog">
@@ -80,10 +78,17 @@
 
    <div class="col-lg-9 col-sm-12">
       <div class="row">
-         {% if prof.getName() != '' %}
-            <h3>{{prof.getName()}}</h3>
-            <p>{{prof.getContact()}}</p>
-         {% endif %}
+         <div class="col-xs-6">
+            {% if prof.getName() != '' %}
+               <h3>{{prof.getName()}}</h3>
+               <p>{{prof.getContact()}}</p>
+            {% endif %}
+         </div>
+         <div class="col-xs-6 ">
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal">Contact</button>
+         </div>
+
       </div>
       <div class="row bioArea">
          {% if prof.getName() != '' %}

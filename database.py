@@ -74,14 +74,35 @@ class Database:
 
         for area in areas:
             subareaList = [area]
+
             if area == "Programming Languages/Compilers":
-                subareaList = ["programming", "languages", "compilers"]
+                subareaList = ["programming", "languages", "compilers", "programming languages", "domain-specific languages", "application-specific languages", "program analysis", "programming methodology", "program verification", "system software and programming environments for multiprocessors"]
+            elif area == "Computational Biology":
+                subareaList = ["computational biology", "statistical genetics", "quantitative genetics", "medicine", "computational molecular biology", "bioinformatics", "analysis of large-scale biological data sets", "methods in bioinformatics"]
+            elif area == "Computational Architecture":
+                subareaList = ["computer architecture"]
+            elif area == "Economics/Computation":
+                subareaList = ["economics/computation", "economics", "computation", "cryptocurrencies", "bayesian statistics", "quantum computation", "power-aware computing", "mobile computing", "quantum computing", "computational complexity", "computational statistics"]
+            elif area == "Graphics":
+                subareaList = ["graphics", "acquisition of 3d shape", "reflectance", "appearance of real-world objects", "computational geometry", "user interfaces"]
+            elif area == "Vision":
+                subareaList = ["vision", "human-computer interaction", "visualization", "computational imaging", "computer vision", "optics", "visualization of biological data"]
+            elif area == "Machine Learning":
+                subareaList = ["machine learning", "information retrieval", "data mining", "question answering", "automated reasoning"]
             elif area == "AI":
                 subareaList = ["ai", "vision", "machine learning"]
-            elif area == "Economics/Computation":
-                subareaList = ["economics/eomputation", "economics", "computation"]
+            elif area == "Natural Language Processing":
+                subareaList = ["natural language processing", "lexical semantics", "syntactic alternations", "computational linguistics", "document preparation"]
+            elif area == "Policy":
+                subareaList = ["policy", "middleware and protocols", "tech policy", "big data", "technology law and policy", "criminal procedure", "online speech", "communication protocols", "healthcare", "computer science education", "online learning and moocs", "r&d innovation methodologies"]
+            elif area == "Programming Languages/Compilers":
+                subareaList = ["programming languages", "compilers", "domain-specific languages", "application-specific languages", "program analysis", "programming methodology", "program verification", "system software and programming environments for multiprocessors"]
             elif area == "Security & Privacy":
-                subareaList = ["security", "privacy"]
+                subareaList = ["security", "privacy", "formal verification", "computer security", "information privacy", "software verification", "national security", "consumer privacy", "cryptography"]
+            elif area == "Systems":
+                subareaList = ["systems", "type systems", "dynamical systems", "distributed systems", "parallel architectures and systems", "operating systems", "wireless systems", "networked systems", "software engineering", "software tools", "mobile software", "internet of things", "data streaming", "internet measurement", "pervasive computing", "parallel computing systems and applications", "dynamic networks", "software-defined networking", "network software", "networking", "network virtualization", "network management", "network troubleshooting", "networking and telecommunications"]
+            elif area == "Theory":
+                subareaList = ["theory", "discrepancy theory", "theoretical foundations of design", "graph theory", "complexity theory", "game theory", "natural algorithms", "analysis of efficient algorithms", "analysis of algorithms", "algorithms", "algorithms for integration of data from multiple data sources", "scientific analysis of algorithms", "parallel algorithms", "uses of randomness in complexity theory and algorithms", "np-hard problems", "math", "mathematical optimization", "probabilistic algorithms", "data structures", "information-based complexity", "analytic combinatorics", "combinatorial optimization"]
             for subarea in subareaList:
                 if (subarea is not None) and (subarea.strip() != ''):
                     stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
