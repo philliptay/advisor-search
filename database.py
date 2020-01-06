@@ -31,44 +31,37 @@ class Database:
             if (keyword is not None) and (keyword.strip() != ''):
 
                 # direct name hit
-                stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
-                prep5 = '%'+keyword.lower().capitalize()+'%'
-                cursor.execute(stmtStr5, (prep5,))
-                rows5 = cursor.fetchall()
-                if len(rows5) > 0:
-                    for row5 in rows5:
-                        keyResults.append(row5)
+                stmtStr1 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
+                prep1 = '%'+keyword.lower().capitalize()+'%'
+                cursor.execute(stmtStr1, (prep1,))
+                rows1 = cursor.fetchall()
+                if len(rows1) > 0:
+                    for row1 in rows1:
+                        keyResults.append(row1)
 
-                # if no direct name hit, is it part of name, bio, title, random area?
+                # if no direct name hit, is it part of a project of past thesis title?
                 else:
-                    stmtStr2 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
-                    prep2 = keyword.lower().capitalize()+'%'
-                    cursor.execute(stmtStr2, (prep2,))
-                    rows2 = cursor.fetchall()
-                    for row2 in rows2:
-                        keyResults.append(row2)
-
-                    stmtStr3 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND bio LIKE %s ORDER BY name'
-                    prep3 = keyword.lower()+'%'
-                    cursor.execute(stmtStr3, (prep3,))
-                    rows3 = cursor.fetchall()
-                    for row3 in rows3:
-                        keyResults.append(row3)
-
-                    stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND title LIKE %s ORDER BY name'
-                    prep4 = keyword.lower()+'%'
+                    #search for past theses search hit
+                    stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND past_theses.title LIKE %s ORDER BY name'
+                    prep4 = '%'+keyword.lower()+'%'
+                    cursor.execute(stmtStr4, (prep4,))
+                    rows4 = cursor.fetchall()
+                    for row4 in rows4:
+                        keyResults.append(row4)
+                    prep4 = '%'+keyword.lower().capitalize()+'%'
                     cursor.execute(stmtStr4, (prep4,))
                     rows4 = cursor.fetchall()
                     for row4 in rows4:
                         keyResults.append(row4)
 
 
-                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+
+                    stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND profs.prof_id = projects.prof_id AND projects.title LIKE %s ORDER BY name'
                     prep5 = '%'+keyword.lower()+'%'
-                    cursor.execute(stmtStr, (prep5,))
+                    cursor.execute(stmtStr5, (prep5,))
                     rows5 = cursor.fetchall()
-                    for row in rows5:
-                        keyResults.append(row)
+                    for row5 in rows5:
+                        keyResults.append(row5)
 
         # search through inputted areas
         for area in areas:
