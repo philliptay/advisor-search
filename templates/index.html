@@ -66,19 +66,19 @@
                </div>
                <div class="col-md-8 visible-lg searchButtons">
                   <p style='text-align: left; font-size:130%;'> Click Areas of Research</p>
-                  <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectCompBio();">Computational Biology</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectCompArch();">Computer Architecture</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectEconComp();">Economics/Computation</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectGraphics();">Graphics</button>
-                  <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectVision();">Vision</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectML();">Machine Learning</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectAI();">AI</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectNatLangProc();">Natural Language Processing</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectPolicy();">Policy</button>
-                  <button style="margin: 1px;" type="button" name="button" class="btn btn-info" onclick="selectProgLangComp();">Programming Languages/Compilers</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectSecPriv();">Security & Privacy</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectSystems();">Systems</button>
-                  <button type="button" name="button" class="btn btn-info" onclick="selectTheory();">Theory</button>
+                  <button style="margin: 1px;" type="button" name="button" id="CBbut" class="btn btn-info" style="color: info" onclick="selectCompBio('CBbut');">Computational Biology</button>
+                  <button type="button" name="button" class="btn btn-info" id="CAbut" style="color: info" onclick="selectCompArch('CAbut');">Computer Architecture</button>
+                  <button type="button" name="button" class="btn btn-info" id="ECbut" style="color: info" onclick="selectEconComp('ECbut');">Economics/Computation</button>
+                  <button type="button" name="button" class="btn btn-info" id="Gbut" style="color: info" onclick="selectGraphics('Gbut');">Graphics</button>
+                  <button style="margin: 1px;" type="button" name="button" id="Vbut" style="color: info" class="btn btn-info" onclick="selectVision('Vbut');">Vision</button>
+                  <button type="button" name="button" class="btn btn-info" id="MLbut" style="color: info" onclick="selectML('MLbut');">Machine Learning</button>
+                  <button type="button" name="button" class="btn btn-info" id="AIbut" style="color: info" onclick="selectAI('AIbut');">AI</button>
+                  <button type="button" name="button" class="btn btn-info" id="NLPbut" style="color: info" onclick="selectNatLangProc('NLPbut');">Natural Language Processing</button>
+                  <button type="button" name="button" class="btn btn-info" id="POLbut" style="color: info" onclick="selectPolicy('POLbut');">Policy</button>
+                  <button style="margin: 1px;" type="button" name="button" id="PLCbut" style="color: info" class="btn btn-info" onclick="selectProgLangComp('PLCbut');">Programming Languages/Compilers</button>
+                  <button type="button" name="button" class="btn btn-info" id="SPbut" style="color: info" onclick="selectSecPriv('SPbut');">Security & Privacy</button>
+                  <button type="button" name="button" class="btn btn-info" id="SYSbut" style="color: info" onclick="selectSystems('SYSbut');">Systems</button>
+                  <button type="button" name="button" class="btn btn-info" id="THEbut" style="color: info" onclick="selectTheory('THEbut');">Theory</button>
                </div>
             </div>
 
@@ -213,70 +213,257 @@
         $('#searchBar').val(null).trigger('change');
       }
 
-      function selectCompBio()
+      function selectCompBio(btn)
       {
-        $('#searchBar').val('Computational Biology'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Computational Biology") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Computational Biology");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
-      }
-      function selectCompArch()
+    }
+      function selectCompArch(btn)
       {
-        $('#searchBar').val('Computer Architecture'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Computer Architecture") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Computer Architecture");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
-      }
-      function selectEconComp()
+    }
+
+      function selectEconComp(btn)
       {
-        $('#searchBar').val('Economics/Computation'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectGraphics()
-      {
-        $('#searchBar').val('Graphics'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectVision()
-      {
-        $('#searchBar').val('Vision'); // Select the option with a value of '1'
-        $('#searchBar').trigger('change');
-      }
-      function selectML()
-      {
-        $('#searchBar').val('Machine Learning'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Economics/Computation") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Economics/Computation");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
       }
 
-      function selectAI()
+      function selectGraphics(btn)
       {
-        $('#searchBar').val('AI'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Graphics") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Graphics");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
       }
-      function selectNatLangProc()
+      function selectVision(btn)
       {
-        $('#searchBar').val('Natural Language Processing'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Vision") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Vision");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
       }
-      function selectPolicy()
+      function selectML(btn)
       {
-        $('#searchBar').val('Policy'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Machine Learning") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Machine Learning");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
       }
-      function selectProgLangComp()
+
+      function selectAI(btn)
       {
-        $('#searchBar').val('Programming Languages/Compilers'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "AI") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("AI");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
       }
-      function selectSecPriv()
+
+      function selectNatLangProc(btn)
       {
-        $('#searchBar').val('Security & Privacy'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Natural Language Processing") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Natural Language Processing");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
       }
-      function selectSystems()
+      function selectPolicy(btn)
       {
-        $('#searchBar').val('Systems'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Policy") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Policy");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
       }
-      function selectTheory()
+
+      function selectProgLangComp(btn)
       {
-        $('#searchBar').val('Theory'); // Select the option with a value of '1'
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Programming Languages/Compilers") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Programming Languages/Compilers");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
+        $('#searchBar').trigger('change');
+      }
+
+      function selectSecPriv(btn)
+      {
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Security & Privacy") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Security & Privacy");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
+        $('#searchBar').trigger('change');
+      }
+      function selectSystems(btn)
+      {
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Systems") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Systems");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
+        $('#searchBar').trigger('change');
+      }
+      function selectTheory(btn)
+      {
+        var property = document.getElementById(btn);
+        let inputs = $("#searchBar").val();
+        var state = 0;
+        for (var i=0; i < inputs.length; i++) {
+          if (inputs[i] === "Theory") {
+            inputs.splice(i,1);
+            property.style.backgroundColor = "#5bc0de";
+            state = 1;
+          }
+        }
+        if (state == 0) {
+          inputs.push("Theory");
+          property.style.backgroundColor = "#e65c00";
+        }
+        $('#searchBar').val(inputs);
         $('#searchBar').trigger('change');
       }
 
