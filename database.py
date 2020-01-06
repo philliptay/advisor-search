@@ -217,6 +217,13 @@ class Database:
         sorted_dict = [{item[0]: dict[item [0]]} for item in sorted_key_list]
         return(sorted_dict)
 
+    def getProfAreas(self, prof_id):
+        cursor = self._connection.cursor()
+        stmtStr = 'SELECT areas.area FROM areas WHERE areas.prof_id = %s'
+        cursor.execute(stmtStr, (prof_id,))
+        rows = cursor.fetchall()
+        return rows
+
     def favoritedProfSearch(self, username):
         cursor = self._connection.cursor()
         stmtStr =  'SELECT profs.name, areas.area, favorited_profs.prof_id FROM areas, profs, favorited_profs WHERE favorited_profs.prof_id = profs.prof_id AND areas.prof_id = favorited_profs.prof_id AND username = %s ORDER BY name'

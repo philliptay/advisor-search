@@ -95,8 +95,9 @@ def searchResults():
     for prof in profList:
         active = ''
         topAreas = ''
-        for i in range(min(3, len(prof[1]))) :
-            topAreas += prof[1][i]+', '
+        profAreas = database.getProfAreas(prof[2])
+        for i in range(min(3, len(profAreas))) :
+            topAreas += profAreas[i][0]+', '
         topAreas = topAreas.rstrip(', ')
 
         # if database.isProfFavorited(username, prof[2]):
