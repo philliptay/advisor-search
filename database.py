@@ -222,6 +222,7 @@ class Database:
         stmtStr = 'SELECT areas.area FROM areas WHERE areas.prof_id = %s'
         cursor.execute(stmtStr, (prof_id,))
         rows = cursor.fetchall()
+        cursor.close()
         return rows
 
     def favoritedProfSearch(self, username):
@@ -229,6 +230,7 @@ class Database:
         stmtStr =  'SELECT profs.name, areas.area, favorited_profs.prof_id FROM areas, profs, favorited_profs WHERE favorited_profs.prof_id = profs.prof_id AND areas.prof_id = favorited_profs.prof_id AND username = %s ORDER BY name'
         cursor.execute(stmtStr, (username,))
         rows = cursor.fetchall()
+        cursor.close()
         return [rows, []]
 
     def isProfFavorited(self, username, prof_id):
@@ -236,6 +238,7 @@ class Database:
         stmtStr =  'SELECT username, prof_id FROM favorited_profs WHERE username = %s AND prof_id = %s'
         cursor.execute(stmtStr, (username, prof_id))
         row = cursor.fetchone()
+        cursor.close()
         if row is None:
             return False
         return True
