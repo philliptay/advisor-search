@@ -59,14 +59,13 @@ def searchResults():
     allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
     inputString = request.args.get('inputs')
-    inputs = inputString.split()
+    inputs = inputString.split(',')
     for input in inputs:
         if input == 'All':
             inputs = allAreasArray
 
     areas = []
     keywords = []
-
     for input in inputs:
         if input in allAreasArray:
             areas.append(input.strip(' .,'))

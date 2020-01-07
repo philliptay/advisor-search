@@ -31,8 +31,8 @@ class Database:
             if (keyword is not None) and (keyword.strip() != ''):
 
                 # direct name hit
-                stmtStr1 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND name LIKE %s ORDER BY name'
-                prep1 = '%'+keyword.lower().capitalize()+'%'
+                stmtStr1 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(name) LIKE %s ORDER BY name'
+                prep1 = '%'+keyword.lower()+'%'
                 cursor.execute(stmtStr1, (prep1,))
                 rows1 = cursor.fetchall()
                 if len(rows1) > 0:
@@ -42,7 +42,7 @@ class Database:
                 # if no direct name hit, is it part of a project of past thesis title?
                 else:
                     #search for past theses search hit
-                    stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND past_theses.title LIKE %s ORDER BY name'
+                    stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND LOWER(past_theses.title) LIKE %s ORDER BY name'
                     prep4 = '%'+keyword.lower()+'%'
                     cursor.execute(stmtStr4, (prep4,))
                     rows4 = cursor.fetchall()
@@ -56,7 +56,7 @@ class Database:
 
 
 
-                    stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND profs.prof_id = projects.prof_id AND projects.title LIKE %s ORDER BY name'
+                    stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND profs.prof_id = projects.prof_id AND LOWER(projects.title) LIKE %s ORDER BY name'
                     prep5 = '%'+keyword.lower()+'%'
                     cursor.execute(stmtStr5, (prep5,))
                     rows5 = cursor.fetchall()
@@ -68,10 +68,10 @@ class Database:
             subareaList = [area]
 
             if area == "Programming Languages/Compilers":
-                subareaList = ["programming", "languages", "compilers", "programming languages", "domain-specific languages", "application-specific languages", "program analysis", "programming methodology", "program verification", "system software and programming environments for multiprocessors"]
+                subareaList = ["programming", "languages", "compilers", "domain-specific", "application-specific", "program analysis", "methodology", "verification", "system software and programming environments for multiprocessors"]
             elif area == "Computational Biology":
                 subareaList = ["computational biology", "statistical genetics", "quantitative genetics", "medicine", "computational molecular biology", "bioinformatics", "analysis of large-scale biological data sets", "methods in bioinformatics"]
-            elif area == "Computational Architecture":
+            elif area == "Computer Architecture":
                 subareaList = ["computer architecture"]
             elif area == "Economics/Computation":
                 subareaList = ["economics/computation", "economics", "computation", "cryptocurrencies", "bayesian statistics", "quantum computation", "power-aware computing", "mobile computing", "quantum computing", "computational complexity", "computational statistics"]
@@ -97,12 +97,13 @@ class Database:
                 subareaList = ["theory", "discrepancy theory", "theoretical foundations of design", "graph theory", "complexity theory", "game theory", "natural algorithms", "analysis of efficient algorithms", "analysis of algorithms", "algorithms", "algorithms for integration of data from multiple data sources", "scientific analysis of algorithms", "parallel algorithms", "uses of randomness in complexity theory and algorithms", "np-hard problems", "math", "mathematical optimization", "probabilistic algorithms", "data structures", "information-based complexity", "analytic combinatorics", "combinatorial optimization"]
             for subarea in subareaList:
                 if (subarea is not None) and (subarea.strip() != ''):
-                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
+                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(area) LIKE %s ORDER BY name'
                     prep = '%'+subarea+'%'
                     cursor.execute(stmtStr, (prep,))
                     rows = cursor.fetchall()
                     for row in rows:
                         areaResults.append(row)
+
 
         cursor.close()
         results = [keyResults, areaResults]
