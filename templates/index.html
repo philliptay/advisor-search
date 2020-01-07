@@ -50,16 +50,9 @@
             <div class="row searchArea" style="background-color: rgb(163, 162, 160);">
                <div class="col-lg-4 col-xs-12 searchBarLeft">
                   <p style='text-align: left; font-size:130%;'>Type a Professor's Name or Project Title</p>
-                  <select id="searchBar" style = "width: 100%;" multiple="multiple" onchange="getResults()">
-                     <script>
-                        $('#searchBar').select2({
-                           tags:["Computational Biology", "Computer Architecture", "Economics/Computation", "Graphics", "Vision", "Machine Learning", "AI", "Natural Language Processing", "Policy", "Programming Languages/Compilers", "Security & Privacy", "Systems", "Theory", "All"],
-                           tokenSeparators: [",", " "],
-                           placeholder: "Happy Searching...",
-                        });
-                        var data = $('searchBar').select2('data')
-                    </script>
-                  </select>
+                  <input id="searchBar" style = "width: 100%;" multiple="multiple" placeholder="Happy Searching...">
+
+                </input>
                   <br>
                   <button style="margin: 2px;" type="button" class="btn btn-success" name="button" onclick="getAll();">All Results</button>
                   <button style="margin: 2px;" type="button" class="btn btn-danger" name="button" onclick="clearAll();">Clear Results</button>
@@ -113,8 +106,8 @@
       <script>
 
       function setup(){
-          $('#search').focus();
-          $('#search').on('input', getResults);
+          $('#searchBar').focus();
+          $('#searchBar').on('input', getResults);
       }
       let faveHeight = 0;
       function handleResponse(response)
@@ -343,7 +336,7 @@
         property12.style.backgroundColor = "#e65c00";
         var property13 = document.getElementById('THEbut');
         property13.style.backgroundColor = "#e65c00";
-        $('#searchBar').trigger('change');
+        $('#searchBar').trigger('input');
       }
 
       function handleProfResponse(response)
@@ -380,27 +373,28 @@
       }
 
       function clearAll(){
-        $('#searchBar').val(null).trigger('change');
+        $('#searchBar').val(null).trigger('input');
       }
 
       function addArea(area)
       {
         let inputs = $("#searchBar").val();
         if (inputs.includes(area)){
-          for (var i=0; i < inputs.length; i++) {
-            if (inputs[i] == area){
-              inputs.splice(i,1);
-            }
+          inputs = inputs.replace(area, '');
+        }
+        else {
+          if (inputs == '') {
+            inputs+=area;
+          }
+          else {
+            inputs+=' '+area;
           }
         }
-        else{
-          inputs.push(area);
-        }
         $('#searchBar').val(inputs);
-        $('#searchBar').trigger('change');
+        $('#searchBar').trigger('input');
     }
 
-      $('document').ready(setup);
+      $(document).ready(setup);
 
       </script>
    </body>
