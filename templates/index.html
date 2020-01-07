@@ -378,16 +378,22 @@
       {
         let inputs = $("#searchBar").val();
         if (inputs.includes(area)){
-          inputs = inputs.replace(area, '');
+          if (inputs.charAt(inputs.indexOf(area)+area.length) == ',') {
+            inputs = inputs.replace(area+', ', '');
+          }
+          else {
+            inputs = inputs.replace(area, '');
+          }
+
+          if (inputs.charAt(inputs.length-2) == ',') {
+            inputs = inputs.slice(0, -2);
+          }
         }
         else {
           if (inputs == '') {
             inputs+=area;
           }
           else {
-            if (inputs.charAt(inputs.length-1) == ',') {
-              inputs = inputs.slice(0,-1);
-            }
             inputs+=', '+area;
           }
         }
