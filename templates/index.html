@@ -124,8 +124,8 @@
       function getResults()
       {
       let inputs = $("#searchBar").val();
-      inputs = encodeURIComponent(inputs);
-      let url = '/searchresults?inputs=' + inputs;
+      let inputsURI = encodeURIComponent(inputs);
+      let url = '/searchresults?inputs=' + inputsURI;
       if (request != null)
         request.abort();
       request = $.ajax({

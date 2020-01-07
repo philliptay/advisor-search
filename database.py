@@ -98,7 +98,7 @@ class Database:
             for subarea in subareaList:
                 if (subarea is not None) and (subarea.strip() != ''):
                     stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND area LIKE %s ORDER BY name'
-                    prep = '%'+subarea.lower()+'%'
+                    prep = '%'+subarea+'%'
                     cursor.execute(stmtStr, (prep,))
                     rows = cursor.fetchall()
                     for row in rows:
