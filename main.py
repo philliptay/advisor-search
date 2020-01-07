@@ -67,10 +67,11 @@ def searchResults():
     areas = []
     keywords = []
     for input in inputs:
+        input = input.strip(' .,')
         if input in allAreasArray:
-            areas.append(input.strip(' .,'))
+            areas.append(input)
         else:
-            keywords.append(input.strip(' .,'))
+            keywords.append(input)
 
     searchInput = [areas, keywords]
 
