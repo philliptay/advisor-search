@@ -58,8 +58,8 @@ def searchResults():
     allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
     allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
-    inputString = request.args.getlist('inputs')
-    inputs = inputString[0].split(',')
+    inputString = request.args.get('inputs')
+    inputs = inputString.split()
     for input in inputs:
         if input == 'All':
             inputs = allAreasArray
@@ -69,9 +69,9 @@ def searchResults():
 
     for input in inputs:
         if input in allAreasArray:
-            areas.append(input)
+            areas.append(input.strip(' .,'))
         else:
-            keywords.append(input)
+            keywords.append(input.strip(' .,'))
 
     searchInput = [areas, keywords]
 
@@ -160,7 +160,7 @@ def favoritedProf():
 
     resultsnum = len(profList)
     html = '<div class="flex-container-row">'
-    html += '<h3 class="flex-item-stretch truncate">Favorite Advisors ('+str(resultsnum)+')</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button fa-minus" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: 30vh;"><ul class="marginless">'
+    html += '<h3 class="flex-item-stretch">Favorite Advisors ('+str(resultsnum)+')</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button fa-minus" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: 30vh;"><ul class="marginless">'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
