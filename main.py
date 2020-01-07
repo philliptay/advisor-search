@@ -25,7 +25,7 @@ def login():
     # database.disconnect()
     # return redirect(url_for('index'))
 
-    html = render_template('login.html', logState = logState, logLink = logLink)
+    html = render_template('login.html', logState = '', logLink = '')
     response = make_response(html)
     return(response)
 
@@ -166,7 +166,7 @@ def favoritedProf():
         for i in range(min(3, len(prof[1]))) :
             topAreas += prof[1][i]+', '
         topAreas = topAreas.rstrip(', ')
-        html += '<div class=prof'+str(prof[2])+' onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch truncate"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to unfavorite" class="fa fa-heart fav-icon active" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span>Top Areas: '+ topAreas +'</span></li></div>'
+        html += '<div class=prof'+str(prof[2])+' onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch truncate"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to unfavorite" class="fa fa-heart fav-icon active" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span class="topareas">Top Areas: '+ topAreas +'</span></li></div>'
     html += '</ul></div>'
     html.encode('utf-8')
     response = make_response(html)
