@@ -124,6 +124,16 @@
       function getResults()
       {
       let inputs = $("#searchBar").val();
+      inputs = encodeURIComponent(inputs);
+      let url = '/searchresults?inputs=' + inputs;
+      if (request != null)
+        request.abort();
+      request = $.ajax({
+        type: "GET",
+        url: url,
+        success: handleResponse
+        }
+      );
       var property1 = document.getElementById('CBbut');
       var property2 = document.getElementById('CAbut');
       var property3 = document.getElementById('ECbut');
@@ -267,18 +277,6 @@
       else {
         property13.style.backgroundColor = "#5bc0de";
       }
-
-
-      inputs = encodeURIComponent(inputs);
-      let url = '/searchresults?inputs=' + inputs;
-      if (request != null)
-        request.abort();
-      request = $.ajax({
-        type: "GET",
-        url: url,
-        success: handleResponse
-        }
-      );
       }
 
 
@@ -310,6 +308,7 @@
       }
       function getAll(){
         $('#searchBar').val('All');
+        $('#searchBar').trigger('input');
         var property1 = document.getElementById('CBbut');
         property1.style.backgroundColor = "#e65c00";
         var property2 = document.getElementById('CAbut');
@@ -336,7 +335,6 @@
         property12.style.backgroundColor = "#e65c00";
         var property13 = document.getElementById('THEbut');
         property13.style.backgroundColor = "#e65c00";
-        $('#searchBar').trigger('input');
       }
 
       function handleProfResponse(response)
