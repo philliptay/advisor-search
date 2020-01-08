@@ -7,7 +7,7 @@
       <!-- <link rel="shortcut icon" href="static/magny-glass.png"> -->
       <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-      <link rel="stylesheet" href="select2-bootstrap.css">
+      <!--<link rel="stylesheet" href="select2-bootstrap.css">-->
       <!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> -->
       <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -361,12 +361,12 @@
         if($('#fav-content').css("max-height") != "0px") {
           $('#fav-content').css("max-height", "0vh");
           $('#fav-toggle').removeClass("fa-minus").addClass("fa-plus");
-          $('#resultsWrapper').css("max-height", "64vh");
+          $('#resultsWrapper').css("max-height", "68vh");
         }
         else {
           $('#fav-content').css("max-height", "30vh");
           $('#fav-toggle').removeClass("fa-plus").addClass("fa-minus");
-          $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-faveHeight+"px");
+          $('#resultsWrapper').css("max-height", ($('#resultsWrapper').height()-faveHeight)/$(window).height()*100+"vh");
         }
       }
 
