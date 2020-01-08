@@ -18,32 +18,32 @@ db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 @app.route('/login', methods=['GET'])
 def login():
-    # CASClient().authenticate()
-    # database = Database()
-    # database.connect()
-    # database.insertUser('placeholder')
-    # database.disconnect()
-    # return redirect(url_for('index'))
+     CASClient().authenticate()
+    database = Database()
+    database.connect()
+    database.insertUser('placeholder')
+    database.disconnect()
+    return redirect(url_for('index'))
 
-    html = render_template('login.html', logState = '', logLink = '')
-    response = make_response(html)
-    return(response)
+    #html = render_template('login.html', logState = '', logLink = '')
+    #response = make_response(html)
+    #return(response)
 
 #-------------------------------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    #if 'username' not in session:
-    #    logState = 'Login'
-    #    logLink = '/login'
-    #    session['profs'] = None
-    #    html = render_template('login.html', logState = logState, logLink = logLink)
-    #    response = make_response(html)
-    #    return(response)
+    if 'username' not in session:
+        logState = 'Login'
+        logLink = '/login'
+        session['profs'] = None
+        html = render_template('login.html', logState = logState, logLink = logLink)
+        response = make_response(html)
+        return(response)
 
-    #username = session['username']
-    username = 'placeholder'
+    username = session['username']
+    #username = 'placeholder'
     logState = 'Logout'
     logLink = '/logout'
     html = render_template('index.html', user=username, logState = logState, logLink = logLink)
@@ -54,7 +54,8 @@ def index():
 
 @app.route('/searchresults')
 def searchResults():
-    username = 'placeholder'
+    username = session['username']
+    #username = 'placeholder'
     allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
     allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
@@ -140,7 +141,8 @@ def profResults():
 def favoritedProf():
 
     profid = request.args.get('profid')
-    username = 'placeholder'
+    username = session['username']
+    #username = 'placeholder'
 
     database = Database()
     database.connect()
