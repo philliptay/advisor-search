@@ -21,7 +21,6 @@ class Database:
 
         areas = input[0]
         keywords = input[1]
-        print(keywords)
         keyResults = []
         areaResults = []
 
@@ -32,16 +31,17 @@ class Database:
 
                 # direct name hit
                 stmtStr1 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(name) LIKE %s ORDER BY name'
-                prep1 = '%'+keyword.lower()+'%'
+                prep1 = keyword.lower()+'%'
                 cursor.execute(stmtStr1, (prep1,))
                 rows1 = cursor.fetchall()
                 if len(rows1) > 0:
+                    print('HEYYY')
                     for row1 in rows1:
                         keyResults.append(row1)
-                        print(row1)
 
                 # if no direct name hit, is it part of a project of past thesis title?
                 else:
+                    print('NOOOO')
                     #search for past theses search hit
                     stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND LOWER(past_theses.title) LIKE %s ORDER BY name'
                     prep4 = '%'+keyword.lower()+'%'

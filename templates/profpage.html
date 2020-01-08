@@ -42,10 +42,10 @@
                     {% endfor %}
                   </select>
 
-                  <h4>Select the Project or Thesis that interests you most:  </h4>
                   {% if prof.getProjects() == 'No projects found.' and links == '' %}
-                  <input type="text" id="projs" placeholder="Enter a project or thesis">
+                  <input type="hidden" id="projs" value="none">
                   {% else %}
+                  <h4>Select the Project or Thesis that interests you most:  </h4>
                   <select name="projs" id="projs" style="width: 500px;">
                     {% if prof.getProjects() != 'No projects found.' %}
                       {% for proj in prof.getProjects() %}

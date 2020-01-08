@@ -211,10 +211,11 @@ def backResults():
         html += '<option value="' + str(areaCount) + '">' + str(area[0].strip('. ')) + '</option>'
         areaCount += 1
     html += '</select>'
-    html += '<h4>Select the Project or Thesis that Interests you most: </h4>'
+
     if (prof.getProjects() == 'No projects found.') and (prof.getLinks() == ""):
-        html += '<input type="text" id="projs" placeholder="Enter a project or thesis">'
+        html += '<input type="hidden" id="projs" value="none">'
     else:
+        html += '<h4>Select the Project or Thesis that Interests you most: </h4>'
         html += '<select name="projs" id="projs" style="width: 500px;">'
         projCount = 0
         if prof.getProjects() != 'No projects found.':
@@ -267,32 +268,32 @@ def emailResults():
     else:
         areasFormatted = areas[0]
 
+#start building email
+    body1 = "Dear Professor " + str(prof.getName().split()[1]) + ","
+    body4 = "Your work in " + str(areasFormatted) + " is inspiring and I would be honored if you advised me for my " + str(type) + ". Please let me know if I can send you information about myself, or if there are other steps that I should take."
+    body5 = "Sincerely,"
+    body6 = "(Your name here)"
+
     projNum = request.args.getlist('projs')
     profProjects = prof.getProjects()
 
-    print(projNum)
-
-    try:
-        int(projNum[0])
-    except:
-        print('hi')
-        proj = projNum
+#build middle based on if proj exists or not
+    if (projNum[0] == 'none'):
+        body2 = "I am a " + str(year) + " in the Computer Science department and I am exploring areas of research to do my " + str(type) + ". In this search process, I reviewed academic work in " + str(areasFormatted) + " and want to do research in this field."
+        body3 = "Specifically… ******** in this section, discuss something about " + str(areasFormatted) + " that excites you. This could be something that you want to build off of in your own project, or something you hope to work on in the future. Feel free to talk personally about why you might want to work in this area. ********"
     else:
         if int(projNum[0]) >= len(profProjects):
             proj = prof.getTitles()[int(projNum[0]) - len(profProjects)]
         else:
             proj = profProjects[int(projNum[0])][0].strip('. ')
-    print(proj)
-    projFormatted = ""
-    for word in proj:
-        projFormatted += word
 
-    body1 = "Dear Professor " + str(prof.getName().split()[1]) + ","
-    body2 = "I am a " + str(year) + " in the Computer Science department and I am exploring areas of research to do my " + str(type) + ". In this search process, I reviewed academic work in " + str(areasFormatted) + " and found " + str(projFormatted) + " to be a fascinating project."
-    body3 = "Specifically… ******** in this section, discuss something in the paper that excites you. This could be something that you want to build off of in your own project, or something you hope to work on in the future. Feel free to talk personally about why you might want to work in this area. ********"
-    body4 = "Your work in " + str(areasFormatted) + " is inspiring and I would be honored if you advised me for my " + str(type) + ". Please let me know if I can send you information about myself, or if there are other steps that I should take."
-    body5 = "Sincerely,"
-    body6 = "(Your name here)"
+        projFormatted = ""
+        for word in proj:
+            projFormatted += word
+
+        body2 = "I am a " + str(year) + " in the Computer Science department and I am exploring areas of research to do my " + str(type) + ". In this search process, I reviewed academic work in " + str(areasFormatted) + " and found " + str(projFormatted) + " to be a fascinating project."
+        body3 = "Specifically… ******** in this section, discuss something in the paper that excites you. This could be something that you want to build off of in your own project, or something you hope to work on in the future. Feel free to talk personally about why you might want to work in this area. ********"
+
 
     subject = "Request for you to be my Advisor"
 
