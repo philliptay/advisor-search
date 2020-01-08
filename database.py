@@ -21,7 +21,7 @@ class Database:
 
         areas = input[0]
         keywords = input[1]
-
+        print(keywords)
         keyResults = []
         areaResults = []
 
@@ -38,6 +38,7 @@ class Database:
                 if len(rows1) > 0:
                     for row1 in rows1:
                         keyResults.append(row1)
+                        print(row1)
 
                 # if no direct name hit, is it part of a project of past thesis title?
                 else:
