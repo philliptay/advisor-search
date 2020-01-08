@@ -35,13 +35,11 @@ class Database:
                 cursor.execute(stmtStr1, (prep1,))
                 rows1 = cursor.fetchall()
                 if len(rows1) > 0:
-                    print('HEYYY')
                     for row1 in rows1:
                         keyResults.append(row1)
 
                 # if no direct name hit, is it part of a project of past thesis title?
                 else:
-                    print('NOOOO')
                     #search for past theses search hit
                     stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND LOWER(past_theses.title) LIKE %s ORDER BY name'
                     prep4 = '%'+keyword.lower()+'%'
@@ -49,11 +47,7 @@ class Database:
                     rows4 = cursor.fetchall()
                     for row4 in rows4:
                         keyResults.append(row4)
-                    prep4 = '%'+keyword.lower().capitalize()+'%'
-                    cursor.execute(stmtStr4, (prep4,))
-                    rows4 = cursor.fetchall()
-                    for row4 in rows4:
-                        keyResults.append(row4)
+
 
 
 
@@ -71,7 +65,7 @@ class Database:
             if area == "Programming Languages/Compilers":
                 subareaList = ["programming", "languages", "compilers", "domain-specific", "application-specific", "program analysis", "methodology", "verification", "system software and programming environments for multiprocessors"]
             elif area == "Computational Biology":
-                subareaList = ["computational biology", "statistical genetics", "quantitative genetics", "medicine", "computational molecular biology", "bioinformatics", "analysis of large-scale biological data sets", "methods in bioinformatics"]
+                subareaList = ["biology", "statistical genetics", "quantitative genetics", "medicine", "computational molecular biology", "bioinformatics", "biological data sets", "bioinformatics"]
             elif area == "Computer Architecture":
                 subareaList = ["computer architecture"]
             elif area == "Economics/Computation":

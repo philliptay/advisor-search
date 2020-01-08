@@ -378,7 +378,7 @@
       {
         let inputs = $("#searchBar").val();
         if (inputs.includes(area)){
-          if (inputs.charAt(inputs.indexOf(area)+area.length) == ',') {
+          if (inputs.charAt(inputs.indexOf(area)+area.length) == ',' && inputs.indexOf(area)+area.length+1 != inputs.length) {
             inputs = inputs.replace(area+', ', '');
           }
           else {
