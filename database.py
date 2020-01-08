@@ -29,7 +29,7 @@ class Database:
         for keyword in keywords:
             if (keyword is not None) and (keyword.strip() != ''):
 
-                # direct name hit
+                # direct first or last name hit
                 stmtStr1 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(name) LIKE %s ORDER BY name'
                 prep1 = keyword.lower()+'%'
                 cursor.execute(stmtStr1, (prep1,))
@@ -39,6 +39,17 @@ class Database:
                 for i in range(1, 70):
                     for row1 in rows1:
                         keyResults.append(row1)
+
+                # direct first or last name hit
+                stmtStr1 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(name) LIKE %s ORDER BY name'
+                prep2 = '% '+ keyword.lower() + '%'
+                cursor.execute(stmtStr1, (prep2,))
+                rows2 = cursor.fetchall()
+                # if len(rows1) > 0:
+                #give big weight to direct name hit
+                for i in range(1, 70):
+                    for row2 in rows2:
+                        keyResults.append(row2)
 
                 # if no direct name hit, is it part of a project of past thesis title?
                 # else:
