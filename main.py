@@ -18,10 +18,10 @@ db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 @app.route('/login', methods=['GET'])
 def login():
-     CASClient().authenticate()
+    CASClient().authenticate()
     database = Database()
     database.connect()
-    database.insertUser('placeholder')
+    database.insertUser(session['username'])
     database.disconnect()
     return redirect(url_for('index'))
 
