@@ -49,11 +49,7 @@ class Database:
                     rows4 = cursor.fetchall()
                     for row4 in rows4:
                         keyResults.append(row4)
-                    prep4 = '%'+keyword.lower().capitalize()+'%'
-                    cursor.execute(stmtStr4, (prep4,))
-                    rows4 = cursor.fetchall()
-                    for row4 in rows4:
-                        keyResults.append(row4)
+
 
 
 
