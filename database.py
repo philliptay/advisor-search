@@ -34,29 +34,31 @@ class Database:
                 prep1 = keyword.lower()+'%'
                 cursor.execute(stmtStr1, (prep1,))
                 rows1 = cursor.fetchall()
-                if len(rows1) > 0:
+                # if len(rows1) > 0:
+                #give big weight to direct name hit
+                for i in range(1, 70):
                     for row1 in rows1:
                         keyResults.append(row1)
 
                 # if no direct name hit, is it part of a project of past thesis title?
-                else:
+                # else:
                     #search for past theses search hit
-                    stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND LOWER(past_theses.title) LIKE %s ORDER BY name'
-                    prep4 = '%'+keyword.lower()+'%'
-                    cursor.execute(stmtStr4, (prep4,))
-                    rows4 = cursor.fetchall()
-                    for row4 in rows4:
-                        keyResults.append(row4)
+                stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND LOWER(past_theses.title) LIKE %s ORDER BY name'
+                prep4 = '%'+keyword.lower()+'%'
+                cursor.execute(stmtStr4, (prep4,))
+                rows4 = cursor.fetchall()
+                for row4 in rows4:
+                    keyResults.append(row4)
 
 
 
 
-                    stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND profs.prof_id = projects.prof_id AND LOWER(projects.title) LIKE %s ORDER BY name'
-                    prep5 = '%'+keyword.lower()+'%'
-                    cursor.execute(stmtStr5, (prep5,))
-                    rows5 = cursor.fetchall()
-                    for row5 in rows5:
-                        keyResults.append(row5)
+                stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND profs.prof_id = projects.prof_id AND LOWER(projects.title) LIKE %s ORDER BY name'
+                prep5 = '%'+keyword.lower()+'%'
+                cursor.execute(stmtStr5, (prep5,))
+                rows5 = cursor.fetchall()
+                for row5 in rows5:
+                    keyResults.append(row5)
 
         # search through inputted areas
         for area in areas:
@@ -181,7 +183,6 @@ class Database:
             # if not then create new pair and set value to 0
             else:
                 areaProfDict[name] = [profid, area]
-
 
         # sort the dictionary based on values
         keyProfDict = self.sort_by_values_len(keyProfDict)
