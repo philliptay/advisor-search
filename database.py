@@ -70,7 +70,7 @@ class Database:
             if area == "Programming Languages/Compilers":
                 subareaList = ["programming", "languages", "compilers", "domain-specific", "application-specific", "program analysis", "methodology", "verification", "system software and programming environments for multiprocessors"]
             elif area == "Computational Biology":
-                subareaList = ["computational biology", "statistical genetics", "quantitative genetics", "medicine", "computational molecular biology", "bioinformatics", "analysis of large-scale biological data sets", "methods in bioinformatics"]
+                subareaList = ["biology", "statistical genetics", "quantitative genetics", "medicine", "computational molecular biology", "bioinformatics", "biological data sets", "bioinformatics"]
             elif area == "Computer Architecture":
                 subareaList = ["computer architecture"]
             elif area == "Economics/Computation":
