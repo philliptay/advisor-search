@@ -279,24 +279,34 @@
       }
       }
 
-
       function handleFavoritedResponse(response)
       {
       $('#favorited').html(response);
 
-      if (faveHeight < $('#fav-content').height())
-        $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-($('#fav-content').height()-faveHeight)+"px");
+      if ($('#fav-toggle').hasClass('fa-minus')) {
 
-      else if (faveHeight > $('#fav-content').height())
-        $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()+(faveHeight-$('#fav-content').height())+"px");
+        if (faveHeight < $('#fav-content').height())
+          $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-($('#fav-content').height()-faveHeight)+"px");
 
-      faveHeight = $('#fav-content').height();
+        else if (faveHeight > $('#fav-content').height())
+          $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()+(faveHeight-$('#fav-content').height())+"px");
+
+        faveHeight = $('#fav-content').height();
+      }
+
+
+
     }
+
 
       function getFavorited(profid)
       {
       $($('.prof'+profid).find('i')).toggleClass("active");
-      let url = '/favoritedProf?profid=' + profid;
+      let toggled = 'true';
+      if ($('#fav-toggle').hasClass('fa-plus')) {
+        toggled = 'false';
+      }
+      let url = '/favoritedProf?profid=' + profid + '&toggled='+toggled;
       if (request != null)
         request.abort();
       request = $.ajax({
@@ -366,7 +376,13 @@
         else {
           $('#fav-content').css("max-height", "30vh");
           $('#fav-toggle').removeClass("fa-plus").addClass("fa-minus");
-          $('#resultsWrapper').css("max-height", ($('#resultsWrapper').height()-faveHeight)/$(window).height()*100+"vh");
+          $("#fav-content").on('transitionend webkitTransitionEnd',
+    function(event) {
+         if(event.target.id == 'fav-content'){
+            $('#resultsWrapper').css("max-height", ($('#resultsWrapper').height()-$('#fav-content').height())/$(window).height()*100+"vh");
+         }
+    });
+
         }
       }
 

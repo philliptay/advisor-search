@@ -141,6 +141,7 @@ def profResults():
 def favoritedProf():
 
     profid = request.args.get('profid')
+    toggled = request.args.get('toggled')
     username = session['username']
     #username = 'placeholder'
 
@@ -160,9 +161,15 @@ def favoritedProf():
             info = [profname, areas, profid] #create a list for the prof
             profList.append(info)
 
+    toggleClass = 'fa-minus'
+    maxHeight = '30vh'
+    if toggled == 'false':
+        toggleClass = 'fa-plus'
+        maxHeight = '0vh'
+
     resultsnum = len(profList)
     html = '<div class="flex-container-row">'
-    html += '<h3 class="flex-item-stretch">Favorite Advisors ('+str(resultsnum)+')</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button fa-minus" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: 30vh;"><ul class="marginless">'
+    html += '<h3 class="flex-item-stretch">Favorite Advisors ('+str(resultsnum)+')</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button '+toggleClass+'" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: '+maxHeight+';"><ul class="marginless">'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
