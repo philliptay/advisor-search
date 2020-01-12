@@ -60,7 +60,6 @@ def searchResults():
     allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
     searchType = request.args.get('type')
-    print(searchType)
     inputString = request.args.get('inputs')
     inputs = inputString.split(',')
     for input in inputs:

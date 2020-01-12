@@ -20,14 +20,27 @@ class Database:
     def searchKEY(self, input, type):
         #will replace
         searchType = type
-        print(searchType)
-
+        inputs = input[0]
+        inputs.extend(input[1])
+        areaResults = []
         keyResults = []
-        preps = []
-        start = input.lower().replace('%', '\%').replace('_', '\_')
-        preps[0] = start+'%'
-        preps[1] = '% '+ start + '%'
-        preps[2] = '%'+start+'%'
+        preps = [0,1,2, 3, 4]
+        cursor = self._connection.cursor()
+        stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses, projects WHERE areas.prof_id = profs.prof_id AND ('
+        count = 0
+        for input in inputs:
+            if (count > 0):
+                stmtStr += " "
+                stmtStr += searchType
+            count += 1
+            start = input.lower().replace('%', '\%').replace('_', '\_')
+            preps[0] = start+'%'
+            preps[1] = '% '+ start + '%'
+            preps[2] = '%'+start+'%'
+            preps[3] = '%'+start+'%'
+            preps[4] = '%'+start+'%'
+            stmtStr += ' (LOWER(name) LIKE %s OR LOWER(name) LIKE %s OR areas.prof_id = past_theses.prof_id OR LOWER(past_theses.title) LIKE %s OR profs.prof_id = projects.prof_id OR LOWER(projects.title) LIKE %s OR LOWER(area) LIKE %s)'
+
 
         subareaList = [start]
 
@@ -63,60 +76,18 @@ class Database:
         for subarea in subareaList:
             if (subarea is not None) and (subarea.strip() != ''):
                 preps.append('%'+subarea+'%')
+                stmtStr += " "
+                stmtStr += searchType
+                stmtStr += '(LOWER(area) LIKE %s)'
 
+
+        stmtStr += ') ORDER BY name'
+        print(stmtStr)
         cursor = self._connection.cursor()
-
-        # direct first or last name hit
-        stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(name) LIKE %s ORDER BY name'
-
-        cursor.execute(stmtStr1, (prep1,))
-        rows1 = cursor.fetchall()
-        # if len(rows1) > 0:
-        keyResults.append(row1)
-
-        # direct first or last name hit
-        stmtStr1 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(name) LIKE %s ORDER BY name'
-
-        cursor.execute(stmtStr1, (prep2,))
-        rows2 = cursor.fetchall()
-        # if len(rows1) > 0:
-        keyResults.append(row2)
-
-        # if no direct name hit, is it part of a project of past thesis title?
-        # else:
-            #search for past theses search hit
-        stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND LOWER(past_theses.title) LIKE %s ORDER BY name'
-
-        cursor.execute(stmtStr4, (prep4,))
-        rows4 = cursor.fetchall()
-        for row4 in rows4:
-            keyResults.append(row4)
-            #search for current proj search hit
-        stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND profs.prof_id = projects.prof_id AND LOWER(projects.title) LIKE %s ORDER BY name'
-        prep5 = '%'+start.lower()+'%'
-        cursor.execute(stmtStr5, (prep5,))
-        rows5 = cursor.fetchall()
-        for row5 in rows5:
-            keyResults.append(row5)
-            #search for subarea search hit
-        stmtStr6 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(area) LIKE %s ORDER BY name'
-        prep6 = '%'+start.lower()+'%'
-        cursor.execute(stmtStr6, (prep6,))
-        rows6 = cursor.fetchall()
-        for row6 in rows6:
-            keyResults.append(row6)
-
-
-
-        for subarea in subareaList:
-            if (subarea is not None) and (subarea.strip() != ''):
-                stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(area) LIKE %s ORDER BY name'
-                prep = '%'+subarea+'%'
-                cursor.execute(stmtStr, (prep,))
-                rows = cursor.fetchall()
-                for row in rows:
-                    keyResults.append(row)
-
+        cursor.execute(stmtStr, preps)
+        rows = cursor.fetchall()
+        for row in rows:
+            keyResults.append(row)
         cursor.close()
         results = [keyResults, areaResults]
         return results
