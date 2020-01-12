@@ -34,6 +34,9 @@ h4 {
   /* margin-bottom: 20px;*/
 }
 
+
+
+
 #searchBar {
   margin-left: 10px;
 }
@@ -184,7 +187,6 @@ h4 {
 
 .searchArea {
    background-color: #ccc;
-   padding-bottom: 5px;
    border-bottom: 1px solid #aaa;
 }
 
