@@ -34,6 +34,10 @@ h4 {
   /* margin-bottom: 20px;*/
 }
 
+#searchBar {
+  margin-left: 10px;
+}
+
 .infoWrapper {
    height: 38.6vh;
    /* border: 1px solid #000000; */
@@ -179,8 +183,9 @@ h4 {
 }
 
 .searchArea {
-  /* height: 15%;*/
-   background-color: black;
+   background-color: #ccc;
+   padding-bottom: 5px;
+   border-bottom: 1px solid #aaa;
 }
 
 #profPic {
