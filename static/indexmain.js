@@ -18,9 +18,11 @@ function handleResponse(response)
 
 function getResults()
 {
-let inputs = $("#searchBar").val();
-let inputsURI = encodeURIComponent(inputs);
-let url = '/searchresults?inputs=' + inputsURI;
+  let searchType = $("#searchType").val();
+  let inputs = $("#searchBar").val();
+  let searchTypeURI = encodeURIComponent(searchType);
+  let inputsURI = encodeURIComponent(inputs);
+  let url = '/searchresults?type=' + searchTypeURI + '&inputs=' + inputsURI;
 if (request != null)
   request.abort();
 request = $.ajax({
