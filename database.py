@@ -22,12 +22,12 @@ class Database:
         searchType = type
         print(searchType)
 
-        start = input
         keyResults = []
         preps = []
-        preps[0] = start.lower()+'%'
-        preps[1] = '% '+ start.lower() + '%'
-        preps[2] = '%'+start.lower()+'%'
+        start = input.lower().replace('%', '\%').replace('_', '\_')
+        preps[0] = start+'%'
+        preps[1] = '% '+ start + '%'
+        preps[2] = '%'+start+'%'
 
         subareaList = [start]
 
@@ -132,10 +132,11 @@ class Database:
 
         for keyword in keywords:
             if (keyword is not None) and (keyword.strip() != ''):
+                keyword = keyword.lower().replace('%', '\%').replace('_', '\_')
 
                 # direct first or last name hit
                 stmtStr1 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(name) LIKE %s ORDER BY name'
-                prep1 = keyword.lower()+'%'
+                prep1 = keyword+'%'
                 cursor.execute(stmtStr1, (prep1,))
                 rows1 = cursor.fetchall()
                 # if len(rows1) > 0:
@@ -146,7 +147,7 @@ class Database:
 
                 # direct first or last name hit
                 stmtStr1 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(name) LIKE %s ORDER BY name'
-                prep2 = '% '+ keyword.lower() + '%'
+                prep2 = '% '+ keyword + '%'
                 cursor.execute(stmtStr1, (prep2,))
                 rows2 = cursor.fetchall()
                 # if len(rows1) > 0:
@@ -159,14 +160,14 @@ class Database:
                 # else:
                     #search for past theses search hit
                 stmtStr4 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND LOWER(past_theses.title) LIKE %s ORDER BY name'
-                prep4 = '%'+keyword.lower()+'%'
+                prep4 = '%'+keyword+'%'
                 cursor.execute(stmtStr4, (prep4,))
                 rows4 = cursor.fetchall()
                 for row4 in rows4:
                     keyResults.append(row4)
                     #search for current proj search hit
                 stmtStr5 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND profs.prof_id = projects.prof_id AND LOWER(projects.title) LIKE %s ORDER BY name'
-                prep5 = '%'+keyword.lower()+'%'
+                prep5 = '%'+keyword+'%'
                 cursor.execute(stmtStr5, (prep5,))
                 rows5 = cursor.fetchall()
                 for row5 in rows5:
@@ -174,7 +175,7 @@ class Database:
 
                     #search for subarea search hit
                 stmtStr6 = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(area) LIKE %s ORDER BY name'
-                prep6 = '%'+keyword.lower()+'%'
+                prep6 = '%'+keyword+'%'
                 cursor.execute(stmtStr6, (prep6,))
                 rows6 = cursor.fetchall()
                 for row6 in rows6:
