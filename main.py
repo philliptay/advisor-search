@@ -58,6 +58,8 @@ def searchResults():
     allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
     allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
+    searchType = request.args.get('type')
+    print(searchType)
     inputString = request.args.get('inputs')
     inputs = inputString.split(',')
     for input in inputs:
@@ -74,10 +76,14 @@ def searchResults():
             keywords.append(input)
 
     searchInput = [areas, keywords]
-
     database = Database()
     database.connect()
-    results = database.search(searchInput)
+    if (searchType == 'RANK'):
+        results = database.search(searchInput)
+    if (searchType == 'AND'):
+        results = database.searchKEY(searchInput, "AND")
+    if (searchType == 'OR'):
+        results = database.searchKEY(searchInput, "OR")
     profDict = database.rankResults(results)
 
 

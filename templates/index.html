@@ -51,7 +51,11 @@
                <div class="col-lg-4 col-xs-12 searchBarLeft">
                   <p style='text-align: left; font-size:130%;'>Type a Professor's Name, Project Title, or Past Thesis</p>
                   <input id="searchBar" style = "width: 100%;" multiple="multiple" placeholder="Happy Searching...">
-
+                  <select name="searchType" id="searchType">
+                    <option value="RANK">RANK</option>
+                    <option value="AND">AND</option>
+                    <option value="OR">OR</option>
+                  </select>
                 </input>
                   <br>
                   <button style="margin: 2px;" type="button" class="btn btn-success" name="button" onclick="getAll();">All Results</button>
@@ -123,9 +127,11 @@
       let request = null;
       function getResults()
       {
+      let searchType = $("#searchType").val();
       let inputs = $("#searchBar").val();
+      let searchTypeURI = encodeURIComponent(searchType);
       let inputsURI = encodeURIComponent(inputs);
-      let url = '/searchresults?inputs=' + inputsURI;
+      let url = '/searchresults?type=' + searchTypeURI + '&inputs=' + inputsURI;
       if (request != null)
         request.abort();
       request = $.ajax({
