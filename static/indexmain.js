@@ -1,6 +1,9 @@
+let request = null;
+
 function setup(){
     $('#searchBar').focus();
     $('#searchBar').on('input', getResults);
+    getFavorited('None');
 }
 let faveHeight = 0;
 function handleResponse(response)
@@ -13,7 +16,6 @@ function handleResponse(response)
   $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-faveHeight+"px");
 }
 
-let request = null;
 function getResults()
 {
 let inputs = $("#searchBar").val();
