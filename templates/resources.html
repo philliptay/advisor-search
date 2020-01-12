@@ -15,7 +15,8 @@
    <body>
 
       <div class="container-fluid">
-         <div class="row">
+        <center>
+         <div class="row" style="width:100%">
             <div class="row">
                <nav class="navbar navbar-inverse">
                  <div class="container-fluid">
@@ -130,7 +131,7 @@
                      <br>
                      <br>
                   </div>
-                  <img src="static/Peanuts_gang.png" alt="friendship2" style="width:420px;height:250px;">
+
                     <div class="row visible-lg">
                       <div class="col-md-6 col-xs-12">
                         <img src="static/friendship2.png" alt="friendship2" style="width:420px;height:250px;">
@@ -139,7 +140,6 @@
                         <img src="static/friendship3.png" alt="friendship3" style="width:420px;height:250px;">
                       </div>
                     </div>
-                    <br>
                   </center>
 
                </div>
@@ -172,22 +172,10 @@
                </div>
             </div>
          </div>
+       </center>
       </div>
 
-      <script>
-        window.onscroll = function() {myFunction()};
-
-        var navbar = document.getElementById("navbar");
-        var sticky = navbar.offsetTop;
-
-        function myFunction() {
-          if (window.pageYOffset >= sticky) {
-            navbar.classList.add("sticky")
-          } else {
-            navbar.classList.remove("sticky");
-          }
-        }
-      </script>
+      
 
 
   </body>
