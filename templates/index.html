@@ -7,7 +7,7 @@
       <!-- <link rel="shortcut icon" href="static/magny-glass.png"> -->
       <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-      <link rel="stylesheet" href="select2-bootstrap.css">
+      <!--<link rel="stylesheet" href="select2-bootstrap.css">-->
       <!-- <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script> -->
       <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,7 +19,7 @@
 
    </head>
 
-   <body onLoad="getFavorited('None')">
+   <body>
 
       <div class="container-fluid">
          <div class="row">
@@ -47,10 +47,11 @@
               </nav>
             </div>
 
-            <div class="row searchArea" style="background-color: rgb(163, 162, 160);">
+            <div class="row searchArea">
                <div class="col-lg-4 col-xs-12 searchBarLeft">
                   <p style='text-align: left; font-size:130%;'>Type a Professor's Name, Project Title, or Past Thesis</p>
                   <input id="searchBar" style = "width: 100%;" multiple="multiple" placeholder="Happy Searching...">
+<<<<<<< HEAD
                   <select name="searchType" id="searchType">
                     <option value="RANK">RANK</option>
                     <option value="AND">AND</option>
@@ -60,6 +61,10 @@
                   <br>
                   <button style="margin: 2px;" type="button" class="btn btn-success" name="button" onclick="getAll();">All Results</button>
                   <button style="margin: 2px;" type="button" class="btn btn-danger" name="button" onclick="clearAll();">Clear Results</button>
+=======
+                  <button style="margin: 10px; margin-right:2px;" type="button" class="btn btn-success" name="button" onclick="getAll();">All Results</button>
+                  <button style="margin: 10px; margin-left:2px;" type="button" class="btn btn-danger" name="button" onclick="clearAll();">Clear Results</button>
+>>>>>>> f59a2f410a78d150901280db672d511762170182
                </div>
                <div class="col-md-8 visible-lg searchButtons">
                   <p style='text-align: left; font-size:130%;'> Click Areas of Research</p>
@@ -107,6 +112,7 @@
       <script src=
       "https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js">
            </script>
+<<<<<<< HEAD
       <script>
 
       function setup(){
@@ -410,6 +416,9 @@
       $(document).ready(setup);
 
       </script>
+=======
+      <script src="static/indexmain.js"></script>
+>>>>>>> f59a2f410a78d150901280db672d511762170182
    </body>
 
 </html>

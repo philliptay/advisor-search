@@ -18,32 +18,32 @@ db = SQLAlchemy(app)
 #-------------------------------------------------------------------------------
 @app.route('/login', methods=['GET'])
 def login():
-    # CASClient().authenticate()
-    # database = Database()
-    # database.connect()
-    # database.insertUser('placeholder')
-    # database.disconnect()
-    # return redirect(url_for('index'))
+    CASClient().authenticate()
+    database = Database()
+    database.connect()
+    database.insertUser(session['username'])
+    database.disconnect()
+    return redirect(url_for('index'))
 
-    html = render_template('login.html', logState = '', logLink = '')
-    response = make_response(html)
-    return(response)
+    #html = render_template('login.html', logState = '', logLink = '')
+    #response = make_response(html)
+    #return(response)
 
 #-------------------------------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    #if 'username' not in session:
-    #    logState = 'Login'
-    #    logLink = '/login'
-    #    session['profs'] = None
-    #    html = render_template('login.html', logState = logState, logLink = logLink)
-    #    response = make_response(html)
-    #    return(response)
+    if 'username' not in session:
+        logState = 'Login'
+        logLink = '/login'
+        session['profs'] = None
+        html = render_template('login.html', logState = logState, logLink = logLink)
+        response = make_response(html)
+        return(response)
 
-    #username = session['username']
-    username = 'placeholder'
+    username = session['username']
+    #username = 'placeholder'
     logState = 'Logout'
     logLink = '/logout'
     html = render_template('index.html', user=username, logState = logState, logLink = logLink)
@@ -54,7 +54,8 @@ def index():
 
 @app.route('/searchresults')
 def searchResults():
-    username = 'placeholder'
+    username = session['username']
+    #username = 'placeholder'
     allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
     allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
@@ -110,7 +111,7 @@ def searchResults():
         if database.isProfFavorited(username, prof[2]):
             active = 'active'
 
-        html += '<div class=prof'+str(prof[2])+' onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch truncate"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to favorite" class="fa fa-heart fav-icon '+active+'" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span class="topareas">Top Areas: '+ topAreas +'</span></li></div>'
+        html += '<div class=prof'+str(prof[2])+' onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to favorite" class="fa fa-heart fav-icon '+active+'" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span class="topareas">Top Areas: '+ topAreas +'</span></li></div>'
     html += '</ul></div>'
     html.encode('utf-8')
     database.disconnect()
@@ -146,7 +147,9 @@ def profResults():
 def favoritedProf():
 
     profid = request.args.get('profid')
-    username = 'placeholder'
+    toggled = request.args.get('toggled')
+    username = session['username']
+    #username = 'placeholder'
 
     database = Database()
     database.connect()
@@ -164,15 +167,21 @@ def favoritedProf():
             info = [profname, areas, profid] #create a list for the prof
             profList.append(info)
 
+    toggleClass = 'fa-minus'
+    maxHeight = '30vh'
+    if toggled == 'false':
+        toggleClass = 'fa-plus'
+        maxHeight = '0vh'
+
     resultsnum = len(profList)
     html = '<div class="flex-container-row">'
-    html += '<h3 class="flex-item-stretch">Favorite Advisors ('+str(resultsnum)+')</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button fa-minus" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: 30vh;"><ul class="marginless">'
+    html += '<h3 class="flex-item-stretch">Favorite Advisors ('+str(resultsnum)+')</h3><h4 class="flex-item-rigid"><i id="fav-toggle" class="fa text-button '+toggleClass+'" onclick="toggleFavs()"></i></h4></div><div id="fav-content" class="flex-item-shrink resizable" style="max-height: '+maxHeight+';"><ul class="marginless">'
     for prof in profList:
         topAreas = ''
         for i in range(min(3, len(prof[1]))) :
             topAreas += prof[1][i]+', '
         topAreas = topAreas.rstrip(', ')
-        html += '<div class=prof'+str(prof[2])+' onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch truncate"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to unfavorite" class="fa fa-heart fav-icon active" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span class="topareas">Top Areas: '+ topAreas +'</span></li></div>'
+        html += '<div class=prof'+str(prof[2])+' onclick="getProfResults('+str(prof[2])+');"><li class="list-group-item" tabindex="0"><div class="flex-container-row"><div class="flex-item-stretch"><strong>'+str(prof[0])+'</strong></div><div class="flex-item-rigid"><i data-toggle="tooltip" data-original-title="Click to unfavorite" class="fa fa-heart fav-icon active" onclick="getFavorited('+str(prof[2])+');"></i></div></div><br><span class="topareas">Top Areas: '+ topAreas +'</span></li></div>'
     html += '</ul></div>'
     html.encode('utf-8')
     response = make_response(html)

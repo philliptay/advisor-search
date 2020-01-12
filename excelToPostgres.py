@@ -96,13 +96,17 @@ def main():
     DATABASE_URL = 'postgres://mzehsxrhlmmrdp:7229a3ce7cdddcfd25d960016bab27a25ecd1163a471263f73d2c64d78f15d70@ec2-174-129-252-252.compute-1.amazonaws.com:5432/d56v6b7trhtuts'
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cursor = conn.cursor()
-    # for name in profPics:
+    stmt = "UPDATE areas SET area = SPLIT_PART(LOWER(area), 'and ', 2) WHERE LOWER(area) LIKE 'and %';"
+    #stmt = "SELECT SPLIT_PART(LOWER(area), 'and ', 2) FROM areas WHERE LOWER(area) LIKE 'and %';"
+    cursor.execute(stmt);
+    #print(cursor.fetchall())
+
     #     stmt = "UPDATE profs SET pic_links = %s WHERE name = %s;"
     #     cursor.execute(stmt, (profPics.get(name), name))
-    areas = ['software engineering', 'software engineering education','programming languages', 'instructional design']
-    for area in areas:
-        stmt = "INSERT INTO areas (area, prof_id) VALUES (%s, 44)"
-        cursor.execute(stmt, (area,))
+    # areas = ['software engineering', 'software engineering education','programming languages', 'instructional design']
+    # for area in areas:
+    #     stmt = "INSERT INTO areas (area, prof_id) VALUES (%s, 44)"
+    #     cursor.execute(stmt, (area,))
 
     conn.commit()
     conn.close()
