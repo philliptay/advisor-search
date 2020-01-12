@@ -50,17 +50,17 @@
             <div class="row searchArea">
                <div class="col-lg-4 col-xs-12 searchBarLeft">
                   <p style='text-align: left; font-size:130%;'>Type a Professor's Name, Project Title, or Past Thesis</p>
-                  <input id="searchBar" style = "width: 100%;" multiple="multiple" placeholder="Happy Searching...">
+                  <input id="searchBar" style = "width: 83%;" multiple="multiple" placeholder="Happy Searching...">
 
-                </input>
-                  <br>
-                  <button style="margin: 10px; margin-right:2px;" type="button" class="btn btn-success" name="button" onclick="getAll();">All Results</button>
-                  <button style="margin: 10px; margin-left:2px;" type="button" class="btn btn-danger" name="button" onclick="clearAll();">Clear Results</button>
-                  <select name="searchType" id="searchType">
+                  <select style="margin-left: 5px;" name="searchType" id="searchType">
                     <option value="RANK">RANK</option>
                     <option value="AND">AND</option>
                     <option value="OR">OR</option>
                   </select>
+                  <br>
+                  <button style="margin: 10px; margin-right:2px;" type="button" class="btn btn-success" name="button" onclick="getAll();">All Results</button>
+                  <button style="margin: 10px; margin-left:2px;" type="button" class="btn btn-danger" name="button" onclick="clearAll();">Clear Results</button>
+
                </div>
                <div class="col-md-8 visible-lg searchButtons">
                   <p style='text-align: left; font-size:130%;'> Click Areas of Research</p>
