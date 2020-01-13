@@ -167,13 +167,14 @@ a {
 }
 
 .sticky {
-  position: fixed;
+  position: fixed !important;
+  z-index: 10;
   top: 0;
   width: 100%;
 }
 
 .sticky + .content {
-  padding-top: 100px;
+  padding-top: 100px !important;
 }
 
 .list-group-item {
