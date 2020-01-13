@@ -5,7 +5,7 @@ html {
 }
 
 body {
-   background-color: #cccccc !important;
+   background-color: #eee !important;
    width: 100%;
    height: 100%;
    margin: 0;
@@ -59,7 +59,7 @@ a {
 .infoWrapper {
    height: 38.6vh;
    /* border: 1px solid #000000; */
-   background-color: #e6e6e6;
+   background-color: #fff;
    overflow-y: scroll;
 }
 .aligncenter{
@@ -72,7 +72,7 @@ a {
 .bioArea {
    height:30vh;
    /* border: 1px solid #000000; */
-   background-color: #e6e6e6;
+   background-color: #fff;
    overflow: auto;
 }
 
@@ -184,9 +184,9 @@ a {
     cursor: pointer;
     padding: 10px 15px;
     margin-bottom: -1px;
-    background-color: #eee;
+    background-color: #f4f4f4;
     color: black;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-top-color: rgb(221, 221, 221);
     border-right-color: rgb(221, 221, 221);
     border-bottom-color: rgb(221, 221, 221);
@@ -204,7 +204,7 @@ a {
 }
 
 .searchArea {
-   background-color: #ccc;
+   background-color: #ddd;
    border-bottom: 1px solid #aaa;
 }
 
