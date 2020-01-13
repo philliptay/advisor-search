@@ -13,19 +13,33 @@ body {
 
 p {
   margin: 10px !important;
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Open Sans', serif;
+}
+
+li {
+  font-family: 'Open Sans', serif;
 }
 h1 {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-family: 'Open Sans', serif;
 }
 h2 {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-family: 'Open Sans', serif;
 }
 h3 {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Open Sans', serif;
 }
 h4 {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-family: 'Open Sans', serif;
+}
+
+.btn {
+  font-family: 'Open Sans', serif;
+}
+select {
+  font-family: 'Open Sans', serif;
+}
+a {
+  font-family: 'Open Sans', serif;
 }
 
 #resultsWrapper {
@@ -39,6 +53,7 @@ h4 {
 
 #searchBar {
   margin-left: 10px;
+  font-family: 'Open Sans', serif;
 }
 
 .infoWrapper {
@@ -271,6 +286,13 @@ h4 {
     cursor: pointer;
     color: #636c72;
 
+}
+
+.rounded {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 #fav-toggle{
