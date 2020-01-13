@@ -24,80 +24,122 @@ class Database:
         inputs.extend(input[1])
         areaResults = []
         keyResults = []
-        preps = [0,1,2, 3, 4]
-        cursor = self._connection.cursor()
-        stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses, projects WHERE areas.prof_id = profs.prof_id AND ('
+        stmtStr = ''
         count = 0
         checkNone = False
+        profMap = {}
+        validInputs = 0
+        cursor = self._connection.cursor()
         if (inputs[0] is None) or (inputs[0].strip() == ''):
             results = [keyResults, areaResults]
             return results
+
         for input in inputs:
-            if (count > 0):
-                stmtStr += " "
-                stmtStr += searchType
-            count += 1
+            subareaList = None
             if (input is not None) and (input.strip() != ''):
-                start = input.lower().replace('%', '\%').replace('_', '\_')
-                preps[0] = start+'%'
-                preps[1] = '% '+ start + '%'
-                preps[2] = '%'+start+'%'
-                preps[3] = '%'+start+'%'
-                preps[4] = '%'+start+'%'
-                stmtStr += ' (LOWER(name) LIKE %s OR LOWER(name) LIKE %s OR areas.prof_id = past_theses.prof_id OR LOWER(past_theses.title) LIKE %s OR profs.prof_id = projects.prof_id OR LOWER(projects.title) LIKE %s OR LOWER(area) LIKE %s)'
+                validInputs += 1
+                start = input
+                if start == "Programming Languages/Compilers":
+                    subareaList = ["programming", "languages", "compilers", "domain-specific", "application-specific", "program analysis", "methodology", "verification", "system software and programming environments for multiprocessors"]
+                elif start == "Computational Biology":
+                    subareaList = ["biology", "statistical genetics", "quantitative genetics", "medicine", "computational molecular biology", "bioinformatics", "biological data sets"]
+                elif start == "Computer Architecture":
+                    subareaList = ["computer architecture"]
+                elif start == "Economics/Computation":
+                    subareaList = ["economics/computation", "economics", "computation", "cryptocurrencies", "bayesian statistics", "quantum computation", "power-aware computing", "mobile computing", "quantum computing", "computational complexity", "computational statistics"]
+                elif start == "Graphics":
+                    subareaList = ["graphics", "acquisition of 3d shape", "reflectance", "appearance of real-world objects", "computational geometry", "user interfaces"]
+                elif start == "Vision":
+                    subareaList = ["vision", "human-computer interaction", "visualization", "computational imaging", "computer vision", "optics", "visualization of biological data"]
+                elif start == "Machine Learning":
+                    subareaList = ["machine learning", "information retrieval", "data mining", "question answering", "automated reasoning"]
+                elif start == "AI":
+                    subareaList = ["ai", "vision", "machine learning"]
+                elif start == "Natural Language Processing":
+                    subareaList = ["natural language processing", "lexical semantics", "syntactic alternations", "computational linguistics", "document preparation"]
+                elif start == "Policy":
+                    subareaList = ["policy", "middleware and protocols", "tech policy", "big data", "technology law and policy", "criminal procedure", "online speech", "communication protocols", "healthcare", "computer science education", "online learning and moocs", "r&d innovation methodologies"]
+                elif start == "Programming Languages/Compilers":
+                    subareaList = ["programming languages", "compilers", "domain-specific languages", "application-specific languages", "program analysis", "programming methodology", "program verification", "system software and programming environments for multiprocessors"]
+                elif start == "Security & Privacy":
+                    subareaList = ["security", "privacy", "formal verification", "computer security", "information privacy", "software verification", "national security", "consumer privacy", "cryptography"]
+                elif start == "Systems":
+                    subareaList = ["systems", "type systems", "dynamical systems", "distributed systems", "parallel architectures and systems", "operating systems", "wireless systems", "networked systems", "software engineering", "software tools", "mobile software", "internet of things", "data streaming", "internet measurement", "pervasive computing", "parallel computing systems and applications", "dynamic networks", "software-defined networking", "network software", "networking", "network virtualization", "network management", "network troubleshooting", "networking and telecommunications"]
+                elif start == "Theory":
+                    subareaList = ["theory", "discrepancy theory", "theoretical foundations of design", "graph theory", "complexity theory", "game theory", "natural algorithms", "analysis of efficient algorithms", "analysis of algorithms", "algorithms", "algorithms for integration of data from multiple data sources", "scientific analysis of algorithms", "parallel algorithms", "uses of randomness in complexity theory and algorithms", "np-hard problems", "math", "mathematical optimization", "probabilistic algorithms", "data structures", "information-based complexity", "analytic combinatorics", "combinatorial optimization"]
+                if subareaList is not None:
+                    for subarea in subareaList:
+                        stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(area) LIKE %s ORDER BY name'
+                        prep = '%'+subarea+'%'
+                        cursor.execute(stmtStr, (prep,))
+                        rows = cursor.fetchall()
+                        for row in rows:
+                            if row[2] not in profMap:
+                                # id -> hits, name, areas, already counted
+                                profMap[row[2]] = [1, row[0], [row[1]], True]
+                            else:
+                                profMap[row[2]][2].append(row[1])
+                                if not profMap[row[2]][3]:
+                                    profMap[row[2]][0] += 1
+                                    profMap[row[2]][3] = True
 
-        start = input.lower().replace('%', '\%').replace('_', '\_')
-        subareaList = [start]
+                else :
+                    start = input.lower().replace('%', '\%').replace('_', '\_')
+                    # direct first or last name hit
+                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND (LOWER(name) LIKE %s OR LOWER(name) LIKE %s) ORDER BY name'
+                    cursor.execute(stmtStr, (start+'%','% '+start+'%'))
+                    rows = cursor.fetchall()
+                    for row in rows:
+                        if row[2] not in profMap:
+                            profMap[row[2]] = [1, row[0], [row[1]], True]
+                        elif not profMap[row[2]][3] :
+                            profMap[row[2]][0] += 1
+                            profMap[row[2]][3] = True
 
-        if start == "Programming Languages/Compilers":
-            subareaList = ["programming", "languages", "compilers", "domain-specific", "application-specific", "program analysis", "methodology", "verification", "system software and programming environments for multiprocessors"]
-        elif start == "Computational Biology":
-            subareaList = ["biology", "statistical genetics", "quantitative genetics", "medicine", "computational molecular biology", "bioinformatics", "biological data sets", "bioinformatics"]
-        elif start == "Computer Architecture":
-            subareaList = ["computer architecture"]
-        elif start == "Economics/Computation":
-            subareaList = ["economics/computation", "economics", "computation", "cryptocurrencies", "bayesian statistics", "quantum computation", "power-aware computing", "mobile computing", "quantum computing", "computational complexity", "computational statistics"]
-        elif start == "Graphics":
-            subareaList = ["graphics", "acquisition of 3d shape", "reflectance", "appearance of real-world objects", "computational geometry", "user interfaces"]
-        elif start == "Vision":
-            subareaList = ["vision", "human-computer interaction", "visualization", "computational imaging", "computer vision", "optics", "visualization of biological data"]
-        elif start == "Machine Learning":
-            subareaList = ["machine learning", "information retrieval", "data mining", "question answering", "automated reasoning"]
-        elif start == "AI":
-            subareaList = ["ai", "vision", "machine learning"]
-        elif start == "Natural Language Processing":
-            subareaList = ["natural language processing", "lexical semantics", "syntactic alternations", "computational linguistics", "document preparation"]
-        elif start == "Policy":
-            subareaList = ["policy", "middleware and protocols", "tech policy", "big data", "technology law and policy", "criminal procedure", "online speech", "communication protocols", "healthcare", "computer science education", "online learning and moocs", "r&d innovation methodologies"]
-        elif start == "Programming Languages/Compilers":
-            subareaList = ["programming languages", "compilers", "domain-specific languages", "application-specific languages", "program analysis", "programming methodology", "program verification", "system software and programming environments for multiprocessors"]
-        elif start == "Security & Privacy":
-            subareaList = ["security", "privacy", "formal verification", "computer security", "information privacy", "software verification", "national security", "consumer privacy", "cryptography"]
-        elif start == "Systems":
-            subareaList = ["systems", "type systems", "dynamical systems", "distributed systems", "parallel architectures and systems", "operating systems", "wireless systems", "networked systems", "software engineering", "software tools", "mobile software", "internet of things", "data streaming", "internet measurement", "pervasive computing", "parallel computing systems and applications", "dynamic networks", "software-defined networking", "network software", "networking", "network virtualization", "network management", "network troubleshooting", "networking and telecommunications"]
-        elif start == "Theory":
-            subareaList = ["theory", "discrepancy theory", "theoretical foundations of design", "graph theory", "complexity theory", "game theory", "natural algorithms", "analysis of efficient algorithms", "analysis of algorithms", "algorithms", "algorithms for integration of data from multiple data sources", "scientific analysis of algorithms", "parallel algorithms", "uses of randomness in complexity theory and algorithms", "np-hard problems", "math", "mathematical optimization", "probabilistic algorithms", "data structures", "information-based complexity", "analytic combinatorics", "combinatorial optimization"]
+                    #search for past theses search hit
+                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses WHERE areas.prof_id = profs.prof_id AND profs.prof_id = past_theses.prof_id AND LOWER(past_theses.title) LIKE %s ORDER BY name'
+                    cursor.execute(stmtStr, ('%'+start+'%',))
+                    rows = cursor.fetchall()
+                    for row in rows:
+                        if row[2] not in profMap:
+                            profMap[row[2]] = [1, row[0], [row[1]], True]
+                        elif not profMap[row[2]][3] :
+                            profMap[row[2]][0] += 1
+                            profMap[row[2]][3] = True
 
-        for subarea in subareaList:
-            if (subarea is not None) and (subarea.strip() != ''):
-                preps.append('%'+subarea+'%')
-                stmtStr += " "
-                stmtStr += searchType
-                stmtStr += '(LOWER(area) LIKE %s)'
+                    #search for current proj search hit
+                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, projects WHERE areas.prof_id = profs.prof_id AND profs.prof_id = projects.prof_id AND LOWER(projects.title) LIKE %s ORDER BY name'
+                    cursor.execute(stmtStr, ('%'+start+'%',))
+                    rows = cursor.fetchall()
+                    for row in rows:
+                        if row[2] not in profMap:
+                            profMap[row[2]] = [1, row[0], [row[1]], True]
+                        elif not profMap[row[2]][3]:
+                            profMap[row[2]][0] += 1
+                            profMap[row[2]][3] = True
+
+                    #search for area search hit
+                    stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs WHERE areas.prof_id = profs.prof_id AND LOWER(area) LIKE %s ORDER BY name'
+                    cursor.execute(stmtStr, ('%'+start+'%',))
+                    rows = cursor.fetchall()
+                    for row in rows:
+                        if row[2] not in profMap:
+                            profMap[row[2]] = [1, row[0], [row[1]], True]
+                        elif not profMap[row[2]][3]:
+                            profMap[row[2]][0] += 1
+                            profMap[row[2]][3] = True
+
+                for profid,profList in profMap.items():
+                    profList[3] = False
 
 
-        stmtStr += ') ORDER BY name'
-        print(stmtStr)
-        cursor = self._connection.cursor()
-        cursor.execute(stmtStr, preps)
-        print('past execute')
-        rows = cursor.fetchall()
-        print('past fetch all rows')
-        for row in rows:
-            keyResults.append(row)
-        cursor.close()
-        print('cursor closed')
-        results = [keyResults, areaResults]
+        results = []
+
+        for profid, profList in profMap.items():
+            if (profList[0] >= validInputs and searchType == 'AND') or searchType == 'OR':
+                results.append([profList[1],profList[2],profid])
+
+        results = [results, []]
         return results
 
     def search(self, input):

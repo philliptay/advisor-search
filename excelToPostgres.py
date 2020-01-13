@@ -96,7 +96,7 @@ def main():
     DATABASE_URL = 'postgres://mzehsxrhlmmrdp:7229a3ce7cdddcfd25d960016bab27a25ecd1163a471263f73d2c64d78f15d70@ec2-174-129-252-252.compute-1.amazonaws.com:5432/d56v6b7trhtuts'
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cursor = conn.cursor()
-    stmt = "UPDATE areas SET area = SPLIT_PART(LOWER(area), 'and ', 2) WHERE LOWER(area) LIKE 'and %';"
+    stmt = "UPDATE areas SET area = 'graphics/vision/human-computer interaction' WHERE area = 'graphis/vision/human-computer interaction';"
     #stmt = "SELECT SPLIT_PART(LOWER(area), 'and ', 2) FROM areas WHERE LOWER(area) LIKE 'and %';"
     cursor.execute(stmt);
     #print(cursor.fetchall())
