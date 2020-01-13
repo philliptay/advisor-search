@@ -62,7 +62,9 @@ a {
    background-color: #e6e6e6;
    overflow-y: scroll;
 }
-
+.aligncenter{
+  text-align: center;
+}
 .info {
   margin: 10px;
 }
