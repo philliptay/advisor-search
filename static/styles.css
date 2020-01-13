@@ -41,6 +41,9 @@ select {
 a {
   font-family: 'Open Sans', serif;
 }
+img {
+  border: 2px solid #ddd;
+}
 
 #resultsWrapper {
    /* border: 1px solid #000000; */
@@ -58,7 +61,7 @@ a {
 
 .infoWrapper {
    height: 38.6vh;
-   /* border: 1px solid #000000; */
+   border: 1px solid #ddd;
    background-color: #fff;
    overflow-y: scroll;
 }
@@ -71,7 +74,7 @@ a {
 
 .bioArea {
    height:30vh;
-   /* border: 1px solid #000000; */
+   border: 1px solid #ddd;
    background-color: #fff;
    overflow: auto;
 }
@@ -186,12 +189,7 @@ a {
     margin-bottom: -1px;
     background-color: #f4f4f4;
     color: black;
-    border: 1px solid #ccc;
-    border-top-color: rgb(221, 221, 221);
-    border-right-color: rgb(221, 221, 221);
-    border-bottom-color: rgb(221, 221, 221);
-    border-left-color: rgb(221, 221, 221);
-
+    border: 1px solid #ddd;
 }
 
 .list-group-item:hover{
