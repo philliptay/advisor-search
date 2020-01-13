@@ -134,6 +134,7 @@ class Database:
 
 
         results = []
+        cursor.close()
 
         for profid, profList in profMap.items():
             if (profList[0] >= validInputs and searchType == 'AND') or searchType == 'OR':
@@ -296,6 +297,8 @@ class Database:
         if len(titles) == 0:
             titles = 'This advisor has no previous works advised.'
             links = ''
+
+        cursor.close()
 
         professor = Professor(name, bio, areas, projects, titles, links, contact, picLink)
         return professor
