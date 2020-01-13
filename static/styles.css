@@ -13,33 +13,33 @@ body {
 
 p {
   margin: 10px !important;
-  font-family: 'Open Sans', serif;
+  font-family: 'Tahoma', serif;
 }
 
 li {
-  font-family: 'Open Sans', serif;
+  font-family: 'Tahoma', serif;
 }
 h1 {
-    font-family: 'Open Sans', serif;
+    font-family: 'Tahoma', serif;
 }
 h2 {
-    font-family: 'Open Sans', serif;
+    font-family: 'Tahoma', serif;
 }
 h3 {
-  font-family: 'Open Sans', serif;
+  font-family: 'Tahoma', serif;
 }
 h4 {
-  font-family: 'Open Sans', serif;
+  font-family: 'Tahoma', serif;
 }
 
 .btn {
-  font-family: 'Open Sans', serif;
+  font-family: 'Tahoma', serif;
 }
 select {
-  font-family: 'Open Sans', serif;
+  font-family: 'Tahoma', serif;
 }
 a {
-  font-family: 'Open Sans', serif;
+  font-family: 'Tahoma', serif;
 }
 img {
   border: 2px solid #ddd;
@@ -60,7 +60,7 @@ img {
 }
 
 .infoWrapper {
-   height: 38.6vh;
+   height: 30vh;
    border: 1px solid #ddd;
    background-color: #fff;
    overflow-y: scroll;
