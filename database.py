@@ -28,20 +28,25 @@ class Database:
         cursor = self._connection.cursor()
         stmtStr = 'SELECT profs.name, areas.area, profs.prof_id FROM areas, profs, past_theses, projects WHERE areas.prof_id = profs.prof_id AND ('
         count = 0
+        checkNone = False
+        if (inputs[0] is None) or (inputs[0].strip() == ''):
+            results = [keyResults, areaResults]
+            return results
         for input in inputs:
             if (count > 0):
                 stmtStr += " "
                 stmtStr += searchType
             count += 1
-            start = input.lower().replace('%', '\%').replace('_', '\_')
-            preps[0] = start+'%'
-            preps[1] = '% '+ start + '%'
-            preps[2] = '%'+start+'%'
-            preps[3] = '%'+start+'%'
-            preps[4] = '%'+start+'%'
-            stmtStr += ' (LOWER(name) LIKE %s OR LOWER(name) LIKE %s OR areas.prof_id = past_theses.prof_id OR LOWER(past_theses.title) LIKE %s OR profs.prof_id = projects.prof_id OR LOWER(projects.title) LIKE %s OR LOWER(area) LIKE %s)'
+            if (input is not None) and (input.strip() != ''):
+                start = input.lower().replace('%', '\%').replace('_', '\_')
+                preps[0] = start+'%'
+                preps[1] = '% '+ start + '%'
+                preps[2] = '%'+start+'%'
+                preps[3] = '%'+start+'%'
+                preps[4] = '%'+start+'%'
+                stmtStr += ' (LOWER(name) LIKE %s OR LOWER(name) LIKE %s OR areas.prof_id = past_theses.prof_id OR LOWER(past_theses.title) LIKE %s OR profs.prof_id = projects.prof_id OR LOWER(projects.title) LIKE %s OR LOWER(area) LIKE %s)'
 
-
+        start = input.lower().replace('%', '\%').replace('_', '\_')
         subareaList = [start]
 
         if start == "Programming Languages/Compilers":
@@ -85,10 +90,13 @@ class Database:
         print(stmtStr)
         cursor = self._connection.cursor()
         cursor.execute(stmtStr, preps)
+        print('past execute')
         rows = cursor.fetchall()
+        print('past fetch all rows')
         for row in rows:
             keyResults.append(row)
         cursor.close()
+        print('cursor closed')
         results = [keyResults, areaResults]
         return results
 
