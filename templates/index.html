@@ -15,6 +15,8 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
       <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+       <link href="https://fonts.googleapis.com/css?family=Oswald|Open+Sans&display=swap" rel="stylesheet">
+
       <meta name="viewport" content="width=device-width, initial-scale=1">
 
    </head>
@@ -49,7 +51,7 @@
 
             <div class="row searchArea">
                <div class="col-lg-4 col-xs-12 searchBarLeft">
-                  <p style='text-align: left; font-size:130%;'>Type a Professor's Name, Project Title, or Past Thesis</p>
+                  <h4 style="margin-left: 10px;">Type a Professor's Name, Project Title, or Past Thesis</h4>
                   <input id="searchBar" style = "width: 83%;" multiple="multiple" placeholder="Happy Searching...">
 
                   <select style="margin-left: 5px;" name="searchType" id="searchType">
@@ -63,7 +65,7 @@
 
                </div>
                <div class="col-md-8 visible-lg searchButtons">
-                  <p style='text-align: left; font-size:130%;'> Click Areas of Research</p>
+                  <h4> Click Areas of Research</h4>
                   <button style="margin: 1px;" type="button" name="button" id="CBbut" class="btn btn-info" style="color: info" onclick="addArea('Computational Biology');">Computational Biology</button>
                   <button type="button" name="button" class="btn btn-info" id="CAbut" style="color: info" onclick="addArea('Computer Architecture');">Computer Architecture</button>
                   <button type="button" name="button" class="btn btn-info" id="ECbut" style="color: info" onclick="addArea('Economics/Computation');">Economics/Computation</button>

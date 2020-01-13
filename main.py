@@ -311,7 +311,7 @@ def emailResults():
 
     subject = "Request for you to be my Advisor"
 
-    mail = "mailto:" + str(prof.getContact()) + "?subject=" + str(subject) + "&body=" + str(body1) + "%0D%0A%0D%0A" + str(body2) + "%0D%0A%0D%0A" + str(body3) + "%0D%0A%0D%0A" + str(body4) + "%0D%0A%0D%0A" + str(body5) + "%0D%0A%0D%0A" + str(body6)
+    mail = "mailto:" + str(prof.getContact()) + "?subject=" + str(subject) + "&body=" + str(body1) + "%0D%0A%0D%0A" + str(body2.replace('&', '%26')) + "%0D%0A%0D%0A" + str(body3) + "%0D%0A%0D%0A" + str(body4) + "%0D%0A%0D%0A" + str(body5) + "%0D%0A%0D%0A" + str(body6)
 
 
     html = '<div class="modal-header">'
