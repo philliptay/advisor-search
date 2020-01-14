@@ -191,10 +191,10 @@ $(document).width();
 if ($('#fav-toggle').hasClass('fa-minus')) {
 
   if (faveHeight < $('#fav-content').height())
-    $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()-($('#fav-content').height()-faveHeight)+"px");
+    $('#resultsWrapper').css("max-height", ($('#resultsWrapper').height()-($('#fav-content').height()-faveHeight))/$(window).height()*100+"vh");
 
   else if (faveHeight > $('#fav-content').height())
-    $('#resultsWrapper').css("max-height", $('#resultsWrapper').height()+(faveHeight-$('#fav-content').height())+"px");
+    $('#resultsWrapper').css("max-height", ($('#resultsWrapper').height()+(faveHeight-$('#fav-content').height()))/$(window).height()*100+"vh");
 
 }
 faveHeight = $('#fav-content').height();
@@ -276,7 +276,8 @@ function toggleFavs() {
   if($('#fav-content').css("max-height") != "0px") {
     $('#fav-content').css("max-height", "0vh");
     $('#fav-toggle').removeClass("fa-minus").addClass("fa-plus");
-    $('#resultsWrapper').css("max-height", "62vh");
+    $('#resultsWrapper').css("max-height", "68vh");
+    $('#resultsWrapper').css("margin-bottom", "20px");
   }
   else {
     $('#fav-content').css("max-height", "30vh");
