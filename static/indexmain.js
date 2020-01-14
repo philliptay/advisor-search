@@ -277,7 +277,6 @@ function toggleFavs() {
     $('#fav-content').css("max-height", "0vh");
     $('#fav-toggle').removeClass("fa-minus").addClass("fa-plus");
     $('#resultsWrapper').css("max-height", "68vh");
-    $('#resultsWrapper').css("margin-bottom", "20px");
   }
   else {
     $('#fav-content').css("max-height", "30vh");
