@@ -5,7 +5,7 @@ html {
 }
 
 body {
-   background-color: #ccc !important;
+   background-color: #ddd !important;
    width: 100%;
    height: 100%;
    margin: 0;
@@ -16,33 +16,12 @@ p {
   font-family: 'Tahoma', serif;
 }
 
-li {
-  font-family: 'Tahoma', serif;
-}
-h1 {
-    font-family: 'Tahoma', serif;
-}
-h2 {
-    font-family: 'Tahoma', serif;
-}
-h3 {
-  font-family: 'Tahoma', serif;
-}
-h4 {
+li,h1,h2,h3,h4,.btn,select,a {
   font-family: 'Tahoma', serif;
 }
 
-.btn {
-  font-family: 'Tahoma', serif;
-}
-select {
-  font-family: 'Tahoma', serif;
-}
-a {
-  font-family: 'Tahoma', serif;
-}
 img {
-  border: 2px solid #ddd;
+  border: 2px solid #ccc;
 }
 
 #resultsWrapper {
@@ -202,7 +181,7 @@ img {
 }
 
 .searchArea {
-   background-color: #ddd;
+   background-color: #ccc;
    border-bottom: 1px solid #aaa;
 }
 
