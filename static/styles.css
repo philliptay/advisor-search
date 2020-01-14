@@ -26,17 +26,8 @@ img {
 
 #resultsWrapper {
    /* border: 1px solid #000000; */
-  max-height: 68vh;
-  margin-bottom: 20px !important;
+  height: 62vh;
 }
-
-#searchResults {
-  max-height: 68vh;
-  margin-bottom: 20px !important;
-}
-
-
-
 
 #searchBar {
   margin-left: 10px;
@@ -289,7 +280,7 @@ img {
     transition: color .4s ease;
 }
 
-#fav-content {
+#fav-content, #resultsWrapper {
 
     transition: max-height .6s ease-in-out;
         transition-property: max-height;

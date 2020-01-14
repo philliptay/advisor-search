@@ -200,7 +200,6 @@ if ($('#fav-toggle').hasClass('fa-minus')) {
 faveHeight = $('#fav-content').height();
 
 
-
 }
 
 
@@ -276,7 +275,7 @@ function toggleFavs() {
   if($('#fav-content').css("max-height") != "0px") {
     $('#fav-content').css("max-height", "0vh");
     $('#fav-toggle').removeClass("fa-minus").addClass("fa-plus");
-    $('#resultsWrapper').css("max-height", "68vh");
+    $('#resultsWrapper').css("max-height", "62vh");
   }
   else {
     $('#fav-content').css("max-height", "30vh");
