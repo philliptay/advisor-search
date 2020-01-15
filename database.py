@@ -149,6 +149,7 @@ class Database:
         keywords = input[1]
         keyResults = []
         areaResults = []
+        profMap = {}
 
         cursor = self._connection.cursor()
 
@@ -242,7 +243,11 @@ class Database:
                     cursor.execute(stmtStr, (prep,))
                     rows = cursor.fetchall()
                     for row in rows:
-                        areaResults.append(row)
+                        if row[2] not in profMap:
+                            profMap[row[2]] = [True]
+                            areaResults.append(row)
+
+            profMap = {}
 
 
         cursor.close()
