@@ -16,37 +16,19 @@ heroku = Heroku(app)
 db = SQLAlchemy(app)
 
 #-------------------------------------------------------------------------------
-@app.route('/login', methods=['GET'])
-def login():
-    CASClient().authenticate()
-    database = Database()
-    database.connect()
-    database.insertUser(session['username'])
-    database.disconnect()
-    return redirect(url_for('index'))
-
-    #html = render_template('login.html', logState = '', logLink = '')
-    #response = make_response(html)
-    #return(response)
-
-#-------------------------------------------------------------------------------
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
-    if 'username' not in session:
-        logState = 'Login'
-        logLink = '/login'
-        session['profs'] = None
-        html = render_template('login.html', logState = logState, logLink = logLink)
-        response = make_response(html)
-        return(response)
+    database = Database()
+    database.connect()
+    database.insertUser('placeholder')
+    database.disconnect()
 
-    username = session['username']
-    #username = 'placeholder'
-    logState = 'Logout'
-    logLink = '/logout'
-    html = render_template('index.html', user=username, logState = logState, logLink = logLink)
+    session['username'] = 'placeholder'
+    session['profs'] = None
+
+    html = render_template('index.html')
     response = make_response(html)
     return(response)
 
@@ -54,8 +36,8 @@ def index():
 
 @app.route('/searchresults')
 def searchResults():
-    username = session['username']
-    #username = 'placeholder'
+    #username = session['username']
+    username = 'placeholder'
     allAreas = ['Computational Biology,Computer Architecture,Economics/Computation,Graphics,Vision,Machine Learning,AI,Natural Language Processing,Policy,Programming Languages/Compilers,Security & Privacy,Systems,Theory']
     allAreasArray = ['Computational Biology','Computer Architecture','Economics/Computation','Graphics','Vision','Machine Learning','AI','Natural Language Processing','Policy','Programming Languages/Compilers','Security & Privacy','Systems','Theory']
 
@@ -147,8 +129,8 @@ def favoritedProf():
 
     profid = request.args.get('profid')
     toggled = request.args.get('toggled')
-    username = session['username']
-    #username = 'placeholder'
+    #username = session['username']
+    username = 'placeholder'
 
     database = Database()
     database.connect()
@@ -342,14 +324,8 @@ def emailResults():
 
 @app.route('/resources')
 def resources():
-    if 'username' not in session:
-        logState = 'Login'
-        logLink = '/login'
-    else:
-        logState = 'Logout'
-        logLink = '/logout'
 
-    html = render_template('resources.html', logState = logState, logLink = logLink)
+    html = render_template('resources.html')
     response = make_response(html)
     return(response)
 
@@ -357,21 +333,10 @@ def resources():
 
 @app.route('/about')
 def about():
-    if 'username' not in session:
-        logState = 'Login'
-        logLink = '/login'
-    else:
-        logState = 'Logout'
-        logLink = '/logout'
 
-    html = render_template('about.html', logState = logState, logLink = logLink)
+    html = render_template('about.html')
     response = make_response(html)
     return(response)
-#-------------------------------------------------------------------------------
-
-@app.route('/logout')
-def logout():
-    return CASClient().logout()
 #-------------------------------------------------------------------------------
 
 if __name__ == '__main__':
