@@ -47,6 +47,10 @@ img {
   margin: 10px;
 }
 
+.intro {
+   border: none;
+}
+
 .bioArea {
    height:30vh;
    border: 1px solid #ddd;
