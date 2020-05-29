@@ -51,6 +51,10 @@ img {
    border: none;
 }
 
+.intro-header {
+   text-align: center;
+}
+
 .bioArea {
    height:30vh;
    border: 1px solid #ddd;
